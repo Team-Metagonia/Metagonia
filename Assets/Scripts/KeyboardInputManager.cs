@@ -15,6 +15,7 @@ namespace Script
         public Action CrouchAction;
         public Action<bool> SprintAction;
         public Action InteractAction;
+        public Action InventoryAction;
 
         private void Awake()
         {
@@ -81,6 +82,14 @@ namespace Script
             if (context.started)
             {
                 InteractAction?.Invoke();
+            }
+        }
+        
+        public void OnInventory(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                InventoryAction?.Invoke();
             }
         }
     }
