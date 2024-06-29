@@ -64,6 +64,9 @@ namespace Polyart
         [SerializeField] private AudioClip[] stoneClips = default;
         [SerializeField] private AudioClip[] waterClips = default;
         [SerializeField] private AudioClip[] grassClips = default;
+        
+        [Header("UI Elements")]
+        [SerializeField] private GameObject inventoryPanel; // Reference to the Inventory Panel
 
         private float footstepTimer = 0;
         private float GetCurrentOffset => isCrouching ? baseStepSpeed * crouchStepMultiplier : isSprinting ? baseStepSpeed * sprintStepMultiplier : baseStepSpeed;
@@ -97,6 +100,7 @@ namespace Polyart
             KeyboardInputManager.Instance.CrouchAction += OnCrouch;
             KeyboardInputManager.Instance.SprintAction += OnSprint;
             KeyboardInputManager.Instance.InteractAction += OnInteract;
+            KeyboardInputManager.Instance.InventoryAction += OnInventory;
         }
 
         void OnDisable()
@@ -107,6 +111,7 @@ namespace Polyart
             KeyboardInputManager.Instance.CrouchAction -= OnCrouch;
             KeyboardInputManager.Instance.SprintAction -= OnSprint;
             KeyboardInputManager.Instance.InteractAction -= OnInteract;
+            KeyboardInputManager.Instance.InventoryAction -= OnInventory;
         }
 
         void Update()
@@ -306,6 +311,28 @@ namespace Polyart
                 }
 
                 footstepTimer = GetCurrentOffset;
+            }
+        }
+        
+        private void OnInventory()
+        {
+            if (CanMove)
+            {
+                // Open the inventory
+                CanMove = false;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                inventoryPanel.SetActive(true);
+                Debug.Log("Inventory opened");
+            }
+            else
+            {
+                // Close the inventory
+                CanMove = true;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                inventoryPanel.SetActive(false);
+                Debug.Log("Inventory closed");
             }
         }
     }
