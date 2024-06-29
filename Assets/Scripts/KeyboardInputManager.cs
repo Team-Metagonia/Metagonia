@@ -15,6 +15,7 @@ namespace Script
         public Action CrouchAction;
         public Action<bool> SprintAction;
         public Action InteractAction;
+        public Action AttackAction;
 
         private void Awake()
         {
@@ -81,6 +82,14 @@ namespace Script
             if (context.started)
             {
                 InteractAction?.Invoke();
+            }
+        }
+
+        public void OnAttack(InputAction.CallbackContext context) 
+        {
+            if (context.started) 
+            {
+                AttackAction?.Invoke();
             }
         }
     }

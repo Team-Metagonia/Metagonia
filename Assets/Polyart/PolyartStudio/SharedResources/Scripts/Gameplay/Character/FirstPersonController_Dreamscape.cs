@@ -10,6 +10,7 @@ namespace Polyart
         private bool isSprinting;
         private bool shouldJump;
         private bool shouldCrouch;
+        private bool shouldAttack;
 
         [Header("Character Options")]
         [SerializeField] private bool canSprint = true;
@@ -18,6 +19,7 @@ namespace Polyart
         [SerializeField] private bool canHeadBob = true;
         [SerializeField] private bool canInteract = true;
         [SerializeField] private bool useFootsteps = true;
+        [SerializeField] private bool canAttack = true;
 
         [Header("Interaction")]
         [SerializeField] private Vector3 interactionRayPoint = default;
@@ -73,6 +75,7 @@ namespace Polyart
 
         private Camera playerCamera;
         private CharacterController characterController;
+        private Animator animator;
 
         private Vector3 moveDirection;
         private Vector2 currentInput;
@@ -83,6 +86,7 @@ namespace Polyart
         {
             playerCamera = GetComponentInChildren<Camera>();
             characterController = GetComponent<CharacterController>();
+            animator = GetComponentInChildren<Animator>();
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -97,6 +101,7 @@ namespace Polyart
             KeyboardInputManager.Instance.CrouchAction += OnCrouch;
             KeyboardInputManager.Instance.SprintAction += OnSprint;
             KeyboardInputManager.Instance.InteractAction += OnInteract;
+            KeyboardInputManager.Instance.AttackAction += OnAttack;
         }
 
         void OnDisable()
@@ -107,6 +112,7 @@ namespace Polyart
             KeyboardInputManager.Instance.CrouchAction -= OnCrouch;
             KeyboardInputManager.Instance.SprintAction -= OnSprint;
             KeyboardInputManager.Instance.InteractAction -= OnInteract;
+            KeyboardInputManager.Instance.AttackAction -= OnAttack;
         }
 
         void Update()
@@ -135,6 +141,11 @@ namespace Polyart
                 if (useFootsteps)
                 {
                     HandleFootsteps();
+                }
+
+                if (canAttack)
+                {
+                    HandleAttack();
                 }
 
                 ApplyFinalMovements();
@@ -175,6 +186,11 @@ namespace Polyart
             {
                 currentInteractable.OnInteract();
             }
+        }
+
+        private void OnAttack()
+        {
+            shouldAttack = true;
         }
 
         private void HandleMovementInput()
@@ -219,6 +235,15 @@ namespace Polyart
                     playerCamera.transform.localPosition.x,
                     defaultYPos + Mathf.Sin(timer) * (isSprinting ? sprintBobAmount : walkBobAmount),
                     playerCamera.transform.localPosition.z);
+            }
+        }
+
+        private void HandleAttack()
+        {
+            if (shouldAttack)
+            {
+                shouldAttack = false;
+                animator.SetTrigger("MeleeAttack_TwoHanded");
             }
         }
 
