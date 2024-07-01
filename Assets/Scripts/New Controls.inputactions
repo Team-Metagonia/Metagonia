@@ -106,59 +106,26 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "2D Vector",
-                    "id": "ec805d41-9b56-40e7-8796-a8d92fea040c",
-                    "path": "2DVector",
+                    "name": "",
+                    "id": "3f7583f3-4e3c-4c97-980c-e2f7ec4e8d3b",
+                    "path": "<XRInputV1::Oculus::OculusTouchControllerLeft>{LeftHand}/thumbstick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Move",
-                    "isComposite": true,
+                    "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
-                    "id": "e2734917-0d2b-466b-92f3-44fe94882fa0",
-                    "path": "<Keyboard>/w",
+                    "name": "",
+                    "id": "9a3bc785-eeef-485a-8010-21fc6c501fb6",
+                    "path": "<XRController>{LeftHand}/{Primary2DAxis}",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Move",
                     "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "5a9ae0ba-8ec8-4480-b2d7-12e204afd20b",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "cf9f2c03-2bea-44ad-8fc0-c2c4a244a05f",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "9bfa8ab3-617f-4469-8da8-fe5e02ee7b1f",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",

@@ -71,7 +71,8 @@ namespace Polyart
         private float defaultYPos = 0;
         private float timer;
 
-        private Camera playerCamera;
+        // private Camera playerCamera;
+        //private OVRCameraRig playerCamera;
         private CharacterController characterController;
 
         private Vector3 moveDirection;
@@ -81,12 +82,12 @@ namespace Polyart
 
         void Awake()
         {
-            playerCamera = GetComponentInChildren<Camera>();
+            //playerCamera = GetComponentInChildren<Camera>();
             characterController = GetComponent<CharacterController>();
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            defaultYPos = playerCamera.transform.localPosition.y;
+            //defaultYPos = playerCamera.transform.localPosition.y;
         }
 
         void OnEnable()
@@ -150,7 +151,7 @@ namespace Polyart
         {
             rotationX -= lookInput.y * lookSpeedY;
             rotationX = Mathf.Clamp(rotationX, -upperLookLimit, lowerLookLimit);
-            playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+            //playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, lookInput.x * lookSpeedX, 0);
         }
 
@@ -215,10 +216,10 @@ namespace Polyart
             if (Mathf.Abs(moveDirection.x) > 0.1f || Mathf.Abs(moveDirection.z) > 0.1f)
             {
                 timer += Time.deltaTime * (isSprinting ? sprintBobSpeed : walkBobSpeed);
-                playerCamera.transform.localPosition = new Vector3(
-                    playerCamera.transform.localPosition.x,
-                    defaultYPos + Mathf.Sin(timer) * (isSprinting ? sprintBobAmount : walkBobAmount),
-                    playerCamera.transform.localPosition.z);
+                //playerCamera.transform.localPosition = new Vector3(
+                    //playerCamera.transform.localPosition.x,
+                    //defaultYPos + Mathf.Sin(timer) * (isSprinting ? sprintBobAmount : walkBobAmount),
+                    //playerCamera.transform.localPosition.z);
             }
         }
 
@@ -232,8 +233,8 @@ namespace Polyart
 
         private IEnumerator CrouchStand()
         {
-            if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f))
-                yield break;
+            //if (isCrouching && Physics.Raycast(playerCamera.transform.position, Vector3.up, 1f))
+            //    yield break;
 
             duringCrouchAnim = true;
 
@@ -259,20 +260,20 @@ namespace Polyart
 
         private void HandleInteractionCheck()
         {
-            if (Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance))
-            {
-                if (hit.collider.gameObject.layer == 7 && (currentInteractable == null || hit.collider.gameObject.GetInstanceID() != currentInteractable.gameObject.GetInstanceID()))
-                {
-                    hit.collider.TryGetComponent(out currentInteractable);
-                    if (currentInteractable)
-                        currentInteractable.OnFocus();
-                }
-            }
-            else if (currentInteractable)
-            {
-                currentInteractable.OnLoseFocus();
-                currentInteractable = null;
-            }
+            //if (Physics.Raycast(playerCamera.ViewportPointToRay(interactionRayPoint), out RaycastHit hit, interactionDistance))
+            //{
+            //    if (hit.collider.gameObject.layer == 7 && (currentInteractable == null || hit.collider.gameObject.GetInstanceID() != currentInteractable.gameObject.GetInstanceID()))
+            //    {
+            //        hit.collider.TryGetComponent(out currentInteractable);
+            //        if (currentInteractable)
+            //            currentInteractable.OnFocus();
+            //    }
+            //}
+            //else if (currentInteractable)
+            //{
+            //    currentInteractable.OnLoseFocus();
+            //    currentInteractable = null;
+            //}
         }
 
         private void HandleFootsteps()
@@ -283,7 +284,7 @@ namespace Polyart
             footstepTimer -= Time.deltaTime;
             if (footstepTimer <= 0)
             {
-                if (Physics.Raycast(playerCamera.transform.position, Vector3.down, out RaycastHit hit, 2))
+                if (Physics.Raycast(this.transform.position, Vector3.down, out RaycastHit hit, 2))
                 {
                     switch (hit.collider.tag)
                     {
