@@ -1,0 +1,220 @@
+fileFormatVersion: 2
+guid: a1b16f681d2e03648af53a8a11176def
+timeCreated: 1567965314
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: backAnkle_L
+    100002: backAnkle_R
+    100004: backHip_L
+    100006: backHip_R
+    100008: backKnee_L
+    100010: backKnee_R
+    100012: backToes1_L
+    100014: backToes1_R
+    100016: backToes2_L
+    100018: backToes2_R
+    100020: backToes3_L
+    100022: backToes3_R
+    100024: backToes4_L
+    100026: backToes4_R
+    100028: Chest_M
+    100030: DeformationSystem
+    100032: Eye_L
+    100034: Eye_R
+    100036: EyeEnd_L
+    100038: EyeEnd_R
+    100040: frontAnkle_L
+    100042: frontAnkle_R
+    100044: frontHip_L
+    100046: frontHip_R
+    100048: frontKnee_L
+    100050: frontKnee_R
+    100052: frontRump_L
+    100054: frontRump_R
+    100056: frontToes1_L
+    100058: frontToes1_R
+    100060: frontToes2_L
+    100062: frontToes2_R
+    100064: frontToes3_L
+    100066: frontToes3_R
+    100068: frontToes4_L
+    100070: frontToes4_R
+    100072: Geometry
+    100074: Head_M
+    100076: HeadEnd_M
+    100078: Jaw_M
+    100080: JawEnd_M
+    100082: joint10_L
+    100084: joint10_R
+    100086: joint11_L
+    100088: joint11_R
+    100090: joint1_M
+    100092: joint2_M
+    100094: joint3_M
+    100096: joint4_M
+    100098: joint5_M
+    100100: joint6_M
+    100102: joint7_M
+    100104: joint8_M
+    100106: joint9_L
+    100108: joint9_R
+    100110: Main
+    100112: Mastodon 1
+    100114: Mastodon-tusks
+    100116: //RootNode
+    100118: Neck_M
+    100120: Root_M
+    100122: Spine1_M
+    100124: Tail0_M
+    100126: Tail1_M
+    100128: Tail2_M
+    100130: Tail3_M
+    100132: Tail4_M
+    100134: Tail5_M
+    100136: Tail6_M
+    400000: backAnkle_L
+    400002: backAnkle_R
+    400004: backHip_L
+    400006: backHip_R
+    400008: backKnee_L
+    400010: backKnee_R
+    400012: backToes1_L
+    400014: backToes1_R
+    400016: backToes2_L
+    400018: backToes2_R
+    400020: backToes3_L
+    400022: backToes3_R
+    400024: backToes4_L
+    400026: backToes4_R
+    400028: Chest_M
+    400030: DeformationSystem
+    400032: Eye_L
+    400034: Eye_R
+    400036: EyeEnd_L
+    400038: EyeEnd_R
+    400040: frontAnkle_L
+    400042: frontAnkle_R
+    400044: frontHip_L
+    400046: frontHip_R
+    400048: frontKnee_L
+    400050: frontKnee_R
+    400052: frontRump_L
+    400054: frontRump_R
+    400056: frontToes1_L
+    400058: frontToes1_R
+    400060: frontToes2_L
+    400062: frontToes2_R
+    400064: frontToes3_L
+    400066: frontToes3_R
+    400068: frontToes4_L
+    400070: frontToes4_R
+    400072: Geometry
+    400074: Head_M
+    400076: HeadEnd_M
+    400078: Jaw_M
+    400080: JawEnd_M
+    400082: joint10_L
+    400084: joint10_R
+    400086: joint11_L
+    400088: joint11_R
+    400090: joint1_M
+    400092: joint2_M
+    400094: joint3_M
+    400096: joint4_M
+    400098: joint5_M
+    400100: joint6_M
+    400102: joint7_M
+    400104: joint8_M
+    400106: joint9_L
+    400108: joint9_R
+    400110: Main
+    400112: Mastodon 1
+    400114: Mastodon-tusks
+    400116: //RootNode
+    400118: Neck_M
+    400120: Root_M
+    400122: Spine1_M
+    400124: Tail0_M
+    400126: Tail1_M
+    400128: Tail2_M
+    400130: Tail3_M
+    400132: Tail4_M
+    400134: Tail5_M
+    400136: Tail6_M
+    4300000: Mastodon-tusks
+    4300002: Mastodon
+    9500000: //RootNode
+    13700000: Mastodon 1
+    13700002: Mastodon-tusks
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 0
+    normalImportMode: 1
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,225 @@
+fileFormatVersion: 2
+guid: 7bbceec53df4e034db6b8a9dbed92df6
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: backAnkle_L
+    100002: backAnkle_R
+    100004: backHip_L
+    100006: backHip_R
+    100008: backKnee_L
+    100010: backKnee_R
+    100012: backToes3_L
+    100014: backToes3_R
+    100016: Chest_M
+    100018: 'Columbian-mammoth '
+    100020: Columbian-mammoth-tusks
+    100022: Columbian-mammoth-tusks_broken
+    100024: //RootNode
+    100026: DeformationSystem
+    100028: Eye_L
+    100030: Eye_R
+    100032: EyeEnd_L
+    100034: EyeEnd_R
+    100036: frontAnkle_L
+    100038: frontAnkle_R
+    100040: frontHip_L
+    100042: frontHip_R
+    100044: frontKnee_L
+    100046: frontKnee_R
+    100048: frontRump_L
+    100050: frontRump_R
+    100052: frontToes3_L
+    100054: frontToes3_R
+    100056: frontToes4_L
+    100058: frontToes4_R
+    100060: Geometry
+    100062: Head_M
+    100064: HeadEnd_M
+    100066: Jaw_M
+    100068: JawEnd_M
+    100070: joint10_L
+    100072: joint10_R
+    100074: joint11_L
+    100076: joint11_R
+    100078: joint1_M
+    100080: joint2_M
+    100082: joint3_M
+    100084: joint4_M
+    100086: joint5_M
+    100088: joint6_M
+    100090: joint7_M
+    100092: joint8_M
+    100094: joint9_L
+    100096: joint9_R
+    100098: Main
+    100100: Neck1_M
+    100102: Neck3_M
+    100104: Neck4_M
+    100106: Neck_M
+    100108: Root_M
+    100110: Spine1_M
+    100112: Tail0_M
+    100114: Tail1_M
+    100116: Tail2_M
+    100118: Tail3_M
+    100120: Tail4_M
+    100122: Tail5_M
+    100124: Tail6_M
+    400000: backAnkle_L
+    400002: backAnkle_R
+    400004: backHip_L
+    400006: backHip_R
+    400008: backKnee_L
+    400010: backKnee_R
+    400012: backToes3_L
+    400014: backToes3_R
+    400016: Chest_M
+    400018: 'Columbian-mammoth '
+    400020: Columbian-mammoth-tusks
+    400022: Columbian-mammoth-tusks_broken
+    400024: //RootNode
+    400026: DeformationSystem
+    400028: Eye_L
+    400030: Eye_R
+    400032: EyeEnd_L
+    400034: EyeEnd_R
+    400036: frontAnkle_L
+    400038: frontAnkle_R
+    400040: frontHip_L
+    400042: frontHip_R
+    400044: frontKnee_L
+    400046: frontKnee_R
+    400048: frontRump_L
+    400050: frontRump_R
+    400052: frontToes3_L
+    400054: frontToes3_R
+    400056: frontToes4_L
+    400058: frontToes4_R
+    400060: Geometry
+    400062: Head_M
+    400064: HeadEnd_M
+    400066: Jaw_M
+    400068: JawEnd_M
+    400070: joint10_L
+    400072: joint10_R
+    400074: joint11_L
+    400076: joint11_R
+    400078: joint1_M
+    400080: joint2_M
+    400082: joint3_M
+    400084: joint4_M
+    400086: joint5_M
+    400088: joint6_M
+    400090: joint7_M
+    400092: joint8_M
+    400094: joint9_L
+    400096: joint9_R
+    400098: Main
+    400100: Neck1_M
+    400102: Neck3_M
+    400104: Neck4_M
+    400106: Neck_M
+    400108: Root_M
+    400110: Spine1_M
+    400112: Tail0_M
+    400114: Tail1_M
+    400116: Tail2_M
+    400118: Tail3_M
+    400120: Tail4_M
+    400122: Tail5_M
+    400124: Tail6_M
+    4300000: 'Columbian-mammoth '
+    4300002: Columbian-mammoth-tusks_broken
+    4300004: Columbian-mammoth-tusks
+    9500000: //RootNode
+    13700000: 'Columbian-mammoth '
+    13700002: Columbian-mammoth-tusks
+    13700004: Columbian-mammoth-tusks_broken
+    2186277476908879412: ImportLogs
+  externalObjects: {}
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 180
+    normalImportMode: 0
+    tangentImportMode: 0
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

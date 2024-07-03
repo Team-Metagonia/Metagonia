@@ -1,0 +1,111 @@
+fileFormatVersion: 2
+guid: 7ccf0558ab3dc4418843a6c10c93eb5f
+timeCreated: 1529453624
+licenseType: Store
+ModelImporter:
+  serializedVersion: 21
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Tannery_2A_Addon
+    100004: Tannery_2A
+    100006: Tannery_2A.001
+    100008: Avatar_Stone_Age
+    100010: Tannery_1A.001
+    400000: //RootNode
+    400002: Tannery_2A_Addon
+    400004: Tannery_2A
+    400006: Tannery_2A.001
+    400008: Avatar_Stone_Age
+    400010: Tannery_1A.001
+    2300000: //RootNode
+    2300002: Tannery_2A_Addon
+    2300004: Tannery_2A
+    2300006: Tannery_2A.001
+    2300008: Avatar_Stone_Age
+    2300010: Tannery_1A.001
+    3300000: //RootNode
+    3300002: Tannery_2A_Addon
+    3300004: Tannery_2A
+    3300006: Tannery_2A.001
+    3300008: Avatar_Stone_Age
+    3300010: Tannery_1A.001
+    4300000: Tannery_2A
+    4300002: Tannery_2A_Addon
+    4300004: Tannery_2A.001
+    4300006: Avatar_Stone_Age
+    4300008: Tannery_1A.001
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

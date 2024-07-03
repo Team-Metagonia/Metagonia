@@ -1,0 +1,180 @@
+fileFormatVersion: 2
+guid: 65bde8efc4ee51e45b2ef4d41df32c39
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: BackA_M
+    100002: BackB_M
+    100004: BackC_M
+    100006: BackD_M
+    100008: BackE_M
+    100010: BackF_M
+    100012: BodyFinLowerA_L
+    100014: BodyFinLowerA_R
+    100016: BodyFinLowerAEnd_L
+    100018: BodyFinLowerAEnd_R
+    100020: BodyFinSide1_L
+    100022: BodyFinSide1_R
+    100024: BodyFinSide2_L
+    100026: BodyFinSide2_R
+    100028: BodyFinSide3_L
+    100030: BodyFinSide3_R
+    100032: BodyFinSide4_L
+    100034: BodyFinSide4_R
+    100036: BodyFinUpperA_M
+    100038: BodyFinUpperAEnd_M
+    100040: BodyFinUpperB_M
+    100042: BodyFinUpperBEnd_M
+    100044: DeformationSystem
+    100046: Eye1_L
+    100048: Eye1_R
+    100050: Eye_L
+    100052: Eye_R
+    100054: Geometry
+    100056: Head_M
+    100058: Jaw_M
+    100060: JawEnd_M
+    100062: joint82_M
+    100064: joint83_M
+    100066: joint84_M
+    100068: joint85_M
+    100070: joint86_L
+    100072: joint86_R
+    100074: joint88_R
+    100076: joint89_M
+    100078: joint90_M
+    100080: joint91_M
+    100082: joint92_M
+    100084: Main
+    100086: Rainbow-trout
+    100088: Root_M
+    100090: TailFinLower_M
+    100092: TailFinLowerEnd_M
+    100094: TailFinUpper_M
+    100096: TailFinUpperEnd_M
+    100098: //RootNode
+    400000: BackA_M
+    400002: BackB_M
+    400004: BackC_M
+    400006: BackD_M
+    400008: BackE_M
+    400010: BackF_M
+    400012: BodyFinLowerA_L
+    400014: BodyFinLowerA_R
+    400016: BodyFinLowerAEnd_L
+    400018: BodyFinLowerAEnd_R
+    400020: BodyFinSide1_L
+    400022: BodyFinSide1_R
+    400024: BodyFinSide2_L
+    400026: BodyFinSide2_R
+    400028: BodyFinSide3_L
+    400030: BodyFinSide3_R
+    400032: BodyFinSide4_L
+    400034: BodyFinSide4_R
+    400036: BodyFinUpperA_M
+    400038: BodyFinUpperAEnd_M
+    400040: BodyFinUpperB_M
+    400042: BodyFinUpperBEnd_M
+    400044: DeformationSystem
+    400046: Eye1_L
+    400048: Eye1_R
+    400050: Eye_L
+    400052: Eye_R
+    400054: Geometry
+    400056: Head_M
+    400058: Jaw_M
+    400060: JawEnd_M
+    400062: joint82_M
+    400064: joint83_M
+    400066: joint84_M
+    400068: joint85_M
+    400070: joint86_L
+    400072: joint86_R
+    400074: joint88_R
+    400076: joint89_M
+    400078: joint90_M
+    400080: joint91_M
+    400082: joint92_M
+    400084: Main
+    400086: Rainbow-trout
+    400088: Root_M
+    400090: TailFinLower_M
+    400092: TailFinLowerEnd_M
+    400094: TailFinUpper_M
+    400096: TailFinUpperEnd_M
+    400098: //RootNode
+    2100000: Rainbow-trout
+    4300000: Rainbow-trout
+    9500000: //RootNode
+    13700000: Rainbow-trout
+    2186277476908879412: ImportLogs
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
