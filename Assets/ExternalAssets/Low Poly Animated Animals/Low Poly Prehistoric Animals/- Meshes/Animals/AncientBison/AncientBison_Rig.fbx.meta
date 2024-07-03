@@ -1,0 +1,198 @@
+fileFormatVersion: 2
+guid: 54bc282a262767d41a7913760e456a35
+timeCreated: 1568733263
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Ancient-bison
+    100002: //RootNode
+    100004: Ankle_L
+    100006: Ankle_R
+    100008: Chest_M
+    100010: DeformationSystem
+    100012: Elbow_L
+    100014: Elbow_R
+    100016: Fingers1_L
+    100018: Fingers1_R
+    100020: Fingers2_L
+    100022: Fingers2_R
+    100024: Fingers3_L
+    100026: Fingers3_R
+    100028: Fingers4_L
+    100030: Fingers4_R
+    100032: Geometry
+    100034: Head_M
+    100036: Hip_L
+    100038: Hip_R
+    100040: joint1_L
+    100042: joint1_R
+    100044: joint2_L
+    100046: joint2_R
+    100048: joint3_L
+    100050: joint3_R
+    100052: joint4_M
+    100054: joint5_M
+    100056: joint6_L
+    100058: joint6_R
+    100060: joint7_L
+    100062: joint7_R
+    100064: Knee_L
+    100066: Knee_R
+    100068: Main
+    100070: Neck2_M
+    100072: Neck_M
+    100074: Root_M
+    100076: Scapula_L
+    100078: Scapula_R
+    100080: Shoulder_L
+    100082: Shoulder_R
+    100084: Spine1_M
+    100086: Tail0_M
+    100088: Tail1_M
+    100090: Tail2_M
+    100092: Tail3_M
+    100094: Tail4_M
+    100096: Tail5_M
+    100098: Toes1_L
+    100100: Toes1_R
+    100102: Toes2_L
+    100104: Toes2_R
+    100106: Toes3_L
+    100108: Toes3_R
+    100110: Toes4_L
+    100112: Toes4_R
+    100114: Wrist_L
+    100116: Wrist_R
+    400000: Ancient-bison
+    400002: //RootNode
+    400004: Ankle_L
+    400006: Ankle_R
+    400008: Chest_M
+    400010: DeformationSystem
+    400012: Elbow_L
+    400014: Elbow_R
+    400016: Fingers1_L
+    400018: Fingers1_R
+    400020: Fingers2_L
+    400022: Fingers2_R
+    400024: Fingers3_L
+    400026: Fingers3_R
+    400028: Fingers4_L
+    400030: Fingers4_R
+    400032: Geometry
+    400034: Head_M
+    400036: Hip_L
+    400038: Hip_R
+    400040: joint1_L
+    400042: joint1_R
+    400044: joint2_L
+    400046: joint2_R
+    400048: joint3_L
+    400050: joint3_R
+    400052: joint4_M
+    400054: joint5_M
+    400056: joint6_L
+    400058: joint6_R
+    400060: joint7_L
+    400062: joint7_R
+    400064: Knee_L
+    400066: Knee_R
+    400068: Main
+    400070: Neck2_M
+    400072: Neck_M
+    400074: Root_M
+    400076: Scapula_L
+    400078: Scapula_R
+    400080: Shoulder_L
+    400082: Shoulder_R
+    400084: Spine1_M
+    400086: Tail0_M
+    400088: Tail1_M
+    400090: Tail2_M
+    400092: Tail3_M
+    400094: Tail4_M
+    400096: Tail5_M
+    400098: Toes1_L
+    400100: Toes1_R
+    400102: Toes2_L
+    400104: Toes2_R
+    400106: Toes3_L
+    400108: Toes3_R
+    400110: Toes4_L
+    400112: Toes4_R
+    400114: Wrist_L
+    400116: Wrist_R
+    4300000: Ancient-bison
+    9500000: //RootNode
+    13700000: Ancient-bison
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

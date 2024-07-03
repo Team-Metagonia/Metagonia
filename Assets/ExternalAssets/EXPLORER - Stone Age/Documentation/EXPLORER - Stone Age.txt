@@ -1,0 +1,49 @@
+﻿Thank you for purchasing EXPLORER - Stone Age!
+
+Here are a few tips to help you build amazing things quicker:
+
+Characters:
+
+	There are 2 genders for characters, each gender having multiple skin tones and clothing items.
+	There are numerous customization possibilities, all the items are contained in a "master" model,
+	in order to access them, open the model's hierarchy and activate or deactivate items as you please.
+	Some prefabs are already customized, to showcase part of the available variety.
+	Animations are provided with the package, just drag & drop a controller from the animations folder
+	and see them in action. Also, the characters are compatible with Mixamo animations.
+
+Models:
+
+	All models have a pretty low triangle count, but there are some where further simplification was
+	possible, so there's a mobile version in the Prefabs folders.
+	Models with more complex shapes have a custom mesh collider.
+
+Scripts:
+
+	A prop movement and rotation script was added, it comes in handy when trying to rotate or trenslate an object.
+
+Shaders:
+
+	2 custom shaders have been included in the package, one is for the stylized water and the other one is used on
+	objects that would be affected by wind. The wind animated vertex shader uses the vertex color information of the
+	model, in order to detect which area is affected by wind.
+
+Post Processing:
+
+	A wide array of post processing and LUT textures has been included in the package. It's very easy to create night
+	and day, rainy or sunny scenes.
+
+Particles:
+
+	A collection of particles has been included too, from dragonfly swarms to rain and sandstorm effects.
+
+Skyboxes:
+
+	A large variation of hand-painted skyboxes is also included, ranging from sunny desert, to starry night.
+
+
+
+For additional info, details or requests, don’t hesitate to contact at:
+
+
+
+https://www.facebook.com/SICSproduction/

@@ -1,0 +1,210 @@
+fileFormatVersion: 2
+guid: 280090afb8b6f4c46897c7c246c27164
+timeCreated: 1568226192
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: American-lion-male
+    100002: //RootNode
+    100004: backAnkle_L
+    100006: backAnkle_R
+    100008: backHip_L
+    100010: backHip_R
+    100012: backKnee_L
+    100014: backKnee_R
+    100016: backToes1_L
+    100018: backToes1_R
+    100020: backToes2_L
+    100022: backToes2_R
+    100024: backToes3_L
+    100026: backToes3_R
+    100028: backToes4_L
+    100030: backToes4_R
+    100032: Chest_M
+    100034: DeformationSystem
+    100036: Ear_Base_L
+    100038: Ear_Base_R
+    100040: Ear_End_L
+    100042: Ear_End_R
+    100044: Ear_Mid_L
+    100046: Ear_Mid_R
+    100048: Eye_L
+    100050: Eye_R
+    100052: EyeEnd_L
+    100054: EyeEnd_R
+    100056: frontAnkle_L
+    100058: frontAnkle_R
+    100060: frontHip_L
+    100062: frontHip_R
+    100064: frontKnee_L
+    100066: frontKnee_R
+    100068: frontRump_L
+    100070: frontRump_R
+    100072: frontToes1_L
+    100074: frontToes1_R
+    100076: frontToes2_L
+    100078: frontToes2_R
+    100080: frontToes3_L
+    100082: frontToes3_R
+    100084: frontToes4_L
+    100086: frontToes4_R
+    100088: Geometry
+    100090: Head_M
+    100092: Jaw_M
+    100094: JawEnd_M
+    100096: joint1_M
+    100098: joint2_M
+    100100: joint3_M
+    100102: Main
+    100104: Neck6_M
+    100106: Neck7_M
+    100108: Neck_M
+    100110: Root_M
+    100112: Spine1_M
+    100114: Tail0_M
+    100116: Tail10_M
+    100118: Tail11_M
+    100120: Tail12_M
+    100122: Tail6_M
+    100124: Tail7_M
+    100126: Tail8_M
+    100128: Tail9_M
+    400000: American-lion-male
+    400002: //RootNode
+    400004: backAnkle_L
+    400006: backAnkle_R
+    400008: backHip_L
+    400010: backHip_R
+    400012: backKnee_L
+    400014: backKnee_R
+    400016: backToes1_L
+    400018: backToes1_R
+    400020: backToes2_L
+    400022: backToes2_R
+    400024: backToes3_L
+    400026: backToes3_R
+    400028: backToes4_L
+    400030: backToes4_R
+    400032: Chest_M
+    400034: DeformationSystem
+    400036: Ear_Base_L
+    400038: Ear_Base_R
+    400040: Ear_End_L
+    400042: Ear_End_R
+    400044: Ear_Mid_L
+    400046: Ear_Mid_R
+    400048: Eye_L
+    400050: Eye_R
+    400052: EyeEnd_L
+    400054: EyeEnd_R
+    400056: frontAnkle_L
+    400058: frontAnkle_R
+    400060: frontHip_L
+    400062: frontHip_R
+    400064: frontKnee_L
+    400066: frontKnee_R
+    400068: frontRump_L
+    400070: frontRump_R
+    400072: frontToes1_L
+    400074: frontToes1_R
+    400076: frontToes2_L
+    400078: frontToes2_R
+    400080: frontToes3_L
+    400082: frontToes3_R
+    400084: frontToes4_L
+    400086: frontToes4_R
+    400088: Geometry
+    400090: Head_M
+    400092: Jaw_M
+    400094: JawEnd_M
+    400096: joint1_M
+    400098: joint2_M
+    400100: joint3_M
+    400102: Main
+    400104: Neck6_M
+    400106: Neck7_M
+    400108: Neck_M
+    400110: Root_M
+    400112: Spine1_M
+    400114: Tail0_M
+    400116: Tail10_M
+    400118: Tail11_M
+    400120: Tail12_M
+    400122: Tail6_M
+    400124: Tail7_M
+    400126: Tail8_M
+    400128: Tail9_M
+    4300000: American-lion-male
+    9500000: //RootNode
+    13700000: American-lion-male
+  materials:
+    importMaterials: 0
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
