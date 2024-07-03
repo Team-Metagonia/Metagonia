@@ -1,53 +1,62 @@
-using Script;
 using UnityEngine;
+using System.Collections.Generic;
+using TMPro; // TMP(TextMeshPro)를 사용하기 위해 추가
 
 public class InventoryManager : MonoBehaviour
 {
-    private bool isInventoryOpen = false;
+    // 인벤토리 아이템 리스트
+    private Dictionary<string, int> inventory = new Dictionary<string, int>();
 
-    private void OnEnable()
+    // TMP Text 참조
+    public TMP_Text inventoryText; // 인스펙터에서 연결할 TMP Text
+
+    // 싱글턴 인스턴스
+    public static InventoryManager Instance { get; private set; }
+
+    private void Awake()
     {
-        if (KeyboardInputManager.Instance != null)
+        if (Instance != null && Instance != this)
         {
-            KeyboardInputManager.Instance.InventoryAction += ToggleInventory;
+            Destroy(gameObject);
         }
         else
         {
-            Debug.LogError("KeyboardInputManager.Instance is null. Ensure KeyboardInputManager is correctly set up.");
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 
-    private void OnDisable()
+    // 아이템을 인벤토리에 추가하는 메서드
+    public void AddItem(string itemName)
     {
-        if (KeyboardInputManager.Instance != null)
+        if (inventory.ContainsKey(itemName))
         {
-            KeyboardInputManager.Instance.InventoryAction -= ToggleInventory;
-        }
-    }
-
-    private void ToggleInventory()
-    {
-        isInventoryOpen = !isInventoryOpen;
-
-        if (isInventoryOpen)
-        {
-            OpenInventory();
+            inventory[itemName]++;
         }
         else
         {
-            CloseInventory();
+            inventory[itemName] = 1;
         }
+
+        UpdateInventoryUI(itemName);
     }
 
-    private void OpenInventory()
+    // 인벤토리 내 아이템 개수 반환하는 메서드
+    public int GetItemCount(string itemName)
     {
-        Debug.Log("Inventory opened");
-        // 인벤토리를 열 때 필요한 처리들을 여기에 추가
+        return inventory.ContainsKey(itemName) ? inventory[itemName] : 0;
     }
 
-    private void CloseInventory()
+    // TMP Text 업데이트 메서드
+    private void UpdateInventoryUI(string itemName)
     {
-        Debug.Log("Inventory closed");
-        // 인벤토리를 닫을 때 필요한 처리들을 여기에 추가
+        if (inventoryText != null)
+        {
+            inventoryText.text = $"{itemName}: {GetItemCount(itemName)}"; // 예시로 아이템 이름과 개수를 표시
+        }
+        else
+        {
+            Debug.LogWarning("InventoryText is not assigned. Cannot update UI.");
+        }
     }
 }

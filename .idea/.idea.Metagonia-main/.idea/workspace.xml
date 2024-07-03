@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="306d5a82-fd84-4b47-bb25-2b06b803882e" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Metagonia-main/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Metagonia-main/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Polyart/PolyartStudio/SharedResources/Scripts/Gameplay/Character/FirstPersonController_Dreamscape.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Polyart/PolyartStudio/SharedResources/Scripts/Gameplay/Character/FirstPersonController_Dreamscape.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InventoryManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InventoryManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +19,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/InventoryManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/TreeInteraction.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
@@ -96,7 +97,9 @@
       <updated>1719474993800</updated>
       <workItem from="1719474994944" duration="9000" />
       <workItem from="1719475019906" duration="4004000" />
-      <workItem from="1719652145308" duration="3656000" />
+      <workItem from="1719652145308" duration="6561000" />
+      <workItem from="1719810891773" duration="5279000" />
+      <workItem from="1719816760817" duration="2445000" />
     </task>
     <servers />
   </component>
