@@ -56,10 +56,10 @@ public class InventoryVR : MonoBehaviour
             UIActive = !UIActive;
             Inventory.SetActive(UIActive);
         }
-        if (UIActive)
-        {
-            Inventory.transform.position = Anchor.transform.position;
-            Inventory.transform.eulerAngles = new Vector3(Anchor.transform.eulerAngles.x + 15, Anchor.transform.eulerAngles.y, 0);
-        }
+        //if (UIActive)
+        //{
+        //    Inventory.transform.position = Anchor.transform.position;
+        //    Inventory.transform.eulerAngles = new Vector3(Anchor.transform.eulerAngles.x + 15, Anchor.transform.eulerAngles.y, 0);
+        //}
     }
 }
