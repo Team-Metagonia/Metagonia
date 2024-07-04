@@ -6,11 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/ExternalAssets/DreamscapeMeadows/PolyartStudio/DreamscapeMeadows/Scenes/Demo.unity
-    guid: c955e02741ea51045828cd5cf1d842e9
-  - enabled: 0
-    path: Assets/Scenes/WeaponScene.unity
-    guid: af8d0ddc94089634781d56d1371c4673
+    path: Assets/Scenes/StoneAge.unity
+    guid: d66f12e8228cff8498348271ccaa3127
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 9c708df254100c04e819e3cf23e9cd75, type: 2}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 1810c5a7d27c71449805d8c9e6030713, type: 2}
