@@ -21,9 +21,9 @@ MonoBehaviour:
   DefaultSocketableTags: {fileID: 0}
   LeftHand: {fileID: 4172465882228960903, guid: 8beaacf77ac8d0d49a9b4284dc399aaf, type: 3}
   RightHand: {fileID: 5317784970213213621, guid: 08a9044b5c065044ab67f546bf6b04e9, type: 3}
-  InverseKinematics: 0
+  InverseKinematics: 1
   IKHandMirroring: 1
-  FullBody: {fileID: 0}
+  FullBody: {fileID: 6315572271595245021, guid: 643730edf788a1942a52193ce4fe1421, type: 3}
   HandPoseHandleOffset: {x: 0, y: 0.08, z: 0}
   OpenHandPose: {fileID: 0}
   PoserShowsOneFinger: 0
