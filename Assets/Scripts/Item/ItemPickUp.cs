@@ -8,11 +8,12 @@ using UnityEngine;
 public class ItemPickUp : MonoBehaviour
 {
     public Item item;
+    public bool isInSlot;
     [SerializeField] bool instantPickUp;
     [SerializeField] float duration;
     public void PickUp()
     {
-        InventoryVR.instance.AddtoInvenList(item);
+        InventoryVR.instance.AddToStackableList(item);
         Destroy(gameObject);
     }
 
@@ -38,6 +39,15 @@ public class ItemPickUp : MonoBehaviour
         
     }
 
+    public void SlotPickUp()
+    {
+        if (!isInSlot) return;
+        Debug.Log("Picked Up from Slot");
+        isInSlot = false;
+        gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        gameObject.transform.parent = null;
+    }
+
     private void OnEnable()
     {
         
@@ -47,4 +57,6 @@ public class ItemPickUp : MonoBehaviour
             StartCoroutine(AutomaticPickUp());
         }
     }
+
+    
 }

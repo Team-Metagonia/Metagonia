@@ -15,7 +15,11 @@ using UnityEngine.UI;
 public class InventoryVR : MonoBehaviour
 {
     public static InventoryVR instance;
-    public List<Item> inventoryList = new List<Item>();
+    public List<Item> UnStackableList = new List<Item>();
+    public List<Item> StackableList = new List<Item>();
+
+    public ItemPickUp currentPicked;
+    public List<InventorySlot> slots = new List<InventorySlot>();
     public GameObject Inventory;
     public GameObject Anchor;
     bool UIActive;
@@ -33,33 +37,35 @@ public class InventoryVR : MonoBehaviour
         }
     }
 
-    public void AddtoInvenList(Item item)
+    public void AddToUnStackableList(Item item)
     {
-        inventoryList.Add(item);
+        UnStackableList.Add(item);
     }
 
-    public void RemoveFromInvenList(Item item)
+    public void RemoveFromUnStackableList(Item item)
     {
-        inventoryList.Remove(item);
+        UnStackableList.Remove(item);
+    }
+
+    public void AddToStackableList(Item item)
+    {
+        StackableList.Add(item);
+    }
+
+    public void RemoveFromStackableList(Item item)
+    {
+        StackableList.Remove(item);
     }
 
     private void Start()
     {
-        Inventory.SetActive(false);
-        UIActive = false;
+        //Inventory.SetActive(false);
+        //UIActive = false;
     }
 
     private void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.Four))
-        {
-            UIActive = !UIActive;
-            Inventory.SetActive(UIActive);
-        }
-        //if (UIActive)
-        //{
-        //    Inventory.transform.position = Anchor.transform.position;
-        //    Inventory.transform.eulerAngles = new Vector3(Anchor.transform.eulerAngles.x + 15, Anchor.transform.eulerAngles.y, 0);
-        //}
+
+      
     }
 }
