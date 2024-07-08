@@ -14,14 +14,16 @@ using UnityEngine.UI;
 
 public class InventoryVR : MonoBehaviour
 {
+    [SerializeField] OVRPlayerController player;
+    [SerializeField] Vector3 slotOffset;
     public static InventoryVR instance;
     public List<Item> UnStackableList = new List<Item>();
     public List<Item> StackableList = new List<Item>();
 
     public ItemPickUp currentPicked;
     public List<InventorySlot> slots = new List<InventorySlot>();
-    public GameObject Inventory;
-    public GameObject Anchor;
+    public GameObject inventory;
+    public GameObject slotAnchor;
     bool UIActive;
 
     private void Awake()
@@ -59,13 +61,18 @@ public class InventoryVR : MonoBehaviour
 
     private void Start()
     {
-        //Inventory.SetActive(false);
-        //UIActive = false;
+        inventory.SetActive(false);
+        UIActive = false;
     }
 
     private void Update()
     {
+        if(OVRInput.GetDown(OVRInput.Button.Three))
+        {
+            UIActive = !UIActive;
+            inventory.SetActive(UIActive);
+        }
 
-      
+        inventory.transform.position = player.transform.position + slotOffset;
     }
 }

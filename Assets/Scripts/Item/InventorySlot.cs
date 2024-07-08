@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class InventorySlot : MonoBehaviour
 {
+    // Current Slot GameObject - in order to get transform & position
     public GameObject itemSlot;
+
+    // Current Item in Slot
+    public Item currentItem;
+
+    // Move code below to Item script in near future..
     // Amplitude of the bobbing effect
     public float amplitude = 0.5f;
     // Frequency of the bobbing effect
@@ -18,47 +24,22 @@ public class InventorySlot : MonoBehaviour
         //Initialize triggered item as new object go
         GameObject go = other.gameObject;
 
-        if (OVRInput.GetUp(OVRInput.Button.SecondaryHandTrigger) && IsItem(go))
+        if ((OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger)||OVRInput.GetUp(OVRInput.Button.SecondaryHandTrigger)) && IsItem(go))
         {
-
             Debug.Log("Item In Slot");
             
             InsertItem(go);
         }
-
-        //if (OVRInput.GetDown(OVRInput.Button.SecondaryHandTrigger) && IsItem(go))
-        //{
-
-        //    Debug.Log("Item Out Slot");
-
-        //    TakeOutItem(go);
-        //}
-    }
-
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    GameObject go = other.gameObject;
-    //    if (IsItem(go))
-    //    {
-    //        Debug.Log("Item Out Slot");
-    //        go.GetComponent<ItemPickUp>().isInSlot = false;
-    //        //go.GetComponent<Rigidbody>().useGravity = true;
-    //        //go.GetComponent<Rigidbody>().isKinematic = false;
-    //    }
-    //}
-
-    void TakeOutItem(GameObject obj)
-    {
-        obj.GetComponent<Rigidbody>().isKinematic = false;
     }
 
     void InsertItem(GameObject obj)
     {
         obj.GetComponent<Rigidbody>().isKinematic = true;
         obj.transform.parent = itemSlot.transform;
-        obj.transform.position = itemSlot.transform.position;
+        obj.transform.localPosition = Vector3.zero;
         obj.GetComponent<ItemPickUp>().isInSlot = true;
-        StartCoroutine(SlotItemMovement(obj));
+        currentItem = obj.GetComponent<ItemPickUp>().item;
+        //StartCoroutine(SlotItemMovement(obj));
     }
 
     IEnumerator SlotItemMovement(GameObject obj)

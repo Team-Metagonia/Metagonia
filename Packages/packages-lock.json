@@ -1,5 +1,19 @@
 {
   "dependencies": {
+    "com.meta.movement": {
+      "version": "https://github.com/oculus-samples/Unity-Movement.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.meta.xr.sdk.core": "63.0.0",
+        "com.meta.xr.sdk.interaction": "63.0.0",
+        "com.meta.xr.sdk.interaction.ovr": "63.0.0",
+        "com.unity.textmeshpro": "3.0.6",
+        "com.unity.animation.rigging": "1.2.1",
+        "com.unity.burst": "1.4.1"
+      },
+      "hash": "e4d0be44e97e3086ae7ad8c1522469d85ed1c2c5"
+    },
     "com.meta.xr.mrutilitykit": {
       "version": "66.0.0",
       "depth": 1,

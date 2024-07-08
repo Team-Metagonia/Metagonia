@@ -1,3 +1,4 @@
+using Oculus.Interaction;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class ItemPickUp : MonoBehaviour
     public bool isInSlot;
     [SerializeField] bool instantPickUp;
     [SerializeField] float duration;
+    [SerializeField] RayInteractable inventoryRay;
     public void PickUp()
     {
         InventoryVR.instance.AddToStackableList(item);
@@ -46,6 +48,14 @@ public class ItemPickUp : MonoBehaviour
         isInSlot = false;
         gameObject.GetComponent<Rigidbody>().isKinematic = false;
         gameObject.transform.parent = null;
+
+        //If Picked up from Slot, disable Inventory ray UI in order to stop double input
+        inventoryRay.enabled = false;
+    }
+
+    public void ItemUnSelect()
+    {
+        inventoryRay.enabled = true;
     }
 
     private void OnEnable()
