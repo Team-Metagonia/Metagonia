@@ -7,7 +7,6 @@
     <list default="true" id="306d5a82-fd84-4b47-bb25-2b06b803882e" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Metagonia-main/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Metagonia-main/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scenes/Main.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Main.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/InventoryManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/InventoryManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,6 +99,9 @@
       <workItem from="1719652145308" duration="6561000" />
       <workItem from="1719810891773" duration="5279000" />
       <workItem from="1719816760817" duration="2445000" />
+      <workItem from="1719996738351" duration="930000" />
+      <workItem from="1720181638526" duration="1884000" />
+      <workItem from="1720254374867" duration="2408000" />
     </task>
     <servers />
   </component>
