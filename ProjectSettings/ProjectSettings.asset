@@ -142,6 +142,8 @@ PlayerSettings:
   bundleVersion: 0.1
   preloadedAssets:
   - {fileID: 11400000, guid: 39edc5fd2c1eb3c44ae9199e406e9930, type: 2}
+  - {fileID: 11400000, guid: 9c708df254100c04e819e3cf23e9cd75, type: 2}
+  - {fileID: 8767191579079640402, guid: b080efd25373a9249b98da583b410ab7, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -859,11 +861,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 80e157ff-c116-4450-8d48-747c950d5bd8
+  cloudProjectId: 82119c8b-9639-4e9a-8264-9d0deca57aa6
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: My project (1)
-  organizationId: kbh397241
+  projectName: Metagonia
+  organizationId: unity_818jsy72
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}
