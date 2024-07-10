@@ -12,7 +12,7 @@ public class ItemPickUp : MonoBehaviour
     public bool isInSlot;
     [SerializeField] bool instantPickUp;
     [SerializeField] float duration;
-    [SerializeField] RayInteractable inventoryRay;
+    [SerializeField] RayInteractable[] rays;
     public void PickUp()
     {
         InventoryVR.instance.AddToStackableList(item);
@@ -49,23 +49,39 @@ public class ItemPickUp : MonoBehaviour
         gameObject.GetComponent<Rigidbody>().isKinematic = false;
         gameObject.transform.parent = null;
 
-        //If Picked up from Slot, disable Inventory ray UI in order to stop double input
-        inventoryRay.enabled = false;
+        // If Picked up from Slot, disable Inventory ray UI in order to stop double input
+        // runtime?
+        foreach(var r in rays)
+        {
+            r.enabled = false;
+        }
+        
     }
 
     public void ItemUnSelect()
     {
-        inventoryRay.enabled = true;
+        foreach (var r in rays)
+        {
+            r.enabled = true;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player") && instantPickUp)
+        {
+            StartCoroutine(AutomaticPickUp());
+        }
     }
 
     private void OnEnable()
     {
         
 
-        if (instantPickUp)
-        {
-            StartCoroutine(AutomaticPickUp());
-        }
+        //if (instantPickUp)
+        //{
+        //    StartCoroutine(AutomaticPickUp());
+        //}
     }
 
     

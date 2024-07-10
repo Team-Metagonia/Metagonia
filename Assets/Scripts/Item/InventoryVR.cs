@@ -16,14 +16,20 @@ public class InventoryVR : MonoBehaviour
 {
     [SerializeField] OVRPlayerController player;
     [SerializeField] Vector3 slotOffset;
+    [SerializeField] Vector3 invenOffset;
+    [SerializeField] InventoryUI ui;
+
     public static InventoryVR instance;
     public List<Item> UnStackableList = new List<Item>();
     public List<Item> StackableList = new List<Item>();
 
+    public Dictionary<Item,int> itemQuantityPairs = new Dictionary<Item,int>();
+
     public ItemPickUp currentPicked;
     public List<InventorySlot> slots = new List<InventorySlot>();
+    public GameObject slotInven;
+    //public GameObject slotAnchor;
     public GameObject inventory;
-    public GameObject slotAnchor;
     bool UIActive;
 
     private void Awake()
@@ -52,6 +58,15 @@ public class InventoryVR : MonoBehaviour
     public void AddToStackableList(Item item)
     {
         StackableList.Add(item);
+
+        if(itemQuantityPairs.ContainsKey(item))
+        {
+            itemQuantityPairs[item] += item.quantity;
+            ui.UpdateHolder(item);
+            return;
+        }
+        itemQuantityPairs.Add(item, item.quantity);
+        ui.InstantiateHolder(item);
     }
 
     public void RemoveFromStackableList(Item item)
@@ -73,6 +88,22 @@ public class InventoryVR : MonoBehaviour
             inventory.SetActive(UIActive);
         }
 
-        inventory.transform.position = player.transform.position + slotOffset;
+        slotInven.transform.position = player.transform.position + slotOffset;
+        inventory.transform.position = player.transform.position + invenOffset;
+    }
+
+    [ContextMenu("Print Dictionary")]
+    public void PrintDictionary()
+    {
+        foreach(var item in itemQuantityPairs) 
+        {
+            Debug.Log(item.Key);
+            Debug.Log(item.Value);
+        }
+    }
+
+    public bool AlreadyInInventory(Item item)
+    {
+        return itemQuantityPairs.ContainsKey(item);
     }
 }
