@@ -15,7 +15,9 @@ MonoBehaviour:
   id: 3
   itemName: Capsule
   value: 30
-  icon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  quantity: 1
+  type: 0
+  icon: {fileID: 21300000, guid: a40e131b61d22ba42b2955962e636ca4, type: 3}
   isSlot: 0
   slotRotation: {x: 0, y: 0, z: 0}
   currentSlot: {fileID: 0}

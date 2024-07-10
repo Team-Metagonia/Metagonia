@@ -14,10 +14,22 @@ using UnityEngine.UI;
 
 public class InventoryVR : MonoBehaviour
 {
+    [SerializeField] OVRPlayerController player;
+    [SerializeField] Vector3 slotOffset;
+    [SerializeField] Vector3 invenOffset;
+    [SerializeField] InventoryUI ui;
+
     public static InventoryVR instance;
-    public List<Item> inventoryList = new List<Item>();
-    public GameObject Inventory;
-    public GameObject Anchor;
+    public List<Item> UnStackableList = new List<Item>();
+    public List<Item> StackableList = new List<Item>();
+
+    public Dictionary<Item,int> itemQuantityPairs = new Dictionary<Item,int>();
+
+    public ItemPickUp currentPicked;
+    public List<InventorySlot> slots = new List<InventorySlot>();
+    public GameObject slotInven;
+    //public GameObject slotAnchor;
+    public GameObject inventory;
     bool UIActive;
 
     private void Awake()
@@ -33,33 +45,65 @@ public class InventoryVR : MonoBehaviour
         }
     }
 
-    public void AddtoInvenList(Item item)
+    public void AddToUnStackableList(Item item)
     {
-        inventoryList.Add(item);
+        UnStackableList.Add(item);
     }
 
-    public void RemoveFromInvenList(Item item)
+    public void RemoveFromUnStackableList(Item item)
     {
-        inventoryList.Remove(item);
+        UnStackableList.Remove(item);
+    }
+
+    public void AddToStackableList(Item item)
+    {
+        StackableList.Add(item);
+
+        if(itemQuantityPairs.ContainsKey(item))
+        {
+            itemQuantityPairs[item] += item.quantity;
+            ui.UpdateHolder(item);
+            return;
+        }
+        itemQuantityPairs.Add(item, item.quantity);
+        ui.InstantiateHolder(item);
+    }
+
+    public void RemoveFromStackableList(Item item)
+    {
+        StackableList.Remove(item);
     }
 
     private void Start()
     {
-        Inventory.SetActive(false);
+        inventory.SetActive(false);
         UIActive = false;
     }
 
     private void Update()
     {
-        if (OVRInput.GetDown(OVRInput.Button.Four))
+        if(OVRInput.GetDown(OVRInput.Button.Three))
         {
             UIActive = !UIActive;
-            Inventory.SetActive(UIActive);
+            inventory.SetActive(UIActive);
         }
-        if (UIActive)
+
+        slotInven.transform.position = player.transform.position + slotOffset;
+        inventory.transform.position = player.transform.position + invenOffset;
+    }
+
+    [ContextMenu("Print Dictionary")]
+    public void PrintDictionary()
+    {
+        foreach(var item in itemQuantityPairs) 
         {
-            Inventory.transform.position = Anchor.transform.position;
-            Inventory.transform.eulerAngles = new Vector3(Anchor.transform.eulerAngles.x + 15, Anchor.transform.eulerAngles.y, 0);
+            Debug.Log(item.Key);
+            Debug.Log(item.Value);
         }
+    }
+
+    public bool AlreadyInInventory(Item item)
+    {
+        return itemQuantityPairs.ContainsKey(item);
     }
 }

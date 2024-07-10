@@ -15,7 +15,9 @@ MonoBehaviour:
   id: 1
   itemName: Cube
   value: 20
-  icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  quantity: 1
+  type: 0
+  icon: {fileID: 21300000, guid: 3ac0b4e40bbf0f9449f1d7a6d2a9baba, type: 3}
   isSlot: 0
   slotRotation: {x: 0, y: 0, z: 0}
   currentSlot: {fileID: 0}
