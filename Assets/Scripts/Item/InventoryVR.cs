@@ -2,10 +2,10 @@
 // Script purpose: attaching a gameobject to a certain anchor and having the ability to enable and disable it.
 // This script is a property of Realary, Inc
 
-// ÀÎº¥Åä¸® ¿ÀºêÁ§Æ®(ÇöÀç´Â UI Äµ¹ö½º·Î °£´ÜÇÏ°Ô ±¸Çö ÀÌÈÄ 3D ¿ÀºêÁ§Æ® °¡¹æ? °°Àº°Å·Î º¯°æ¿¹Á¤)¸¦ ¾ŞÄ¿¿¡ ¸ÂÃç¼­ ºÎÂøÇØÁÖ´Â ±â´É
-// ¹öÆ° ´­·¯¼­ ²°´ÙÄ×´Ù ÇÏ´Â ±â´É
-// ÀÎº¥Åä¸® ³»ÀÇ ¾ÆÀÌÅÛµéÀ» ÀúÀåÇØµÎ´Â ¸®½ºÆ®¸¦ °¡Áö°í ÀÖÀ½
-// ¸®½ºÆ®´Â ¾À º¯°æ°ú´Â »ó°ü¾øÀÌ Ç×»ó »ì¾ÆÀÖ¾î¾ß ÇÏ´Ï ½Ì±ÛÅæ
+// ì¸ë²¤í† ë¦¬ ì˜¤ë¸Œì íŠ¸(í˜„ì¬ëŠ” UI ìº”ë²„ìŠ¤ë¡œ ê°„ë‹¨í•˜ê²Œ êµ¬í˜„ ì´í›„ 3D ì˜¤ë¸Œì íŠ¸ ê°€ë°©? ê°™ì€ê±°ë¡œ ë³€ê²½ì˜ˆì •)ë¥¼ ì•µì»¤ì— ë§ì¶°ì„œ ë¶€ì°©í•´ì£¼ëŠ” ê¸°ëŠ¥
+// ë²„íŠ¼ ëˆŒëŸ¬ì„œ ê»ë‹¤ì¼°ë‹¤ í•˜ëŠ” ê¸°ëŠ¥
+// ì¸ë²¤í† ë¦¬ ë‚´ì˜ ì•„ì´í…œë“¤ì„ ì €ì¥í•´ë‘ëŠ” ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì§€ê³  ìˆìŒ
+// ë¦¬ìŠ¤íŠ¸ëŠ” ì”¬ ë³€ê²½ê³¼ëŠ” ìƒê´€ì—†ì´ í•­ìƒ ì‚´ì•„ìˆì–´ì•¼ í•˜ë‹ˆ ì‹±ê¸€í†¤
 
 using System.Collections;
 using System.Collections.Generic;
@@ -88,8 +88,8 @@ public class InventoryVR : MonoBehaviour
             inventory.SetActive(UIActive);
         }
 
-        slotInven.transform.position = player.transform.position + slotOffset;
-        inventory.transform.position = player.transform.position + invenOffset;
+        //slotInven.transform.position = player.transform.position + slotOffset;
+        //inventory.transform.position = player.transform.position + invenOffset;
     }
 
     [ContextMenu("Print Dictionary")]
