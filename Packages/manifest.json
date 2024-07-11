@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.meta.movement": "https://github.com/oculus-samples/Unity-Movement.git",
     "com.meta.xr.sdk.all": "66.0.0",
     "com.meta.xr.sdk.interaction.ovr.samples": "66.0.0",
     "com.meta.xr.simulator": "file:meta_xr_simulator_v62/meta_xr_simulator_v62.tgz",
