@@ -25,9 +25,13 @@ public class InventorySlot : MonoBehaviour
 
     void InsertItem(GameObject obj)
     {
-        obj.GetComponent<Rigidbody>().isKinematic = true;
+        Debug.Log("Insert");
+        if(obj.GetComponent<Rigidbody>().isKinematic==false)
+        {
+            obj.GetComponent<Rigidbody>().isKinematic = true;
+        }
         obj.transform.parent = itemSlot.transform;
-        obj.transform.localPosition = Vector3.zero;
+        obj.transform.localPosition = new Vector3(0,0,0);
         obj.GetComponent<ItemPickUp>().isInSlot = true;
         currentItem = obj.GetComponent<ItemPickUp>().item;
     }
