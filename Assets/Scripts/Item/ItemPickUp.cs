@@ -41,6 +41,11 @@ public class ItemPickUp : MonoBehaviour
         
     }
 
+    public void SelectDebug()
+    {
+        Debug.Log("Select : " + item.itemName);
+    }
+
     public void SlotPickUp()
     {
         if (!isInSlot) return;
