@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Oculus.Interaction;
+using Unity.VisualScripting;
 
 public class ItemAttach : MonoBehaviour, IAttachable
 {
@@ -21,13 +22,18 @@ public class ItemAttach : MonoBehaviour, IAttachable
     private void Awake()
     {
         WorkBench.OnWorkStateChange += ShowAttachableArea;
+        WorkBench.OnAttach += Attach;
     }
 
     public void Attach(Item baseitem, Item attacheditem)
     {
         Destroy(attacheditem);
         Destroy(baseitem);
-        Instantiate(_finishedUnit);
+
+        GameObject obj = Instantiate(_finishedUnit);
+        HandGrabInteractable interactable = obj.GetComponentInChildren<HandGrabInteractable>();
+
+        _currentHandInteractor.ForceSelect(interactable, true);
     }
 
     public void ShowAttachableArea(bool isActive)
@@ -46,7 +52,7 @@ public class ItemAttach : MonoBehaviour, IAttachable
 
     public void CheckCurrentHand(PointerEvent pointerEvent)
     {
-
+        _currentHandInteractor = pointerEvent.Data as HandGrabInteractor;
     }
 
     private void OnDestroy()

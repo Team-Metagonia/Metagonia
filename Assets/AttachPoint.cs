@@ -5,11 +5,18 @@ using UnityEngine;
 public class AttachPoint : MonoBehaviour
 {
 
-
-    private void OnCollisionEnter(Collision collision)
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    Debug.Log("AttachPoint Trigger");
+    //}
+    private void OnTriggerEnter(Collider col)
     {
-        
+        Debug.Log("AttachPoint collision");
+        Item baseItem = transform.GetComponentInParent<ItemPickUp>().item;
+        Item attachedItem = col.gameObject.GetComponent<ItemPickUp>().item;
+        WorkBench.OnAttach?.Invoke(baseItem, attachedItem);
     }
+    
     // Start is called before the first frame update
     void Start()
     {
