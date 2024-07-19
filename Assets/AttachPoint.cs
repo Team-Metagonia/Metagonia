@@ -12,9 +12,14 @@ public class AttachPoint : MonoBehaviour
     private void OnTriggerEnter(Collider col)
     {
         Debug.Log("AttachPoint collision");
-        Item baseItem = transform.GetComponentInParent<ItemPickUp>().item;
-        Item attachedItem = col.gameObject.GetComponent<ItemPickUp>().item;
-        WorkBench.OnAttach?.Invoke(baseItem, attachedItem);
+        item baseItem = transform.GetComponentInParent<item>();
+        if(col.gameObject.TryGetComponent<item>(out item i))
+        {
+            item attachedItem = i;
+            WorkBench.OnAttach?.Invoke(baseItem, attachedItem);
+        }
+        
+        
     }
     
     // Start is called before the first frame update

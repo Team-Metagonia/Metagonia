@@ -1,19 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New Item", menuName = "Item/Create")]
-public class Item : ScriptableObject
+public class item : MonoBehaviour
 {
-    public enum ItemType { Material, Weapon }
-    public int id;
-    public string itemName;
-    public int value;
-    public int quantity;
-    public ItemType type;
-    public Sprite icon; 
+    public ItemSO itemInfo;
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
 
-    public bool isSlot;
-    public Vector3 slotRotation = Vector3.zero;
-    public Slot currentSlot;
-    
-    
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }

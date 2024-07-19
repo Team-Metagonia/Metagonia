@@ -25,10 +25,10 @@ public class ItemAttach : MonoBehaviour, IAttachable
         WorkBench.OnAttach += Attach;
     }
 
-    public void Attach(Item baseitem, Item attacheditem)
+    public void Attach(item baseitem, item attacheditem)
     {
-        Destroy(attacheditem);
-        Destroy(baseitem);
+        Destroy(attacheditem.gameObject);
+        Destroy(baseitem.gameObject);
 
         GameObject obj = Instantiate(_finishedUnit);
         HandGrabInteractable interactable = obj.GetComponentInChildren<HandGrabInteractable>();

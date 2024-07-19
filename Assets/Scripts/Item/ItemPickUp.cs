@@ -8,7 +8,7 @@ using UnityEngine;
 // 아이템 획득 시 InventoryVR의 리스트에 해당 아이템 정보를 추가 후 아이템 파괴
 public class ItemPickUp : MonoBehaviour
 {
-    public Item item;
+    public item item;
     public bool isInSlot;
     public bool isInSlotRange;
     [SerializeField] bool instantPickUp;
@@ -17,7 +17,7 @@ public class ItemPickUp : MonoBehaviour
 
     public void PickUp()
     {
-        InventoryVR.instance.AddToStackableList(item);
+        InventoryVR.instance.AddToStackableList(item.itemInfo);
         Destroy(gameObject);
     }
 
@@ -45,7 +45,7 @@ public class ItemPickUp : MonoBehaviour
 
     public void SelectDebug()
     {
-        Debug.Log("Select : " + item.itemName);
+        Debug.Log("Select : " + item.itemInfo.itemName);
     }
 
     public void SlotPickUp()
