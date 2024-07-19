@@ -15,4 +15,5 @@ public class Item : ScriptableObject
     public Vector3 slotRotation = Vector3.zero;
     public Slot currentSlot;
     
+    
 }
