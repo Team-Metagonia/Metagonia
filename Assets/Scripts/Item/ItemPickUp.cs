@@ -10,9 +10,11 @@ public class ItemPickUp : MonoBehaviour
 {
     public Item item;
     public bool isInSlot;
+    public bool isInSlotRange;
     [SerializeField] bool instantPickUp;
     [SerializeField] float duration;
     [SerializeField] RayInteractable[] rays;
+
     public void PickUp()
     {
         InventoryVR.instance.AddToStackableList(item);
@@ -39,6 +41,11 @@ public class ItemPickUp : MonoBehaviour
 
         PickUp();
         
+    }
+
+    public void SelectDebug()
+    {
+        Debug.Log("Select : " + item.itemName);
     }
 
     public void SlotPickUp()
@@ -76,12 +83,7 @@ public class ItemPickUp : MonoBehaviour
 
     private void OnEnable()
     {
-        
 
-        //if (instantPickUp)
-        //{
-        //    StartCoroutine(AutomaticPickUp());
-        //}
     }
 
     
