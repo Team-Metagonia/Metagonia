@@ -18,8 +18,8 @@ public class HitInfo
     public HitInfo(Vector3 hitPosition, Vector3 hitNormal, Vector3 planeNormal)
     {
         this.hitPosition = hitPosition;
-        this.hitNormal = hitNormal;
-        this.planeNormal = planeNormal;
+        this.hitNormal = hitNormal.normalized;
+        this.planeNormal = planeNormal.normalized;
     }
 }
 
