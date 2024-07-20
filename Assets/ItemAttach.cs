@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Oculus.Interaction;
 using Unity.VisualScripting;
+using Oculus.Interaction.Input;
 
 public class ItemAttach : MonoBehaviour, IAttachable
 {
@@ -27,13 +28,26 @@ public class ItemAttach : MonoBehaviour, IAttachable
 
     public void Attach(item baseitem, item attacheditem)
     {
+        GameObject obj = CraftManager.Instance.CheckRecipeValidness(baseitem, attacheditem);
+        if (obj == null)
+        {
+            Debug.Log("Invalid Recipe. Recipe must be declared in RecipeSO in order to succesfully attach items.");
+            return;
+        }
+
+
         Destroy(attacheditem.gameObject);
         Destroy(baseitem.gameObject);
+        GameObject resultItem = Instantiate(obj);
+        HandGrabInteractable[] interactable = resultItem.GetComponentsInChildren<HandGrabInteractable>();
 
-        GameObject obj = Instantiate(_finishedUnit);
-        HandGrabInteractable interactable = obj.GetComponentInChildren<HandGrabInteractable>();
+        if(_currentHandInteractor.gameObject.GetComponent<HandRef>().Handedness==Handedness.Left)
+        {
+            _currentHandInteractor.ForceSelect(interactable[0], true);
+        }
+        else _currentHandInteractor.ForceSelect(interactable[1], true);
 
-        _currentHandInteractor.ForceSelect(interactable, true);
+
     }
 
     public void ShowAttachableArea(bool isActive)
