@@ -15,10 +15,11 @@ MonoBehaviour:
   id: 0
   itemName: 
   value: 0
-  quantity: 0
+  quantity: 1
   type: 0
   icon: {fileID: 0}
   isSlot: 0
   slotRotation: {x: 0, y: 0, z: 0}
+  currentSlot: {fileID: 0}
   dropItems:
   - {fileID: 533951499011215009, guid: 9a45a54f623867c488de33e9d4b7de0b, type: 3}
