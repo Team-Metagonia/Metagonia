@@ -7,5 +7,5 @@ public interface IDamagable
 {
     float Health { get; }
     void TakeDamage(DamageInfo damageInfo);
-    void Die(HitInfo hitInfo);
+    void Die();
 }

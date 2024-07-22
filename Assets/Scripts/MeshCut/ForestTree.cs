@@ -41,14 +41,14 @@ public class ForestTree : MonoBehaviour, IDamagable, ISliceable
 
         if (Health <= 0) 
         {
-            Die(damageInfo.hitInfo);
+            ProcessSlice(damageInfo.hitInfo);
             return;
         }
     }
 
-    public void Die(HitInfo hitInfo) 
+    public void Die() 
     {
-        ProcessSlice(hitInfo);
+        Destroy(this.gameObject);
     }
 
     public void ProcessSlice(HitInfo hitInfo)
@@ -56,13 +56,14 @@ public class ForestTree : MonoBehaviour, IDamagable, ISliceable
         GameObject target = this.gameObject;
         SlicedHull hull = target.Slice(hitInfo.hitPosition, hitInfo.planeNormal);
         if (hull == null) return;
-        
-        Destroy(this.gameObject);
+
         GameObject upperHull = hull.CreateUpperHull(target);
         GameObject lowerHull = hull.CreateLowerHull(target);
 
         SetUpSlicedComponent(upperHull, false);
         SetUpSlicedComponent(lowerHull, true);
+
+        Die();
     }
 
     public void SetUpSlicedComponent(GameObject slicedObject, bool isRoot) 
