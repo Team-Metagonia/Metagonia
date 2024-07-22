@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: Axe_Recipe
   ingredients:
-  - {fileID: 11400000, guid: 7a5160d3cc0b6f54583e8297a8b42f2b, type: 2}
-  - {fileID: 11400000, guid: e28d02dda33d656419796bd18c1ba4de, type: 2}
+  - {fileID: 11400000, guid: 2c9f8e26998cc9f4787ea4ccdd1da6b4, type: 2}
+  - {fileID: 11400000, guid: ffcb7e27a8bc445458a4e9c5e2572a81, type: 2}
   results:
-  - {fileID: 3570208555536292427, guid: 99d369cba1f017f4bb38e162d0eae745, type: 3}
+  - {fileID: 6172421901326166231, guid: d01bdd9ebecf4d84bae65c126742c2eb, type: 3}

@@ -18,7 +18,7 @@ public class WorkBench : MonoBehaviour
 
     public static UnityAction<bool> OnWorkStateChange;
 
-    public static UnityAction<item,item> OnAttach;
+    public static UnityAction<Item,Item> OnAttach;
 
     private void OnTriggerEnter(Collider other)
     {

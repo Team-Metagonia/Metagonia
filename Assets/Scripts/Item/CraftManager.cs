@@ -30,7 +30,7 @@ public class CraftManager : MonoBehaviour
 
     public List<RecipeSO> recipeList = new List<RecipeSO>();
 
-    public GameObject CheckRecipeValidness(item item1, item item2)
+    public GameObject CheckRecipeValidness(Item item1, Item item2)
     {
         foreach(RecipeSO recipe in recipeList) 
         {

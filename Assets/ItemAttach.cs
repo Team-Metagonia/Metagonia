@@ -26,7 +26,7 @@ public class ItemAttach : MonoBehaviour, IAttachable
         WorkBench.OnAttach += Attach;
     }
 
-    public void Attach(item baseitem, item attacheditem)
+    public void Attach(Item baseitem, Item attacheditem)
     {
         GameObject obj = CraftManager.Instance.CheckRecipeValidness(baseitem, attacheditem);
         if (obj == null)

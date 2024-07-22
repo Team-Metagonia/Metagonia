@@ -8,7 +8,7 @@ public class InventorySlot : MonoBehaviour
     public GameObject itemSlot;
 
     // Current Item in Slot
-    public item currentItem;
+    public Item currentItem;
 
     private void OnTriggerStay(Collider other)
     {

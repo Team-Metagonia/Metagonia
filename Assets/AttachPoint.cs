@@ -12,10 +12,10 @@ public class AttachPoint : MonoBehaviour
     private void OnTriggerEnter(Collider col)
     {
         Debug.Log("AttachPoint collision");
-        item baseItem = transform.GetComponentInParent<item>();
-        if(col.gameObject.TryGetComponent<item>(out item i))
+        Item baseItem = transform.GetComponentInParent<Item>();
+        if(col.gameObject.TryGetComponent<Item>(out Item i))
         {
-            item attachedItem = i;
+            Item attachedItem = i;
             WorkBench.OnAttach?.Invoke(baseItem, attachedItem);
         }
         

@@ -15,7 +15,7 @@ public class ItemSO : ScriptableObject
 
     public bool isSlot;
     public Vector3 slotRotation = Vector3.zero;
-    // public Slot currentSlot;
+    public Slot currentSlot;
 
     public GameObject[] dropItems;
 }
