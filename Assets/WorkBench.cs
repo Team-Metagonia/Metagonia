@@ -18,6 +18,8 @@ public class WorkBench : MonoBehaviour
 
     public static UnityAction<bool> OnWorkStateChange;
 
+    public static UnityAction<item,item> OnAttach;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.CompareTag("Player"))

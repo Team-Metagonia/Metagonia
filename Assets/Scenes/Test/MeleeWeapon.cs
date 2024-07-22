@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Oculus.Interaction.HandGrab;
 
-public class MeleeWeapon : MonoBehaviour,IForceGrabbable
+public class MeleeWeapon : MonoBehaviour
 {
     public GameObject particleEffect;
     private bool isColliding;
-    HandGrabInteractor currentHand;
-
-     [SerializeField] Transform headTransform;
+   
+    [SerializeField] Transform headTransform;
     [SerializeField] Transform tipTransform;
 
-    public void ForceHandGrab(HandGrabInteractable interactable, bool allowRelease)
-    {
-        currentHand.ForceSelect(interactable, true);
-    }
+    
 
     private void Awake()
     {

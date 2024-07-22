@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Oculus.Interaction;
+using Unity.VisualScripting;
+using Oculus.Interaction.Input;
 
 public class ItemAttach : MonoBehaviour, IAttachable
 {
@@ -21,13 +23,31 @@ public class ItemAttach : MonoBehaviour, IAttachable
     private void Awake()
     {
         WorkBench.OnWorkStateChange += ShowAttachableArea;
+        WorkBench.OnAttach += Attach;
     }
 
-    public void Attach(Item baseitem, Item attacheditem)
+    public void Attach(item baseitem, item attacheditem)
     {
-        Destroy(attacheditem);
-        Destroy(baseitem);
-        Instantiate(_finishedUnit);
+        GameObject obj = CraftManager.Instance.CheckRecipeValidness(baseitem, attacheditem);
+        if (obj == null)
+        {
+            Debug.Log("Invalid Recipe. Recipe must be declared in RecipeSO in order to succesfully attach items.");
+            return;
+        }
+
+
+        Destroy(attacheditem.gameObject);
+        Destroy(baseitem.gameObject);
+        GameObject resultItem = Instantiate(obj);
+        HandGrabInteractable[] interactable = resultItem.GetComponentsInChildren<HandGrabInteractable>();
+
+        if(_currentHandInteractor.gameObject.GetComponent<HandRef>().Handedness==Handedness.Left)
+        {
+            _currentHandInteractor.ForceSelect(interactable[0], true);
+        }
+        else _currentHandInteractor.ForceSelect(interactable[1], true);
+
+
     }
 
     public void ShowAttachableArea(bool isActive)
@@ -46,7 +66,7 @@ public class ItemAttach : MonoBehaviour, IAttachable
 
     public void CheckCurrentHand(PointerEvent pointerEvent)
     {
-
+        _currentHandInteractor = pointerEvent.Data as HandGrabInteractor;
     }
 
     private void OnDestroy()
