@@ -35,9 +35,9 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
+  - Terrain
+  - Cube
+  - Plane
   m_SortingLayers:
   - name: Default
     uniqueID: 0

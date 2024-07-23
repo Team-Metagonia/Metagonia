@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class SpawnCubeOnPlane : MonoBehaviour
+public class SpawnCube : MonoBehaviour
 {
     public GameObject cubePrefab; // 생성할 큐브 프리팹
     public GameObject previewCubePrefab; // 투명한 프리뷰 큐브 프리팹
@@ -28,12 +28,23 @@ public class SpawnCubeOnPlane : MonoBehaviour
             // 히트 지점의 위치 계산
             Vector3 hitPoint = hit.point;
 
-            // 프리뷰 큐브를 활성화하고 위치를 업데이트
-            previewCube.SetActive(true);
-            previewCube.transform.position = new Vector3(hitPoint.x, 0.5f, hitPoint.z); // 플레인 위에 위치하도록 Y 축 조정
+            // 큐브가 이미 있는지 확인
+            Collider[] colliders = Physics.OverlapBox(new Vector3(hitPoint.x, 0.5f, hitPoint.z), new Vector3(cubeSize / 2, cubeSize / 2, cubeSize / 2), Quaternion.identity, cubeLayer);
+            
+            if (colliders.Length == 0)
+            {
+                // 큐브가 없는 경우 프리뷰 큐브 활성화
+                previewCube.SetActive(true);
+                previewCube.transform.position = new Vector3(hitPoint.x, 0.5f, hitPoint.z); // 플레인 위에 위치하도록 Y 축 조정
+            }
+            else
+            {
+                // 큐브가 있는 경우 프리뷰 큐브 비활성화
+                previewCube.SetActive(false);
+            }
 
             // 우측 컨트롤러의 IndexTrigger 입력 감지
-            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
+            if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch) && previewCube.activeSelf)
             {
                 TrySpawnCube(hitPoint); // 큐브 생성 함수 호출
             }
