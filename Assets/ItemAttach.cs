@@ -26,8 +26,13 @@ public class ItemAttach : MonoBehaviour, IAttachable
         WorkBench.OnAttach += Attach;
     }
 
+    
+
     public void Attach(Item baseitem, Item attacheditem)
     {
+        IAttachable attachable = this;
+        
+
         GameObject obj = CraftManager.Instance.CheckRecipeValidness(baseitem, attacheditem);
         if (obj == null)
         {
@@ -35,17 +40,23 @@ public class ItemAttach : MonoBehaviour, IAttachable
             return;
         }
 
+        GameObject resultItem = Instantiate(obj,baseitem.transform.position,Quaternion.identity);
 
         Destroy(attacheditem.gameObject);
         Destroy(baseitem.gameObject);
-        GameObject resultItem = Instantiate(obj);
+        
+
+        
+
         HandGrabInteractable[] interactable = resultItem.GetComponentsInChildren<HandGrabInteractable>();
 
-        if(_currentHandInteractor.gameObject.GetComponent<HandRef>().Handedness==Handedness.Left)
-        {
-            _currentHandInteractor.ForceSelect(interactable[0], true);
-        }
-        else _currentHandInteractor.ForceSelect(interactable[1], true);
+        attachable.AttachToHand(_currentHandInteractor,interactable);
+
+        //if (_currentHandInteractor.gameObject.GetComponent<HandRef>().Handedness==Handedness.Left)
+        //{
+        //    _currentHandInteractor.ForceSelect(interactable[0], true);
+        //}
+        //else _currentHandInteractor.ForceSelect(interactable[1], true);
 
 
     }

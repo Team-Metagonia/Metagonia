@@ -33,6 +33,7 @@ public class WorkBench : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             isWorkable = false;
+            OnWorkStateChange?.Invoke(isWorkable);
         }
     }
 

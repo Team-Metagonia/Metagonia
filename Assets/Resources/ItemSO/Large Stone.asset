@@ -20,6 +20,6 @@ MonoBehaviour:
   icon: {fileID: 0}
   isSlot: 0
   slotRotation: {x: 0, y: 0, z: 0}
+  currentSlot: {fileID: 0}
   dropItems:
-  - {fileID: 7242518174897155902, guid: f39a495ea3196a3498f69f09bc1e0fbd, type: 3}
-  - {fileID: 7242518174897155902, guid: 8c499bbf289472b47834e75549132342, type: 3}
+  - {fileID: 3140972075568157767, guid: ddbb1fe997ff1a942985348fa6530b10, type: 3}
