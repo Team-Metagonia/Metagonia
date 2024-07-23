@@ -20,10 +20,10 @@ public class InventoryVR : MonoBehaviour
     [SerializeField] InventoryUI ui;
 
     public static InventoryVR instance;
-    public List<Item> UnStackableList = new List<Item>();
-    public List<Item> StackableList = new List<Item>();
+    public List<ItemSO> UnStackableList = new List<ItemSO>();
+    public List<ItemSO> StackableList = new List<ItemSO>();
 
-    public Dictionary<Item,int> itemQuantityPairs = new Dictionary<Item,int>();
+    public Dictionary<ItemSO,int> itemQuantityPairs = new Dictionary<ItemSO,int>();
 
     public ItemPickUp currentPicked;
     public List<InventorySlot> slots = new List<InventorySlot>();
@@ -45,17 +45,17 @@ public class InventoryVR : MonoBehaviour
         }
     }
 
-    public void AddToUnStackableList(Item item)
+    public void AddToUnStackableList(ItemSO item)
     {
         UnStackableList.Add(item);
     }
 
-    public void RemoveFromUnStackableList(Item item)
+    public void RemoveFromUnStackableList(ItemSO item)
     {
         UnStackableList.Remove(item);
     }
 
-    public void AddToStackableList(Item item)
+    public void AddToStackableList(ItemSO item)
     {
         StackableList.Add(item);
 
@@ -69,7 +69,7 @@ public class InventoryVR : MonoBehaviour
         ui.InstantiateHolder(item);
     }
 
-    public void RemoveFromStackableList(Item item)
+    public void RemoveFromStackableList(ItemSO item)
     {
         StackableList.Remove(item);
     }
@@ -102,7 +102,7 @@ public class InventoryVR : MonoBehaviour
         }
     }
 
-    public bool AlreadyInInventory(Item item)
+    public bool AlreadyInInventory(ItemSO item)
     {
         return itemQuantityPairs.ContainsKey(item);
     }

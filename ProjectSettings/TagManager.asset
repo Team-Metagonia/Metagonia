@@ -12,14 +12,14 @@ TagManager:
   - HiddenMesh
   - Water
   - UI
-  - GridLayer
-  - GridCellLayer
+  - FaceMask
+  - 
   - 
   - 
   - Character
   - MirroredCharacter
-  - 
-  - 
+  - Head
+  - Item
   - 
   - 
   - 
