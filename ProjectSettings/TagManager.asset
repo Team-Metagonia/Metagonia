@@ -12,8 +12,8 @@ TagManager:
   - HiddenMesh
   - Water
   - UI
-  - 
-  - 
+  - GridLayer
+  - GridCellLayer
   - 
   - 
   - Character
