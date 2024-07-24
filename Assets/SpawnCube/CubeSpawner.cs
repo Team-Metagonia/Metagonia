@@ -4,6 +4,7 @@ public class CubeSpawner : MonoBehaviour
 {
     public GameObject cubePrefab; // 생성할 큐브 프리팹
     public GameObject previewCubePrefab; // 투명한 프리뷰 큐브 프리팹
+    public GameObject rockPrefab; // 빈 공간을 채울 돌 프리팹
     public LayerMask terrainLayer; // 지형 레이어
     public LayerMask cubeLayer; // 큐브 레이어
     public ConstructionModeManager modeManager; // 건축 모드 관리 스크립트
@@ -82,7 +83,8 @@ public class CubeSpawner : MonoBehaviour
 
         if (!isOverlap)
         {
-            Instantiate(cubePrefab, spawnPosition, Quaternion.identity);
+            GameObject newCube = Instantiate(cubePrefab, spawnPosition, Quaternion.identity);
+            CreateRockUnderCube(newCube.transform);
         }
     }
 
@@ -109,5 +111,12 @@ public class CubeSpawner : MonoBehaviour
         }
 
         position.y = maxHeight + cubeSize / 2;
+    }
+
+    void CreateRockUnderCube(Transform cubeTransform)
+    {
+        Vector3 rockPosition = cubeTransform.position - new Vector3(0, cubeSize, 0);
+        GameObject rock = Instantiate(rockPrefab, rockPosition, Quaternion.identity);
+        rock.transform.localScale = new Vector3(cubeSize, cubeSize, cubeSize);
     }
 }

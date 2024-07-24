@@ -122,60 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &19772798
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 19772800}
-  - component: {fileID: 19772799}
-  m_Layer: 0
-  m_Name: CubeSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!114 &19772799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19772798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a04571f1e5bdd6a49a0815d5b52f92b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cubePrefab: {fileID: 2676769772381545892, guid: 3babebbe9c8f93b4c880dc9c6171032b, type: 3}
-  previewCubePrefab: {fileID: 2676769772381545892, guid: 4fafb04f9421c204a9ff3e47b7e5663d, type: 3}
-  terrain: {fileID: 1441438042}
-  terrainLayer:
-    serializedVersion: 2
-    m_Bits: 536870912
-  cubeLayer:
-    serializedVersion: 2
-    m_Bits: 1073741824
-  modeText: {fileID: 867714038}
---- !u!4 &19772800
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 19772798}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 330.4753, y: 498.63757, z: 1.5160592}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &83958409
 GameObject:
   m_ObjectHideFlags: 0
@@ -721,6 +667,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cubePrefab: {fileID: 2676769772381545892, guid: 3babebbe9c8f93b4c880dc9c6171032b, type: 3}
   previewCubePrefab: {fileID: 2676769772381545892, guid: 4fafb04f9421c204a9ff3e47b7e5663d, type: 3}
+  rockPrefab: {fileID: 731749404699925356, guid: 7bf275e148e61f143bf8c6378477195e, type: 3}
   terrainLayer:
     serializedVersion: 2
     m_Bits: 536870912
@@ -1597,6 +1544,57 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 488160, guid: d9809c5e8418bb047bf2c8ba1d1a2cec, type: 3}
   m_PrefabInstance: {fileID: 1274061199}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1384866572
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1384866574}
+  - component: {fileID: 1384866573}
+  m_Layer: 0
+  m_Name: RockGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1384866573
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1384866572}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81c0c894092d8c44eb2d138f186e50f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rockPrefabs:
+  - {fileID: 731749404699925356, guid: 7bf275e148e61f143bf8c6378477195e, type: 3}
+  terrainLayer:
+    serializedVersion: 2
+    m_Bits: 536870912
+  minHeightAboveTerrain: 0.5
+  maxHeightAboveTerrain: 1.5
+--- !u!4 &1384866574
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1384866572}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 30.735643, y: -0.5810122, z: 16.711271}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1420219510
 GameObject:
   m_ObjectHideFlags: 0
@@ -2330,4 +2328,4 @@ SceneRoots:
   - {fileID: 1441438043}
   - {fileID: 2065952103}
   - {fileID: 1420219513}
-  - {fileID: 19772800}
+  - {fileID: 1384866574}
