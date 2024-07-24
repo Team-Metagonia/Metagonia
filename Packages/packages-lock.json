@@ -7,6 +7,15 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.manakhovn.figma_to_unity_importer": {
+      "version": "https://github.com/ManakhovN/FigmaToUnityImporter.git?path=/Assets/FigmaImporter",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.textmeshpro": "2.1.4"
+      },
+      "hash": "5a73f9b5b0c6388646c31483f955d92881c4fa88"
+    },
     "com.meta.movement": {
       "version": "https://github.com/oculus-samples/Unity-Movement.git",
       "depth": 0,
