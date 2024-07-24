@@ -5,18 +5,21 @@ using UnityEngine;
 public class AttachPoint : MonoBehaviour
 {
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    Debug.Log("AttachPoint Trigger");
-    //}
+    
     private void OnTriggerEnter(Collider col)
     {
         Debug.Log("AttachPoint collision");
-        Item baseItem = transform.GetComponentInParent<Item>();
+        Item baseItem = this.transform.GetComponentInParent<Item>();
+        IAttachable attachable = transform.GetComponentInParent<IAttachable>();
         if(col.gameObject.TryGetComponent<Item>(out Item i))
         {
             Item attachedItem = i;
-            WorkBench.OnAttach?.Invoke(baseItem, attachedItem);
+
+            attachable.Attach(baseItem, attachedItem);
+            //If there are more than one branch, Same events are subscribed multiple times and cause problem
+            //WorkBench.OnAttach?.Invoke(baseItem, attachedItem);
+
+
         }
         
         

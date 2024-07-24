@@ -32,10 +32,10 @@ public class CraftManager : MonoBehaviour
 
     public GameObject CheckRecipeValidness(Item item1, Item item2)
     {
-        foreach(RecipeSO recipe in recipeList) 
+        foreach (RecipeSO recipe in recipeList)
         {
             List<ItemSO> r = recipe.ingredients;
-            if(r.Contains(item1.itemInfo) && r.Contains(item2.itemInfo))
+            if (r.Contains(item1.itemInfo) && r.Contains(item2.itemInfo))
             {
                 return recipe.results[0];
             }
@@ -43,6 +43,16 @@ public class CraftManager : MonoBehaviour
         return null;
     }
 
-
-
+    public bool CheckRecipe(Item item1, Item item2)
+    {
+        foreach (RecipeSO recipe in recipeList)
+        {
+            List<ItemSO> r = recipe.ingredients;
+            if (r.Contains(item1.itemInfo) && r.Contains(item2.itemInfo))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }
