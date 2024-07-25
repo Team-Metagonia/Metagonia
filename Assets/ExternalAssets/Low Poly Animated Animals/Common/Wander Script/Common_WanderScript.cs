@@ -471,12 +471,12 @@ namespace Polyperfect.Common
                 attackTimer += Time.deltaTime;
             }
 
-            if (attackTimer>attackSpeed)
+            if (attackTimer > attackSpeed)
             {
                 attackTimer -= attackSpeed;
                 if (attackTarget)
                     attackTarget.TakeDamage(power);
-                if (attackTarget.CurrentState == WanderState.Dead) 
+                if (attackTarget.CurrentState == WanderState.Dead)
                     UpdateAI();
             }
 
@@ -495,6 +495,7 @@ namespace Polyperfect.Common
                         SetState(WanderState.Idle);
                         goto case WanderState.Idle;
                     }
+
                     targetPosition = primaryPrey.transform.position;
                     ValidatePosition(ref targetPosition);
                     if (!IsValidLocation(targetPosition))
@@ -507,25 +508,27 @@ namespace Polyperfect.Common
 
                     FaceDirection((targetPosition - position).normalized);
                     stamina -= Time.deltaTime;
-                    if (stamina<=0f)
+                    if (stamina <= 0f)
                         UpdateAI();
                     break;
                 case WanderState.Evade:
-                    targetPosition = position + Vector3.ProjectOnPlane(position - primaryPursuer.transform.position, Vector3.up);
+                    targetPosition = position +
+                                     Vector3.ProjectOnPlane(position - primaryPursuer.transform.position, Vector3.up);
                     if (!IsValidLocation(targetPosition))
                         targetPosition = startPosition;
                     ValidatePosition(ref targetPosition);
                     FaceDirection((targetPosition - position).normalized);
                     stamina -= Time.deltaTime;
-                    if (stamina<=0f)
+                    if (stamina <= 0f)
                         UpdateAI();
                     break;
                 case WanderState.Wander:
                     stamina = Mathf.MoveTowards(stamina, stats.stamina, Time.deltaTime);
                     targetPosition = wanderTarget;
-                    Debug.DrawLine(position,targetPosition,Color.yellow);
-                    FaceDirection((targetPosition-position).normalized);
-                    var displacementFromTarget = Vector3.ProjectOnPlane(targetPosition - transform.position, Vector3.up);
+                    Debug.DrawLine(position, targetPosition, Color.yellow);
+                    FaceDirection((targetPosition - position).normalized);
+                    var displacementFromTarget =
+                        Vector3.ProjectOnPlane(targetPosition - transform.position, Vector3.up);
                     if (displacementFromTarget.magnitude < contingencyDistance)
                     {
                         SetState(WanderState.Idle);
@@ -535,11 +538,12 @@ namespace Polyperfect.Common
                     break;
                 case WanderState.Idle:
                     stamina = Mathf.MoveTowards(stamina, stats.stamina, Time.deltaTime);
-                    if (Time.time>=idleUpdateTime)
+                    if (Time.time >= idleUpdateTime)
                     {
                         SetState(WanderState.Wander);
                         UpdateAI();
                     }
+
                     break;
             }
 
@@ -550,9 +554,10 @@ namespace Polyperfect.Common
                 navMeshAgent.angularSpeed = turnSpeed;
             }
             else
-                characterController.SimpleMove(moveSpeed * UnityEngine.Vector3.ProjectOnPlane(targetPosition - position,Vector3.up).normalized);
-
-
+                characterController.SimpleMove(moveSpeed *
+                                               UnityEngine.Vector3.ProjectOnPlane(targetPosition - position, Vector3.up)
+                                                   .normalized);
+            
         }
 
         void FaceDirection(Vector3 facePosition)
