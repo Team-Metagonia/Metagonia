@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class CheckState : Conditional
 {
-    public SharedInt currentState;
     public int targetState;
 
     public override TaskStatus OnUpdate()
     {
-        if (currentState == null)
+        // 글로벌 변수에서 currentState 값을 가져옴
+        var globalCurrentState = (SharedInt)GlobalVariables.Instance.GetVariable("currentState");
+
+        if (globalCurrentState == null)
         {
-            Debug.LogError("[CheckState] OnUpdate: currentState is null. Make sure the variable is properly set.");
+            Debug.LogError("[CheckState] OnUpdate: globalCurrentState is null. Make sure the variable is properly set.");
             return TaskStatus.Failure;
         }
 
-        Debug.Log($"[CheckState] OnUpdate: currentState = {currentState.Value}, targetState = {targetState}");
+        Debug.Log($"[CheckState] OnUpdate: globalCurrentState = {globalCurrentState.Value}, targetState = {targetState}");
         
-        if (currentState.Value == targetState)
+        if (globalCurrentState.Value == targetState)
         {
             Debug.Log("[CheckState] OnUpdate: State matches. Returning Success.");
             return TaskStatus.Success;

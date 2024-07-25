@@ -3,13 +3,13 @@ using BehaviorDesigner.Runtime;
 
 public class NPCCommandManager : MonoBehaviour
 {
-    public BehaviorTree behaviorTree;
     private int previousState;
 
     void Start()
     {
         // 초기 상태 설정
-        previousState = (int)behaviorTree.GetVariable("currentState").GetValue();
+        previousState = (int)GlobalVariables.Instance.GetVariable("currentState").GetValue();
+        GlobalVariables.Instance.SetVariableValue("IsStateChanged", 0);
     }
 
     void Update()
@@ -36,12 +36,17 @@ public class NPCCommandManager : MonoBehaviour
             currentState = 4;
             Debug.Log("[NPCCommandManager] Update: currentState set to 4");
         }
+        else if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            currentState = 5;
+            Debug.Log("[NPCCommandManager] Update: currentState set to 5");
+        }
 
-        // 상태가 변경되었을 때만 Behavior Tree 업데이트
+        // 상태가 변경되었을 때만 글로벌 변수 업데이트
         if (currentState != previousState)
         {
-            behaviorTree.SetVariableValue("currentState", currentState);
-            behaviorTree.SendEvent("UpdateState"); // 이벤트 보내기
+            GlobalVariables.Instance.SetVariableValue("currentState", currentState);
+            GlobalVariables.Instance.SetVariableValue("IsStateChanged", 1); // 상태 변경 표시
             previousState = currentState;
         }
     }
