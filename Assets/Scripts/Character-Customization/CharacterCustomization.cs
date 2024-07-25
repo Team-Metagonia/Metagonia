@@ -17,7 +17,9 @@ public class CharacterCustomization : MonoBehaviour
     private bool isSexSelectionFinished = false;
     private bool quit = false;
 
+    public CharacterCustomizationManager customizationManager;
     public Transform bodyMeshTransform;
+    public Transform hairMeshTransform;
 
     private void Awake()
     {
@@ -32,14 +34,14 @@ public class CharacterCustomization : MonoBehaviour
 
     private void OnEnable()
     {
-        CharacterCustomizationManager.Instance.OnSexSelectionFinished += SexSelectionFinished;
+        customizationManager.OnSexSelectionFinished += SexSelectionFinished;
     }
 
     private void OnDisable()
     {
         if (quit) return;
 
-        CharacterCustomizationManager.Instance.OnSexSelectionFinished -= SexSelectionFinished;
+        customizationManager.OnSexSelectionFinished -= SexSelectionFinished;
     }
 
     private void Update()
@@ -98,7 +100,7 @@ public class CharacterCustomization : MonoBehaviour
 
     private void FinishSexSelection()
     {
-        CharacterCustomizationManager.Instance.SexSelectionFinished(this);
+        customizationManager.SexSelectionFinished(this);
     }
 
     private void SexSelectionFinished(CharacterCustomization customCharacter)
