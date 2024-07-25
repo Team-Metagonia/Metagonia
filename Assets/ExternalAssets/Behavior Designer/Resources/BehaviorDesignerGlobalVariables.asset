@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mVariableData:
     variableStartIndex: 
-    JSONSerialization: '{"Variables":[]}'
+    JSONSerialization: '{"Variables":[{"Type":"BehaviorDesigner.Runtime.SharedBool","Name":"IsStateChanged","IsShared":true,"IsGlobal":true,"BooleanmValue":false},{"Type":"BehaviorDesigner.Runtime.SharedInt","Name":"currentState","IsShared":true,"IsGlobal":true,"Int32mValue":0}]}'
     fieldSerializationData:
       typeName: []
       fieldNameHash: 
