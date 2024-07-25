@@ -22,14 +22,14 @@ public class InventoryUI : MonoBehaviour
     {
         
     }
-    public void InstantiateHolder(Item item)
+    public void InstantiateHolder(ItemSO item)
     {
         GameObject go = Instantiate(holder, materialPanel.transform);
         go.GetComponent<Image>().sprite = item.icon;
         go.GetComponentInChildren<TMP_Text>().text = InventoryVR.instance.itemQuantityPairs[item].ToString();
     }
 
-    public void UpdateHolder(Item item)
+    public void UpdateHolder(ItemSO item)
     {
         foreach (Transform t in materialPanel.transform)
         {

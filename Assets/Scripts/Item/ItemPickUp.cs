@@ -3,19 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ¾ÆÀÌÅÛ ¿ÀºêÁ§Æ®¿¡ ºÎÂøÇØ¾ßÇÏ´Â ½ºÅ©¸³Æ®
-// ¾ÆÀÌÅÛ Á¤º¸ ÀúÀå
-// ¾ÆÀÌÅÛ È¹µæ ½Ã InventoryVRÀÇ ¸®½ºÆ®¿¡ ÇØ´ç ¾ÆÀÌÅÛ Á¤º¸¸¦ Ãß°¡ ÈÄ ¾ÆÀÌÅÛ ÆÄ±«
+// ì•„ì´í…œ ì˜¤ë¸Œì íŠ¸ì— ë¶€ì°©í•´ì•¼í•˜ëŠ” ìŠ¤í¬ë¦½íŠ¸
+// ì•„ì´í…œ ì •ë³´ ì €ì¥
+// ì•„ì´í…œ íšë“ ì‹œ InventoryVRì˜ ë¦¬ìŠ¤íŠ¸ì— í•´ë‹¹ ì•„ì´í…œ ì •ë³´ë¥¼ ì¶”ê°€ í›„ ì•„ì´í…œ íŒŒê´´
 public class ItemPickUp : MonoBehaviour
 {
     public Item item;
     public bool isInSlot;
+    public bool isInSlotRange;
     [SerializeField] bool instantPickUp;
     [SerializeField] float duration;
     [SerializeField] RayInteractable[] rays;
+
     public void PickUp()
     {
-        InventoryVR.instance.AddToStackableList(item);
+        InventoryVR.instance.AddToStackableList(item.itemInfo);
         Destroy(gameObject);
     }
 
@@ -39,6 +41,11 @@ public class ItemPickUp : MonoBehaviour
 
         PickUp();
         
+    }
+
+    public void SelectDebug()
+    {
+        Debug.Log("Select : " + item.itemInfo.itemName);
     }
 
     public void SlotPickUp()
@@ -76,12 +83,7 @@ public class ItemPickUp : MonoBehaviour
 
     private void OnEnable()
     {
-        
 
-        //if (instantPickUp)
-        //{
-        //    StartCoroutine(AutomaticPickUp());
-        //}
     }
 
     

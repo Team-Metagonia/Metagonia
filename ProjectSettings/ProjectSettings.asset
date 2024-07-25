@@ -416,7 +416,7 @@ PlayerSettings:
   - m_BuildTarget: iOSSupport
     m_GraphicsJobs: 0
   - m_BuildTarget: WindowsStandaloneSupport
-    m_GraphicsJobs: 1
+    m_GraphicsJobs: 0
   - m_BuildTarget: XboxOnePlayer
     m_GraphicsJobs: 1
   - m_BuildTarget: LuminSupport
@@ -861,11 +861,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 82119c8b-9639-4e9a-8264-9d0deca57aa6
+  cloudProjectId: 3223535d-d39d-4e55-bf1c-abd967d42eda
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Metagonia
-  organizationId: unity_818jsy72
+  projectName: My project (3)
+  organizationId: kbh397241
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

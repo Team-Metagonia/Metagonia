@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - SamplesInfoPanel
+  - CinemachineTarget
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -12,14 +14,14 @@ TagManager:
   - HiddenMesh
   - Water
   - UI
-  - 
+  - FaceMask
   - 
   - 
   - 
   - Character
   - MirroredCharacter
-  - 
-  - 
+  - Head
+  - Item
   - 
   - 
   - 
