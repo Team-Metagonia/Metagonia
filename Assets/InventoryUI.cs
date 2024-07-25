@@ -27,6 +27,8 @@ public class InventoryUI : MonoBehaviour
         GameObject go = Instantiate(holder, materialPanel.transform);
         go.GetComponent<Image>().sprite = item.icon;
         go.GetComponentInChildren<TMP_Text>().text = InventoryVR.instance.itemQuantityPairs[item].ToString();
+
+        GameObject simpleObj = Instantiate(item.simplePrefab, go.transform);
     }
 
     public void UpdateHolder(ItemSO item)

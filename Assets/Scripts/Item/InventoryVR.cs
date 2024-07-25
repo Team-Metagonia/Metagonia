@@ -14,7 +14,7 @@ using UnityEngine.UI;
 
 public class InventoryVR : MonoBehaviour
 {
-    [SerializeField] OVRPlayerController player;
+    [SerializeField] GameObject player;
     [SerializeField] Vector3 slotOffset;
     [SerializeField] Vector3 invenOffset;
     [SerializeField] InventoryUI ui;
@@ -89,7 +89,7 @@ public class InventoryVR : MonoBehaviour
         }
 
         //slotInven.transform.position = player.transform.position + slotOffset;
-        //inventory.transform.position = player.transform.position + invenOffset;
+        inventory.transform.position = player.transform.position + invenOffset;
     }
 
     [ContextMenu("Print Dictionary")]

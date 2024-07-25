@@ -10,7 +10,9 @@ public class Item : MonoBehaviour
     public ItemSO itemInfo;
 
     [SerializeField]
-    protected HandGrabInteractor _currentHandInteractor;
+    public HandGrabInteractor _currentHandInteractor;
+
+    public bool distanceGrabbed = false;
 
     protected virtual void Awake()
     {
@@ -25,6 +27,27 @@ public class Item : MonoBehaviour
     protected virtual void Update()
     {
         
+    }
+
+    public void WhenSelcted()
+    {
+        distanceGrabbed = true;
+    }
+
+    public void WhenUnselected()
+    {
+        distanceGrabbed = false;
+    }
+
+    public void PickUp()
+    {
+        if(itemInfo.type==ItemSO.ItemType.Material)
+        {
+            InventoryVR.instance.AddToStackableList(this.itemInfo);
+        }
+        else InventoryVR.instance.AddToUnStackableList(this.itemInfo);
+        
+        Destroy(gameObject);
     }
 
     public void SendSelectedItemInfo(PointerEvent pointerEvent)

@@ -12,6 +12,7 @@ public class ItemSO : ScriptableObject
     public int quantity;
     public ItemType type;
     public Sprite icon;
+    public GameObject simplePrefab;
 
     public bool isSlot;
     public Vector3 slotRotation = Vector3.zero;

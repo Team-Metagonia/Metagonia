@@ -12,6 +12,7 @@ public class WorkBench : MonoBehaviour
     private IActiveState ActiveState { get; set; }
 
     private bool _lastActiveValue = false;
+    bool isEntered = false;
 
     [Tooltip("Boolean to check if player is in range")]
     public bool isWorkable = false;
@@ -22,14 +23,19 @@ public class WorkBench : MonoBehaviour
 
     public static UnityAction<Item,Item> OnAttach;
 
+    public static UnityAction OnWorkBenchEnter;
+
     [SerializeField] GameObject currentLeftObject => OVRBrain.Instance.LeftHandObject;
     [SerializeField] GameObject currentRightObject => OVRBrain.Instance.RightHandObject;
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if(other.gameObject.CompareTag("Player") && !isEntered)
         {
+            Debug.Log("Is Workable");
+            isEntered = true;
             isWorkable = true;
+            OnWorkBenchEnter?.Invoke();
         }
     }
 
@@ -37,6 +43,8 @@ public class WorkBench : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            Debug.Log("Is Not Workable");
+            isEntered = false;
             isWorkable = false;
             OnWorkStateChange?.Invoke(isWorkable);
         }
@@ -46,12 +54,18 @@ public class WorkBench : MonoBehaviour
     {
         ActiveState = _activeState as IActiveState;
         isWorkable = ActiveState.Active;
+        OnWorkBenchEnter += test;
     }
 
     // Start is called before the first frame update
     void Start()
     {
         
+    }
+
+    void test()
+    {
+        Debug.Log("Entered WorkBench Area");
     }
 
     bool CheckValidness(GameObject g, GameObject gg)
