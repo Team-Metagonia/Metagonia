@@ -28,6 +28,8 @@ public class CraftManager : MonoBehaviour
         }
     }
 
+    public Transform itemSpawnPoint;
+
     public List<RecipeSO> recipeList = new List<RecipeSO>();
 
     public GameObject CheckRecipeValidness(Item item1, Item item2)

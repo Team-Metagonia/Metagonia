@@ -17,6 +17,12 @@ public class WorkBench : MonoBehaviour
     [Tooltip("Boolean to check if player is in range")]
     public bool isWorkable = false;
 
+    [Tooltip("WorkBench Canvas GameObject")]
+    public GameObject workBenchUI;
+
+    [Tooltip("Position of Instantiated Material Items")]
+    public Transform itemSpawnPoint;
+
     
 
     public static UnityAction<bool> OnWorkStateChange;
@@ -35,6 +41,7 @@ public class WorkBench : MonoBehaviour
             Debug.Log("Is Workable");
             isEntered = true;
             isWorkable = true;
+            workBenchUI.SetActive(true);
             OnWorkBenchEnter?.Invoke();
         }
     }
@@ -46,6 +53,7 @@ public class WorkBench : MonoBehaviour
             Debug.Log("Is Not Workable");
             isEntered = false;
             isWorkable = false;
+            workBenchUI.SetActive(false);
             OnWorkStateChange?.Invoke(isWorkable);
         }
     }
@@ -54,6 +62,7 @@ public class WorkBench : MonoBehaviour
     {
         ActiveState = _activeState as IActiveState;
         isWorkable = ActiveState.Active;
+        workBenchUI.gameObject.SetActive(false);
         OnWorkBenchEnter += test;
     }
 

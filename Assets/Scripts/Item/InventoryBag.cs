@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 public class InventoryBag : MonoBehaviour
 {
-    public UnityEvent OnPickUpToBag;
+    public UnityEvent OnPickedUpToBag;
 
     private void OnTriggerStay(Collider other)
     {
@@ -17,13 +17,20 @@ public class InventoryBag : MonoBehaviour
         //Initialize triggered item as new object go
         GameObject go = other.gameObject;
 
-        if ((OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger) || OVRInput.GetUp(OVRInput.Button.SecondaryHandTrigger)) 
-            && go.TryGetComponent<Item>(out Item i))
+        if (go.TryGetComponent<Item>(out Item i)  )
         {
-            if (!i.distanceGrabbed) return;
-            Debug.Log($"{i.itemInfo.name} Item In Bag");
-            i.PickUp();
-            OnPickUpToBag?.Invoke();
+            Debug.Log($"{go.name} is item");
+            Debug.Log(i._currentHandInteractor);
+            if ((OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger) || OVRInput.GetUp(OVRInput.Button.SecondaryHandTrigger)) &&
+                !i.isInBag)
+            {
+                // How to Check if the Item is currently in player's hand??
+                Debug.Log($"{i.itemInfo.itemName} Item In Bag");
+                i.isInBag = true;
+                i.PickUp();
+                OnPickedUpToBag?.Invoke();
+            }
+           
         }
     }
 }

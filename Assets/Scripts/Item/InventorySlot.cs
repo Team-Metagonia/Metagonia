@@ -23,7 +23,7 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
-    void InsertItem(GameObject obj)
+    public void InsertItem(GameObject obj)
     {
         Debug.Log("Insert");
         if(obj.GetComponent<Rigidbody>().isKinematic==false)

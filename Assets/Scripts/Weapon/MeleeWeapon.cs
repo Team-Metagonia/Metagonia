@@ -7,7 +7,7 @@ enum HandDominance
     Left, Right, Both
 }
 
-public class MeleeWeapon : MonoBehaviour
+public class MeleeWeapon : Item
 {
     private bool isColliding;
     
@@ -18,7 +18,7 @@ public class MeleeWeapon : MonoBehaviour
     [SerializeField] Transform tipTransform;
     public GameObject[] damageEffects;
 
-    private void Awake()
+    protected override void Awake()
     {
         isColliding = false;
     }

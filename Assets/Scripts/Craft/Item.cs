@@ -14,6 +14,8 @@ public class Item : MonoBehaviour
 
     public bool distanceGrabbed = false;
 
+    public bool isInBag;
+
     protected virtual void Awake()
     {
         
@@ -45,7 +47,7 @@ public class Item : MonoBehaviour
         {
             InventoryVR.instance.AddToStackableList(this.itemInfo);
         }
-        else InventoryVR.instance.AddToUnStackableList(this.itemInfo);
+        else InventoryVR.instance.AddToUnStackableList(this.itemInfo, this.gameObject);
         
         Destroy(gameObject);
     }

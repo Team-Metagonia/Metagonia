@@ -18,6 +18,8 @@ MonoBehaviour:
   quantity: 1
   type: 0
   icon: {fileID: 0}
+  simplePrefab: {fileID: 1561276407388732, guid: 6901581efc28147c29161df3cbf61916, type: 3}
+  completePrefab: {fileID: 5192707588144672756, guid: 8327b795453221b4e9fc2a57c568193a, type: 3}
   isSlot: 0
   slotRotation: {x: 0, y: 0, z: 0}
   currentSlot: {fileID: 0}
