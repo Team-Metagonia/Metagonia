@@ -47,64 +47,60 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
         public override void OnStart()
         {
             m_SqrMagnitude = m_Magnitude.Value * m_Magnitude.Value;
-            Debug.Log($"[WithinDistance] OnStart: m_SqrMagnitude set to {m_SqrMagnitude}");
         }
 
+        /// <summary>
+        /// Returns success if any object is within distance of the current object. Otherwise it will return failure.
+        /// </summary>
         public override TaskStatus OnUpdate()
         {
             m_ReturnedObject.Value = null;
-            Debug.Log("[WithinDistance] OnUpdate: Started");
 
             if ((m_DetectionMode.Value & DetectionMode.Object) != 0 && m_TargetObject.Value != null) {
-                Debug.Log("[WithinDistance] OnUpdate: Checking single target object");
                 if (IsWithinDistance(m_TargetObject.Value)) {
                     m_ReturnedObject.Value = m_TargetObject.Value;
-                    Debug.Log("[WithinDistance] OnUpdate: Single target object is within distance");
                 }
             }
 
             if (m_ReturnedObject.Value == null && (m_DetectionMode.Value & DetectionMode.ObjectList) != 0) {
-                Debug.Log("[WithinDistance] OnUpdate: Checking target object list");
                 for (int i = 0; i < m_TargetObjects.Value.Count; ++i) {
                     if (m_TargetObjects.Value[i] == null || m_TargetObjects.Value[i] == gameObject) {
                         continue;
                     }
 
+                    // All it takes is one object to be within distance.
                     if (IsWithinDistance(m_TargetObjects.Value[i])) {
                         m_ReturnedObject.Value = m_TargetObjects.Value[i];
-                        Debug.Log("[WithinDistance] OnUpdate: An object in the list is within distance");
                         break;
                     }
                 }
             }
 
             if (m_ReturnedObject.Value == null && (m_DetectionMode.Value & DetectionMode.Tag) != 0 && !string.IsNullOrEmpty(m_TargetTag.Value)) {
-                Debug.Log("[WithinDistance] OnUpdate: Checking objects with tag");
                 var objects = GameObject.FindGameObjectsWithTag(m_TargetTag.Value);
                 for (int i = 0; i < objects.Length; ++i) {
                     if (objects[i] == null || objects[i] == gameObject) {
                         continue;
                     }
 
+                    // All it takes is one object to be within distance.
                     if (IsWithinDistance(objects[i])) {
                         m_ReturnedObject.Value = objects[i];
-                        Debug.Log("[WithinDistance] OnUpdate: An object with the specified tag is within distance");
                         break;
                     }
                 }
             }
 
             if (m_ReturnedObject.Value == null && (m_DetectionMode.Value & DetectionMode.LayerMask) != 0) {
-                Debug.Log("[WithinDistance] OnUpdate: Checking objects with layer mask");
                 if (m_UsePhysics2D) {
                     if (m_Overlap2DColliders == null) {
                         m_Overlap2DColliders = new Collider2D[m_MaxCollisionCount];
                     }
                     var count = Physics2D.OverlapCircleNonAlloc(transform.position, m_Magnitude.Value, m_Overlap2DColliders, m_TargetLayerMask.Value);
                     for (int i = 0; i < count; ++i) {
+                        // All it takes is one object to be within distance.
                         if (IsWithinDistance(m_Overlap2DColliders[i].gameObject)) {
                             m_ReturnedObject.Value = m_Overlap2DColliders[i].gameObject;
-                            Debug.Log("[WithinDistance] OnUpdate: A 2D collider is within distance");
                             break;
                         }
                     }
@@ -114,9 +110,9 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
                     }
                     var count = Physics.OverlapSphereNonAlloc(transform.position, m_Magnitude.Value, m_OverlapColliders, m_TargetLayerMask.Value);
                     for (int i = 0; i < count; ++i) {
+                        // All it takes is one object to be within distance.
                         if (IsWithinDistance(m_OverlapColliders[i].gameObject)) {
                             m_ReturnedObject.Value = m_OverlapColliders[i].gameObject;
-                            Debug.Log("[WithinDistance] OnUpdate: A 3D collider is within distance");
                             break;
                         }
                     }
@@ -124,33 +120,34 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
             }
 
             if (m_ReturnedObject.Value != null) {
-                Debug.Log("[WithinDistance] OnUpdate: Found an object within distance, returning Success");
                 return TaskStatus.Success;
             }
 
-            Debug.Log("[WithinDistance] OnUpdate: No objects within distance, returning Failure");
+            // no objects are within distance. Return failure
             return TaskStatus.Failure;
         }
 
+        /// <summary>
+        /// Is the target within distance?
+        /// </summary>
         private bool IsWithinDistance(GameObject target)
         {
             var direction = target.transform.position - (transform.position + m_Offset.Value);
-            Debug.Log($"[WithinDistance] IsWithinDistance: Checking distance to target {target.name}");
-
+            // check to see if the square magnitude is less than what is specified
             if (Vector3.SqrMagnitude(direction) < m_SqrMagnitude) {
+                // the magnitude is less. If lineOfSight is true do one more check
                 if (m_LineOfSight.Value) {
                     var hitTransform = MovementUtility.LineOfSight(transform, m_Offset.Value, target, m_TargetOffset.Value, m_UsePhysics2D, m_IgnoreLayerMask.value, m_DrawDebugRay.Value);
                     if (hitTransform != null && MovementUtility.IsAncestor(hitTransform, target.transform)) {
-                        Debug.Log("[WithinDistance] IsWithinDistance: Target is within line of sight and within distance");
+                        // The object has a magnitude less than the specified magnitude and is within sight. Return true.
                         return true;
                     }
                 } else {
-                    Debug.Log("[WithinDistance] IsWithinDistance: Target is within distance (line of sight not required)");
+                    // The object has a magnitude less than the specified magnitude. Return true.
                     return true;
                 }
             }
 
-            Debug.Log("[WithinDistance] IsWithinDistance: Target is not within distance");
             return false;
         }
 
@@ -165,9 +162,9 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
             m_IgnoreLayerMask = 1 << LayerMask.NameToLayer("Ignore Raycast");
             m_Offset = Vector3.zero;
             m_TargetOffset = Vector3.zero;
-            Debug.Log("[WithinDistance] OnReset: Reset all fields to default values");
         }
 
+        // Draw the seeing radius
         public override void OnDrawGizmos()
         {
 #if UNITY_EDITOR
