@@ -2,11 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterCustomizationManager : MonoBehaviour
 {
     public Action<CharacterCustomization> OnSexSelectionFinished;
-    // public Action OnCharacterSelected;
 
     public OVRCameraRig cameraRig;
     public Canvas customizationCanvas;
@@ -18,9 +18,11 @@ public class CharacterCustomizationManager : MonoBehaviour
     private float durationOffset = 2f;
     private float cameraMovingDuration = 3f;
 
+    public CustomizationInfo customizationInfo;
+
     private void Awake()
     {
-
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
@@ -85,10 +87,16 @@ public class CharacterCustomizationManager : MonoBehaviour
     {
         customizationCanvas.gameObject.SetActive(false);
     }
-        
+
     private void InitializePanelController()
     {
         panelController.InjectCustomCharacter(selectedCharacter);
         panelController.Initialize(selectedCharacter);
+    }
+
+    public void CompleteCustomization()
+    {
+        customizationInfo = selectedCharacter.GetCustomizationInfo();
+        SceneManager.LoadScene("Character Customization LoadScene");
     }
 }

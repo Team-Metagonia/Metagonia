@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class SkinMenu : CustomizationMenu
 {
-    private SkinnedMeshRenderer[] skinnedMeshRenderers;
-    private Color[] skinColors;
-
     public Transform randomColorInSkinMenu;
     public Transform generalColorsInSkinMenu;
 
@@ -17,15 +14,8 @@ public class SkinMenu : CustomizationMenu
     public override void Initialize(CharacterCustomization character)
     {
         InjectCustomCharacter(character);
-        InjectMeshTransforms(character);
         BuildImageToColorMap();
         AddListenerToButtons();
-    }
-
-    private void InjectMeshTransforms(CharacterCustomization character)
-    {
-        Transform bodyMeshTransform = character.bodyMeshTransform;
-        skinnedMeshRenderers = bodyMeshTransform.GetComponentsInChildren<SkinnedMeshRenderer>();
     }
 
     private void BuildImageToColorMap()
@@ -51,26 +41,18 @@ public class SkinMenu : CustomizationMenu
     public void ApplyRandomSkinColor()
     {
         int choice = Random.Range(0, allColors.Count);
+        
         Color newColor = allColors[choice];
-
-        foreach (SkinnedMeshRenderer renderer in skinnedMeshRenderers)
-        {
-            if (renderer.material == null) continue;
-            renderer.material.color = newColor;
-        }
+        this.customCharacter.SetColor(this.customCharacter.bodyMeshTransform, newColor);
     }
 
     public void ApplySkinColor(Button button)
     {
         Image image = button.GetComponent<Image>();
         if (!imageToColorMap.ContainsKey(image)) return;
+        
         Color newColor = imageToColorMap[image];
-
-        foreach (SkinnedMeshRenderer renderer in skinnedMeshRenderers)
-        {
-            if (renderer.material == null) continue;
-            renderer.material.color = newColor;
-        }
+        this.customCharacter.SetColor(this.customCharacter.bodyMeshTransform, newColor);
     }
 
     private void AddListenerToButtons()

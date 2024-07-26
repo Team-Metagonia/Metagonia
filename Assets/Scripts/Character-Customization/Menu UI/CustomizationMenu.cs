@@ -30,6 +30,12 @@ public class CustomizationMenu : Menu
     {
         panelController.MenuOpen(this);
     }
+
+    public override void Close()
+    {
+        base.Close();
+        panelController.MenuClose(this);
+    }
     
     public void MenuOpen(Menu menu) 
     {

@@ -5,10 +5,9 @@ using UnityEngine.UI;
 
 public class HairMenu : CustomizationMenu
 {
-    private Transform hairMeshTransformInCharacter;
-
-    public Transform randomHairInHairMenu;
-    public Transform generalHairsInHairMenu;
+    public Transform randomInHairMenu;
+    public Transform emptyInHairMenu;
+    public Transform generalInHairMenu;
     
     private Image[] hairObjectImages;
     private Image[] hairUIImages;
@@ -19,20 +18,17 @@ public class HairMenu : CustomizationMenu
     {
         InjectCustomCharacter(character);
         InjectHair(character);
-        SyncImageWithModel(hairObjectImages, hairUIImages);
+        SyncImageWithModel(hairUIImages, hairObjectImages);
         AddListenerToButtons();
     }
 
     private void InjectHair(CharacterCustomization character)
     {
-        hairMeshTransformInCharacter = character.hairMeshTransform;
-        Debug.Assert(hairMeshTransformInCharacter != null, "Hair Mesh Transform is null");
-
-        hairObjectImages = hairMeshTransformInCharacter.GetComponentsInChildren<Image>(true);
-        hairUIImages = generalHairsInHairMenu.GetComponentsInChildren<Image>(true);
+        hairObjectImages = character.hairMeshTransform.GetComponentsInChildren<Image>(true);
+        hairUIImages = generalInHairMenu.GetComponentsInChildren<Image>(true);
     }
 
-    private void SyncImageWithModel(Image[] hairObjectImages, Image[] hairUIImages)
+    private void SyncImageWithModel(Image[] hairUIImages, Image[] hairObjectImages)
     {
         // GetComponentsInChildren includes parent itself ... 
         for (int i = 0; i < Mathf.Min(hairObjectImages.Length, hairUIImages.Length); i++) {
@@ -44,42 +40,48 @@ public class HairMenu : CustomizationMenu
         }
     }
 
-    private void ApplyRandomHairstyle()
+    private void ApplyRandomHairStyle()
     {
         int choice = Random.Range(0, hairObjectImages.Length);
         Image applyImage = hairObjectImages[choice];
-
-        foreach (Image hairObjectImage in hairObjectImages)
-        {
-            bool flag = (hairObjectImage == applyImage);
-            hairObjectImage.gameObject.SetActive(flag);
-        }
+        
+        SkinnedMeshRenderer renderer = applyImage.GetComponent<SkinnedMeshRenderer>();
+        Mesh newMesh = renderer.sharedMesh;
+        this.customCharacter.SetMesh(this.customCharacter.hairMeshTransform, newMesh);
     }
 
-    private void ApplyHairstyle(Button button)
+    private void ApplyEmptyHairStyle()
+    {
+        Mesh newMesh = null;
+        this.customCharacter.SetMesh(this.customCharacter.hairMeshTransform, newMesh);
+    }
+
+    private void ApplyHairStyle(Button button)
     {
         Image image = button.GetComponent<Image>();
         if (!imageToModelMap.ContainsKey(image)) return;
         Image applyImage = imageToModelMap[image];
         
-        foreach (Image hairObjectImage in hairObjectImages)
-        {
-            bool shouldActivate = (hairObjectImage == applyImage);
-            hairObjectImage.gameObject.SetActive(shouldActivate);
-        }
+        SkinnedMeshRenderer renderer = applyImage.GetComponent<SkinnedMeshRenderer>();
+        Mesh newMesh = renderer.sharedMesh;
+        this.customCharacter.SetMesh(this.customCharacter.hairMeshTransform, newMesh);
     }
 
     private void AddListenerToButtons()
     {
         // Random Button
-        Button randomButton = randomHairInHairMenu.GetComponentsInChildren<Button>()[0];
-        randomButton.onClick.AddListener(() => ApplyRandomHairstyle());
+        Button randomButton = randomInHairMenu.GetComponentsInChildren<Button>()[0];
+        randomButton.onClick.AddListener(() => ApplyRandomHairStyle());
+        
+        // Empty Button
+        Button emptyButton = emptyInHairMenu.GetComponentsInChildren<Button>()[0];
+        emptyButton.onClick.AddListener(() => ApplyEmptyHairStyle());
         
         // General Button
-        Button[] buttons = generalHairsInHairMenu.GetComponentsInChildren<Button>();
+        Button[] buttons = generalInHairMenu.GetComponentsInChildren<Button>();
         foreach (Button button in buttons)
         {
-            button.onClick.AddListener(() => ApplyHairstyle(button));
+            button.onClick.AddListener(() => ApplyHairStyle(button));
         }
     }
 }

@@ -9,9 +9,16 @@ public class CustomizationPanelController : MonoBehaviour
     [HideInInspector]
     public CharacterCustomization customCharacter;
 
-    public CustomizationMenu[] customizationMenus;
+    [Header("Icons")]
+    public CustomizationIcon furIcon;
+
+    [Header("Icon State Visualizer")]
+    public Color activeColor;
+    public Color inactiveColor;
+
     public Action<CharacterCustomization> OnInitialize;
     public Action<Menu> OnMenuOpen;
+    public Action<Menu> OnMenuClose;
 
     private void Awake()
     {
@@ -36,10 +43,9 @@ public class CustomizationPanelController : MonoBehaviour
     public void Initialize(CharacterCustomization character)
     {
         InjectCustomCharacter(character);
-        foreach (CustomizationMenu menu in customizationMenus)
+        if (character.sex == Sex.Female)
         {
-            // menu.InjectCustomCharacter(character);
-            // menu.Initialize(character);
+            DisableFurIcon();
         }
 
         OnInitialize?.Invoke(character);
@@ -50,4 +56,19 @@ public class CustomizationPanelController : MonoBehaviour
         OnMenuOpen?.Invoke(menu);
     }
 
+    public void MenuClose(Menu menu)
+    {
+        OnMenuClose?.Invoke(menu);
+    }
+
+    private void DisableFurIcon()
+    {
+        if (furIcon == null)
+        {
+            Debug.LogWarning("Moustache Icon is not assigned");
+            return;
+        }
+
+        furIcon.gameObject.SetActive(false);
+    }
 }
