@@ -257,6 +257,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: AttackMode
     m_EventTreshold: 3
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsATRunning
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5657964102485237381}
   m_Solo: 0
@@ -282,6 +285,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: AttackMode
     m_EventTreshold: 2
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsATRunning
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 891313270443605684}
   m_Solo: 0
@@ -381,6 +387,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: AttackMode
     m_EventTreshold: 1
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsATRunning
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 5977893522394067305}
   m_Solo: 0
@@ -431,7 +440,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: IsRunning
+    m_ConditionEvent: IsATRunning
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 9004210362967676643}
@@ -498,6 +507,12 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
+  - m_Name: IsATRunning
+    m_Type: 4
+    m_DefaultFloat: 0
+    m_DefaultInt: 0
+    m_DefaultBool: 0
+    m_Controller: {fileID: 9100000}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -547,6 +562,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: AttackMode
     m_EventTreshold: 4
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsATRunning
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -966898937980221435}
   m_Solo: 0
@@ -652,6 +670,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: AttackMode
     m_EventTreshold: 5
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsATRunning
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6083576500197009485}
   m_Solo: 0
@@ -884,6 +905,9 @@ AnimatorStateTransition:
   - m_ConditionMode: 6
     m_ConditionEvent: AttackMode
     m_EventTreshold: 6
+  - m_ConditionMode: 2
+    m_ConditionEvent: IsATRunning
+    m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6202625798513358959}
   m_Solo: 0
@@ -908,9 +932,6 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: IsRunning
-    m_EventTreshold: 0
-  - m_ConditionMode: 1
-    m_ConditionEvent: canTransitionToAttack
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -8300087462267189218}
