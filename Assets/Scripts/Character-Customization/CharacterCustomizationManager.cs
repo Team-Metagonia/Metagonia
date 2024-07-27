@@ -35,8 +35,8 @@ public class CharacterCustomizationManager : MonoBehaviour
         selectedCharacter = customCharacter;
         OnSexSelectionFinished?.Invoke(customCharacter);
 
-        // Vector3 cameraPositionAfterSelected = GenerateCameraPositionAfterSelected();
-        // StartCoroutine(MoveCamera(cameraPositionAfterSelected, cameraMovingDuration, durationOffset));
+        Vector3 cameraPositionAfterSelected = GenerateCameraPositionAfterSelected();
+        StartCoroutine(MoveCamera(cameraPositionAfterSelected, cameraMovingDuration, durationOffset));
 
         EnableCutomizationCanvas();
         InitializePanelController();
@@ -97,6 +97,6 @@ public class CharacterCustomizationManager : MonoBehaviour
     public void CompleteCustomization()
     {
         customizationInfo = selectedCharacter.GetCustomizationInfo();
-        SceneManager.LoadScene("Character Customization LoadScene");
+        SceneManager.LoadScene("Main 7_21");
     }
 }

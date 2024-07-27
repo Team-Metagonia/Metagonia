@@ -13,6 +13,8 @@ public class CharacterCustomization : MonoBehaviour
     private Object selectionLock = new Object();
     private bool isSexSelectionFinished = false;
     private bool quit = false;
+    
+    private float jumpForce = 5f;
 
     public Sex sex;
     public CharacterCustomizationManager customizationManager;
@@ -25,17 +27,25 @@ public class CharacterCustomization : MonoBehaviour
     public Transform beardMeshTransform;
     public Transform moustacheMeshTransform;
 
+    [Header("Sprite")]
+    public Sprite emptyHairSprite;
+    public Sprite emptyFurSprite;
+
     [Header("Customization Info")]
     public Color skinColor = default(Color);
     public Color hairColor = default(Color);
     public Color furColor = default(Color);
-    public Mesh hairStyle = null;
-    public Mesh beardStyle = null;
-    public Mesh moustacheStyle = null;
+    public string hairStyle = null;
+    public string beardStyle = null;
+    public string moustacheStyle = null;
+
+    Vector3 initPosition;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        initPosition = transform.position;
+
         EnterSexSelection();
         UpdateCustomizationInfo();
     }
@@ -95,21 +105,20 @@ public class CharacterCustomization : MonoBehaviour
 
     public void WhenSelect()
     {
+        
+    }
+
+    public void WhenUnselect()
+    {
         if (selectionMode == SelectionMode.Sex) 
         {
             lock (selectionLock)
             {
                 if (isSexSelectionFinished) return;
-                animator.SetTrigger("Select");
                 FinishSexSelection();
                 EnterStyleSelection();
             }
         }
-    }
-
-    public void WhenUnselect()
-    {
-        // Do Nothing
     }
 
     private void EnterSexSelection()
@@ -120,18 +129,44 @@ public class CharacterCustomization : MonoBehaviour
     private void FinishSexSelection()
     {
         customizationManager.SexSelectionFinished(this);
+        
     }
 
     private void SexSelectionFinished(CharacterCustomization customCharacter)
     {
         isSexSelectionFinished = true;
-        if (customCharacter == this) return;
-        
-        if (selectionMode == SelectionMode.Sex) 
+        if (selectionMode != SelectionMode.Sex) return;
+
+        if (customCharacter == this) 
+        {
+            animator.SetTrigger("Select");
+            Jump(jumpForce);
+        }
+        else
         {
             animator.SetTrigger("Death");
+            StartCoroutine(DisappearAfterDelay(5f));
         }
-        // Destroy(this.gameObject);
+    }
+
+    IEnumerator DisappearAfterDelay(float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        this.gameObject.SetActive(false);
+    }
+
+    private void Jump(float jumpForce)
+    {
+        Vector3 initPosition = transform.position;
+
+        Rigidbody rigidBody = GetComponent<Rigidbody>();
+        rigidBody.isKinematic = false;
+        // rigidBody.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+        // rigidBody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+        rigidBody.AddForce(
+            jumpForce * transform.up, 
+            ForceMode.Impulse
+        );
     }
 
     private void EnterStyleSelection()
@@ -149,14 +184,14 @@ public class CharacterCustomization : MonoBehaviour
         return color;
     }
 
-    private Mesh GetMesh(Transform meshTransform)
+    private string GetMesh(Transform meshTransform)
     {
         SkinnedMeshRenderer[] meshRenderers = meshTransform.GetComponentsInChildren<SkinnedMeshRenderer>();
         if (meshRenderers.Length == 0) return null;
             
         SkinnedMeshRenderer renderer = meshRenderers[0];
         Mesh mesh = renderer.sharedMesh;
-        return mesh;
+        return mesh.name;
     }
 
     private void UpdateCustomizationInfo()
@@ -202,28 +237,16 @@ public class CharacterCustomization : MonoBehaviour
         UpdateCustomizationInfo();
     }
 
-    public void SetMesh(Transform meshTransform, Mesh newMesh)
+    public void SetMesh(Transform meshTransform, string newMesh)
     {   
         SkinnedMeshRenderer[] skinnedMeshRenderers = meshTransform.GetComponentsInChildren<SkinnedMeshRenderer>(true);
         foreach (SkinnedMeshRenderer renderer in skinnedMeshRenderers)
         {
-            bool shouldActivate = (newMesh != null && CheckMeshEquals(renderer.sharedMesh, newMesh));
+            bool shouldActivate = (newMesh != null && renderer.sharedMesh.name == newMesh);
             renderer.gameObject.SetActive(shouldActivate);
         }
         
         UpdateCustomizationInfo();
-    }
-
-    private bool CheckMeshEquals(Mesh first, Mesh second)
-    {
-        if (first == null || second == null) return false;
-        if (first == second) return true;
-
-        if (first.vertexCount != second.vertexCount) return false;
-        if (!(first.vertices).SequenceEqual(second.vertices)) return false;
-        if (!(first.triangles).SequenceEqual(second.triangles)) return false;
-        
-        return true;
     }
 
     public void SetCustomizationInfo(CustomizationInfo info)

@@ -9,15 +9,16 @@ public class Menu : MonoBehaviour
     public bool IsOpen { get { return isOpen; } }
 
     // Enter the scene with the menus on!!!
+    
     protected virtual void Awake()
     {
-        isOpen = false;
-        this.gameObject.SetActive(false);
+        
     }
 
     protected virtual void Start()
     {
-        
+        isOpen = false;
+        this.gameObject.SetActive(false);
     }
 
     protected virtual void Update()

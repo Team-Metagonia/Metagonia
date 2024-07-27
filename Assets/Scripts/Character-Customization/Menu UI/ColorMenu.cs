@@ -3,31 +3,48 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ColorMenu : CustomizationMenu
+public class ColorMenu : Menu
 {
+    public CustomizationPanelController panelController;
     public Transform randomColorInMenu;
     public Transform generalColorsInMenu;
 
-    protected Dictionary<Image, Color> imageToColorMap = new Dictionary<Image, Color>();
-    protected List<Color> allColors = new List<Color>();
-    
-    protected Transform[] meshTransforms;
+    private CharacterCustomization customCharacter;
+    private Dictionary<Image, Color> imageToColorMap = new Dictionary<Image, Color>();
+    private List<Color> allColors = new List<Color>();
+
+    public enum BodyRegion { Body, Hair, Fur };   
+    public BodyRegion bodyRegion;
+    private Transform[] meshTransforms;
 
     protected override void Awake()
     {
         panelController.OnInitialize += Initialize;
-        
+    }
+
+    protected override void Start()
+    {
         isOpen = true;
         this.gameObject.SetActive(true);
     }
 
-    public override void Initialize(CharacterCustomization character)
+    private void Update()
+    {
+
+    }
+
+    public void Initialize(CharacterCustomization character)
     {
         InjectCustomCharacter(character);
-        DetermineActivation(character);
+        // DetermineActivation(character);
         DetermineMeshTransforms(character);
         BuildImageToColorMap();
         AddListenerToButtons();
+    }
+
+    private void InjectCustomCharacter(CharacterCustomization character)
+    {
+        this.customCharacter = character;
     }
 
     private void DetermineActivation(CharacterCustomization character)
@@ -42,9 +59,24 @@ public class ColorMenu : CustomizationMenu
         this.gameObject.SetActive(isOpen);
     }
 
-    protected virtual void DetermineMeshTransforms(CharacterCustomization character)
+    private void DetermineMeshTransforms(CharacterCustomization character)
     {
-        meshTransforms = new Transform[] { character.beardMeshTransform, character.moustacheMeshTransform };
+        switch (bodyRegion)
+        {
+            case BodyRegion.Body:
+                meshTransforms = new Transform[] { character.bodyMeshTransform };
+                break;
+            case BodyRegion.Hair:
+                meshTransforms = new Transform[] { character.hairMeshTransform };
+                break;
+
+            case BodyRegion.Fur:
+                meshTransforms = new Transform[] { character.beardMeshTransform, character.moustacheMeshTransform };
+                break;
+            default:
+                Debug.LogError("No meshTransforms assigned to BodyRegion " + bodyRegion);
+                break;
+        }
     }
 
     private void BuildImageToColorMap()
@@ -90,7 +122,7 @@ public class ColorMenu : CustomizationMenu
         }
     }
 
-    protected virtual void AddListenerToButtons()
+    private void AddListenerToButtons()
     {
         // Random Button
         Button randomButton = randomColorInMenu.GetComponentsInChildren<Button>()[0];

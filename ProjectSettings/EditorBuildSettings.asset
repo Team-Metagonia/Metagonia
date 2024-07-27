@@ -20,7 +20,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Main.unity
     guid: 1878d23cff5a9e347946c8c18bad4417
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Main 7_21.unity
     guid: d29bb0dfef0633f46b4bce1376146d86
   - enabled: 1
@@ -29,6 +29,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Character Customization LoadScene.unity
     guid: 5d99fdc078ab3ff4593afe4bafe98e9a
+  - enabled: 1
+    path: Assets/Scenes/Character Customization LoadScene With Locomotion.unity
+    guid: acf3f7d2ca8d9074eafdf669dd58492b
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 9c708df254100c04e819e3cf23e9cd75, type: 2}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 1810c5a7d27c71449805d8c9e6030713, type: 2}

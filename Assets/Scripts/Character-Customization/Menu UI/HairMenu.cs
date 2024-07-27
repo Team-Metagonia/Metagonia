@@ -9,6 +9,7 @@ public class HairMenu : CustomizationMenu
     public Transform emptyInHairMenu;
     public Transform generalInHairMenu;
     
+    private Sprite emptyHairSprite;
     private Image[] hairObjectImages;
     private Image[] hairUIImages;
 
@@ -24,12 +25,19 @@ public class HairMenu : CustomizationMenu
 
     private void InjectHair(CharacterCustomization character)
     {
+        emptyHairSprite = character.emptyHairSprite;
         hairObjectImages = character.hairMeshTransform.GetComponentsInChildren<Image>(true);
         hairUIImages = generalInHairMenu.GetComponentsInChildren<Image>(true);
     }
 
     private void SyncImageWithModel(Image[] hairUIImages, Image[] hairObjectImages)
     {
+        Image randomHairUIImage = randomInHairMenu.GetComponentsInChildren<Image>(true)[0];
+        Image emptyHairUIImage = emptyInHairMenu.GetComponentsInChildren<Image>(true)[0];
+
+        randomHairUIImage.sprite = emptyHairSprite;
+        emptyHairUIImage.sprite = emptyHairSprite;
+
         // GetComponentsInChildren includes parent itself ... 
         for (int i = 0; i < Mathf.Min(hairObjectImages.Length, hairUIImages.Length); i++) {
             Image hairObjectImage = hairObjectImages[i];
@@ -47,13 +55,12 @@ public class HairMenu : CustomizationMenu
         
         SkinnedMeshRenderer renderer = applyImage.GetComponent<SkinnedMeshRenderer>();
         Mesh newMesh = renderer.sharedMesh;
-        this.customCharacter.SetMesh(this.customCharacter.hairMeshTransform, newMesh);
+        this.customCharacter.SetMesh(this.customCharacter.hairMeshTransform, newMesh.name);
     }
 
     private void ApplyEmptyHairStyle()
     {
-        Mesh newMesh = null;
-        this.customCharacter.SetMesh(this.customCharacter.hairMeshTransform, newMesh);
+        this.customCharacter.SetMesh(this.customCharacter.hairMeshTransform, null);
     }
 
     private void ApplyHairStyle(Button button)
@@ -64,7 +71,7 @@ public class HairMenu : CustomizationMenu
         
         SkinnedMeshRenderer renderer = applyImage.GetComponent<SkinnedMeshRenderer>();
         Mesh newMesh = renderer.sharedMesh;
-        this.customCharacter.SetMesh(this.customCharacter.hairMeshTransform, newMesh);
+        this.customCharacter.SetMesh(this.customCharacter.hairMeshTransform, newMesh.name);
     }
 
     private void AddListenerToButtons()

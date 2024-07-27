@@ -11,8 +11,6 @@ public class CustomizationMenu : Menu
     {
         panelController.OnInitialize += Initialize;
         panelController.OnMenuOpen += MenuOpen;
-
-        base.Awake();
     }
 
     public void InjectCustomCharacter(CharacterCustomization character)

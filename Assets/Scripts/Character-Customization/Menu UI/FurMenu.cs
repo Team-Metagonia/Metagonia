@@ -10,6 +10,7 @@ public class FurMenu : CustomizationMenu
     public Transform generalBeardsInFurMenu;
     public Transform generalMoustachesInFurMenu;
 
+    private Sprite emptyFurSprite;
     private Image[] beardObjectImages;
     private Image[] beardUIImages;
     private Image[] moustacheObjectImages;
@@ -30,6 +31,8 @@ public class FurMenu : CustomizationMenu
 
     private void InjectFur(CharacterCustomization character)
     {
+        emptyFurSprite = character.emptyFurSprite;
+
         beardObjectImages = character.beardMeshTransform.GetComponentsInChildren<Image>(true);
         beardUIImages = generalBeardsInFurMenu.GetComponentsInChildren<Image>(true);
 
@@ -39,6 +42,12 @@ public class FurMenu : CustomizationMenu
 
     private void SyncImageWithModel(Image[] uiImages, Image[] objectImages)
     {
+        Image randomFurUIImage = randomInFurMenu.GetComponentsInChildren<Image>(true)[0];
+        Image emptyFurUIImage = emptyInFurMenu.GetComponentsInChildren<Image>(true)[0];
+
+        randomFurUIImage.sprite = emptyFurSprite;
+        emptyFurUIImage.sprite = emptyFurSprite;
+
         for (int i = 0; i < Mathf.Min(objectImages.Length, uiImages.Length); i++) {
             Image objectImage = objectImages[i];
             Image uiImage = uiImages[i];
@@ -58,18 +67,17 @@ public class FurMenu : CustomizationMenu
 
         SkinnedMeshRenderer beardRenderer = applyBeardImage.GetComponent<SkinnedMeshRenderer>();
         Mesh newBeardMesh = beardRenderer.sharedMesh;
-        this.customCharacter.SetMesh(this.customCharacter.beardMeshTransform, newBeardMesh);
+        this.customCharacter.SetMesh(this.customCharacter.beardMeshTransform, newBeardMesh.name);
 
         SkinnedMeshRenderer moustacheRenderer = applyMoustacheImage.GetComponent<SkinnedMeshRenderer>();
         Mesh newMoustacheMesh = moustacheRenderer.sharedMesh;
-        this.customCharacter.SetMesh(this.customCharacter.moustacheMeshTransform, newMoustacheMesh);
+        this.customCharacter.SetMesh(this.customCharacter.moustacheMeshTransform, newMoustacheMesh.name);
     }
 
     private void ApplyEmptyFurStyle()
     {
-        Mesh newMesh = null;
-        this.customCharacter.SetMesh(this.customCharacter.beardMeshTransform, newMesh);
-        this.customCharacter.SetMesh(this.customCharacter.moustacheMeshTransform, newMesh);
+        this.customCharacter.SetMesh(this.customCharacter.beardMeshTransform, null);
+        this.customCharacter.SetMesh(this.customCharacter.moustacheMeshTransform, null);
     }
 
     private void ApplyFurStyle(Button button, Image[] objectImages)
@@ -80,7 +88,7 @@ public class FurMenu : CustomizationMenu
 
         SkinnedMeshRenderer renderer = applyImage.GetComponent<SkinnedMeshRenderer>();
         Mesh newMesh = renderer.sharedMesh;
-        this.customCharacter.SetMesh(renderer.transform.parent, newMesh);
+        this.customCharacter.SetMesh(renderer.transform.parent, newMesh.name);
     }
 
     private void AddListenerToButtons()

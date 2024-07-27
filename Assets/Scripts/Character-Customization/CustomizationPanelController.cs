@@ -9,6 +9,9 @@ public class CustomizationPanelController : MonoBehaviour
     [HideInInspector]
     public CharacterCustomization customCharacter;
 
+    [Header("Canvas")]
+    public Transform rootCanvas;
+
     [Header("Icons")]
     public CustomizationIcon furIcon;
 
@@ -43,10 +46,8 @@ public class CustomizationPanelController : MonoBehaviour
     public void Initialize(CharacterCustomization character)
     {
         InjectCustomCharacter(character);
-        if (character.sex == Sex.Female)
-        {
-            DisableFurIcon();
-        }
+        SetFurIcon(character);
+        DeterminePosition(character);
 
         OnInitialize?.Invoke(character);
     }
@@ -61,7 +62,7 @@ public class CustomizationPanelController : MonoBehaviour
         OnMenuClose?.Invoke(menu);
     }
 
-    private void DisableFurIcon()
+    private void SetFurIcon(CharacterCustomization character)
     {
         if (furIcon == null)
         {
@@ -69,6 +70,20 @@ public class CustomizationPanelController : MonoBehaviour
             return;
         }
 
-        furIcon.gameObject.SetActive(false);
+        bool shouldActivate = (character.sex == Sex.Male);
+        furIcon.gameObject.SetActive(shouldActivate);
+    }
+
+    private Vector3 GeneratePanelPositionAfterSelected(CharacterCustomization character)
+    {
+        Vector3 origin = character.GetComponent<Collider>().bounds.center;
+        Vector3 dir = -0.5f * character.transform.forward;
+        return origin + dir;
+    }
+
+    private void DeterminePosition(CharacterCustomization character)
+    {
+        Vector3 positionAfterSelected = GeneratePanelPositionAfterSelected(character);
+        rootCanvas.transform.position = positionAfterSelected;
     }
 }

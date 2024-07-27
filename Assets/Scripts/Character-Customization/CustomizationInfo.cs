@@ -22,9 +22,9 @@ public class CustomizationInfo
     public Color hairColor;
     public Color furColor;
 
-    public Mesh hairStyle; 
-    public Mesh beardStyle;
-    public Mesh moustacheStyle;
+    public string hairStyle; 
+    public string beardStyle;
+    public string moustacheStyle;
 
     public CustomizationInfo()
     {
@@ -32,15 +32,15 @@ public class CustomizationInfo
         skinColor = default(Color);
         hairColor = default(Color);
         furColor = default(Color);
-        hairStyle = null;
-        beardStyle = null;
-        moustacheStyle = null;
+        hairStyle = default(string);
+        beardStyle = default(string);
+        moustacheStyle = default(string);
     }
 
     public CustomizationInfo(
         Sex _sex,
         Color _skinColor, Color _hairColor, Color _furColor,
-        Mesh _hairStyle, Mesh _beardStyle, Mesh _moustacheStyle
+        string _hairStyle, string _beardStyle, string _moustacheStyle
     )
     {   
         this.sex = _sex;

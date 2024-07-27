@@ -13,17 +13,26 @@ public class CustomizationApplier : MonoBehaviour
     private CharacterCustomizationManager customizationManager;
     private CustomizationInfo info;
     
+    public bool customizationInfoExist = true;
+
     private void Awake()
     {   
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void Start()
     {
+        if (!customizationInfoExist)
+        {
+            FinishCustomizationEarly();
+            return;
+        }
+
         Initialize();
-        DetermineSex(info);
-        SetCustomizationInfo(info);
+        ApplyCustomizationInfo(info);
+        FinishCustomization();
     }
+
     private void Initialize()
     {
         customizationManager = FindObjectOfType<CharacterCustomizationManager>();
@@ -31,6 +40,12 @@ public class CustomizationApplier : MonoBehaviour
 
         info = customizationManager.customizationInfo;
         Debug.Assert(info != null, "Info Diappears!");
+    }
+
+    private void ApplyCustomizationInfo(CustomizationInfo info) 
+    {
+        DetermineSex(info);
+        SetCustomizationInfo(info);
     }
     
     private void DetermineSex(CustomizationInfo info)
@@ -56,5 +71,27 @@ public class CustomizationApplier : MonoBehaviour
     private void SetCustomizationInfo(CustomizationInfo info)
     {
         customCharacter.SetCustomizationInfo(info);
+    }
+
+    private void FinishCustomizationEarly()
+    {
+        humanFemaleCharacter.gameObject.SetActive(false);
+        
+        Destroy(humanMaleCharacter);
+        Destroy(humanFemaleCharacter);
+        Destroy(this.gameObject);
+    }
+
+    private void FinishCustomization()
+    {
+        // humanMaleCharacter.enabled = false;
+        // humanFemaleCharacter.enabled = false;
+        // customizationManager.gameObject.SetActive(false);
+        // this.gameObject.SetActive(false);
+
+        Destroy(humanMaleCharacter);
+        Destroy(humanFemaleCharacter);
+        Destroy(customizationManager.gameObject); 
+        Destroy(this.gameObject);
     }
 }
