@@ -1,37 +1,42 @@
 using UnityEngine;
-using BehaviorDesigner.Runtime;
-using BehaviorDesigner.Runtime.Tasks;
 
-public class SetRandomAttackMode : Action
+public class SetRandomAttackMode : MonoBehaviour
 {
-    public SharedBool isAttacking; // 공유된 bool 변수
-    public SharedInt attackMode; // 공유된 int 변수
-    public int numberOfAttackModes = 3; // Attack 모드의 갯수
+    public int numberOfAttackModes = 6; // Attack 모드의 갯수
+    public float changeInterval = 0.1f; // 모드 변경 간격 (초)
 
     private Animator animator;
+    private float timer = 0f;
 
-    public override void OnAwake()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
     }
 
-    public override TaskStatus OnUpdate()
+    private void Update()
+    {
+        // 타이머 증가
+        timer += Time.deltaTime;
+
+        // 지정된 간격마다 랜덤 모드 설정
+        if (timer >= changeInterval)
+        {
+            SetRandomMode();
+            timer = 0f; // 타이머 리셋
+        }
+    }
+
+    private void SetRandomMode()
     {
         if (animator == null)
         {
-            Debug.LogError("[SetRandomAttackMode] OnUpdate: Animator is null. Make sure the Animator component is attached.");
-            return TaskStatus.Failure;
+            Debug.LogError("[SetRandomAttackMode] SetRandomMode: Animator is null. Make sure the Animator component is attached.");
+            return;
         }
 
-        if (isAttacking.Value)
-        {
-            // AttackMode 설정 (랜덤 값)
-            int mode = Random.Range(1, numberOfAttackModes + 1);
-            attackMode.Value = mode;
-            animator.SetInteger("AttackMode", mode);
-            Debug.Log($"[SetRandomAttackMode] Set AttackMode to {mode}");
-        }
-
-        return TaskStatus.Success;
+        // AttackMode 설정 (랜덤 값)
+        int mode = Random.Range(1, numberOfAttackModes + 1);
+        animator.SetInteger("AttackMode", mode);
+        Debug.Log($"[SetRandomAttackMode] Set AttackMode to {mode}");
     }
 }
