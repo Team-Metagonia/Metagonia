@@ -1,35 +1,36 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class CustomizationPanelController : MonoBehaviour
 {
-    private CharacterCustomization customCharacter;
+    [HideInInspector]
+    public CharacterCustomization customCharacter;
 
-    private SkinnedMeshRenderer[] skinnedMeshRenderers;
-    private bool quit = false;
+    [Header("Canvas")]
+    public Transform rootCanvas;
+
+    [Header("Icons")]
+    public CustomizationIcon furIcon;
+
+    [Header("Icon State Visualizer")]
+    public Color activeColor;
+    public Color inactiveColor;
+
+    public Action<CharacterCustomization> OnInitialize;
+    public Action<Menu> OnMenuOpen;
+    public Action<Menu> OnMenuClose;
 
     private void Awake()
     {
         
     }
 
-    private void OnEnable()
-    {
-        CharacterCustomizationManager.Instance.OnSexSelectionFinished += InjectCustomCharacter;
-    }
-
-    private void OnDisable()
-    {
-        if (quit) return;
-        CharacterCustomizationManager.Instance.OnSexSelectionFinished -= InjectCustomCharacter;
-    }
-
     private void Start()
     {
-
+        
     }
 
     private void Update()
@@ -37,41 +38,52 @@ public class CustomizationPanelController : MonoBehaviour
 
     }
 
-    private void OnApplicationQuit()
+    public void InjectCustomCharacter(CharacterCustomization character)
     {
-        quit = true;
+        this.customCharacter = character;
     }
 
-    public void ApplySkinColor(Button button)
+    public void Initialize(CharacterCustomization character)
     {
-        if (customCharacter == null || skinnedMeshRenderers == null)
+        InjectCustomCharacter(character);
+        SetFurIcon(character);
+        DeterminePosition(character);
+
+        OnInitialize?.Invoke(character);
+    }
+
+    public void MenuOpen(Menu menu)
+    {
+        OnMenuOpen?.Invoke(menu);
+    }
+
+    public void MenuClose(Menu menu)
+    {
+        OnMenuClose?.Invoke(menu);
+    }
+
+    private void SetFurIcon(CharacterCustomization character)
+    {
+        if (furIcon == null)
         {
-            InjectCustomCharacter();
+            Debug.LogWarning("Moustache Icon is not assigned");
+            return;
         }
 
-        Debug.Assert(customCharacter != null, "Custom Character is not injected!");
-        Color newColor = button.GetComponent<Image>().color;
-
-        foreach (SkinnedMeshRenderer renderer in skinnedMeshRenderers)
-        {
-            if (renderer.material == null) continue;
-            renderer.material.color = newColor;
-        }
-    }
-    
-    private void InjectCustomCharacter()
-    {
-        this.customCharacter = CharacterCustomizationManager.Instance.selectedCharacter;
-        
-        Transform bodyMeshTransform = this.customCharacter.bodyMeshTransform;
-        skinnedMeshRenderers = bodyMeshTransform.GetComponentsInChildren<SkinnedMeshRenderer>();
+        bool shouldActivate = (character.sex == Sex.Male);
+        furIcon.gameObject.SetActive(shouldActivate);
     }
 
-    private void InjectCustomCharacter(CharacterCustomization customCharacter)
+    private Vector3 GeneratePanelPositionAfterSelected(CharacterCustomization character)
     {
-        this.customCharacter = customCharacter;
+        Vector3 origin = character.GetComponent<Collider>().bounds.center;
+        Vector3 dir = -0.5f * character.transform.forward;
+        return origin + dir;
+    }
 
-        Transform bodyMeshTransform = this.customCharacter.bodyMeshTransform;
-        skinnedMeshRenderers = bodyMeshTransform.GetComponentsInChildren<SkinnedMeshRenderer>();
+    private void DeterminePosition(CharacterCustomization character)
+    {
+        Vector3 positionAfterSelected = GeneratePanelPositionAfterSelected(character);
+        rootCanvas.transform.position = positionAfterSelected;
     }
 }
