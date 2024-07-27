@@ -23,13 +23,16 @@ public class WorkBench : MonoBehaviour
     [Tooltip("Position of Instantiated Material Items")]
     public Transform itemSpawnPoint;
 
+    [Tooltip("Respawn trigger object")]
+    public GameObject respawnObj;
+
     
 
     public static UnityAction<bool> OnWorkStateChange;
 
     public static UnityAction<Item,Item> OnAttach;
 
-    public static UnityAction OnWorkBenchEnter;
+    public static UnityAction<bool> OnWorkBenchEnter;
 
     [SerializeField] GameObject currentLeftObject => OVRBrain.Instance.LeftHandObject;
     [SerializeField] GameObject currentRightObject => OVRBrain.Instance.RightHandObject;
@@ -41,8 +44,8 @@ public class WorkBench : MonoBehaviour
             Debug.Log("Is Workable");
             isEntered = true;
             isWorkable = true;
-            workBenchUI.SetActive(true);
-            OnWorkBenchEnter?.Invoke();
+            //workBenchUI.SetActive(true);
+            OnWorkBenchEnter?.Invoke(isEntered);
         }
     }
 
@@ -53,7 +56,8 @@ public class WorkBench : MonoBehaviour
             Debug.Log("Is Not Workable");
             isEntered = false;
             isWorkable = false;
-            workBenchUI.SetActive(false);
+            //workBenchUI.SetActive(false);
+            OnWorkBenchEnter?.Invoke(isEntered);
             OnWorkStateChange?.Invoke(isWorkable);
         }
     }
@@ -72,9 +76,11 @@ public class WorkBench : MonoBehaviour
         
     }
 
-    void test()
+    void test(bool isActive)
     {
-        Debug.Log("Entered WorkBench Area");
+        Debug.Log($"Entered WorkBench Area : {isActive}");
+        workBenchUI.SetActive(isActive);
+        respawnObj.SetActive(isActive);
     }
 
     bool CheckValidness(GameObject g, GameObject gg)

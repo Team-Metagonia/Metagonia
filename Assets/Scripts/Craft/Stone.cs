@@ -1,8 +1,9 @@
+using Oculus.Interaction.HandGrab;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Stone : Item, IDamagable, IDroppable
+public class Stone : Item, IDamagable, IDroppable, IAttachable
 {
     public float Health { get; private set; }
     
@@ -25,6 +26,7 @@ public class Stone : Item, IDamagable, IDroppable
 
     private void OnDisable() 
     {
+        if (isInBag) return;
         DropItems();
     }
 
@@ -73,7 +75,11 @@ public class Stone : Item, IDamagable, IDroppable
         );
         Quaternion spawnRotation = this.transform.rotation;
 
-        Instantiate(itemToDrop, spawnPosition, spawnRotation);
+        GameObject resultItem = Instantiate(itemToDrop, spawnPosition, spawnRotation);
+
+        IAttachable attachable = this;
+        HandGrabInteractable[] interactable = resultItem.GetComponentsInChildren<HandGrabInteractable>();
+        attachable.AttachToHand(_currentHandInteractor, interactable);
     }
 
     public void DropItems()
@@ -104,5 +110,15 @@ public class Stone : Item, IDamagable, IDroppable
     private void OnApplicationQuit()
     {
         quit = true;
+    }
+
+    public void Attach(Item item1, Item item2)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void ShowAttachableArea(bool isActive)
+    {
+        throw new System.NotImplementedException();
     }
 }

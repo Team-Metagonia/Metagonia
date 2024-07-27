@@ -34,7 +34,7 @@ public class InventoryUI : MonoBehaviour
             go.GetComponent<Holder>().HoldingObject = item.completePrefab;
             go.GetComponent<Holder>().itemQuantity = item.quantity;
             GameObject simpleObj = Instantiate(item.simplePrefab, go.transform);
-            simpleObj.transform.localScale = new Vector3(15, 15, 15);
+            //simpleObj.transform.localScale = new Vector3(15, 15, 15);
             simpleObj.transform.localPosition = new Vector3(0,-10,-10);
         }
 

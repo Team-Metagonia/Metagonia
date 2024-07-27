@@ -54,6 +54,7 @@ public class Item : MonoBehaviour
 
     public void SendSelectedItemInfo(PointerEvent pointerEvent)
     {
+        
         _currentHandInteractor = pointerEvent.Data as HandGrabInteractor;
         if (_currentHandInteractor.gameObject.GetComponent<HandRef>().Handedness == Handedness.Left)
         {
@@ -64,6 +65,7 @@ public class Item : MonoBehaviour
 
     public void SendUnselectedItemInfo(PointerEvent pointerEvent)
     {
+        
         _currentHandInteractor = pointerEvent.Data as HandGrabInteractor;
         if (_currentHandInteractor.gameObject.GetComponent<HandRef>().Handedness == Handedness.Left)
         {

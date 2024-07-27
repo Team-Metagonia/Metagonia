@@ -575,7 +575,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 7358e191-33b7-43ca-b066-b2f00531ac66
-  instanceId: 94496d28-3745-460f-9f94-70b1d6f7356f
+  instanceId: 1c887b55-2f71-4925-871a-eaf5aa6e40be
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -748,6 +748,7 @@ MonoBehaviour:
   itemInfo: {fileID: 11400000, guid: 2c9f8e26998cc9f4787ea4ccdd1da6b4, type: 2}
   _currentHandInteractor: {fileID: 0}
   distanceGrabbed: 0
+  isInBag: 0
   _attachPoints:
   - {fileID: 5541969443996351948}
   _visualPoint: {fileID: 4986850885773136552}
@@ -768,7 +769,7 @@ GameObject:
   - component: {fileID: 4381851536026513133}
   - component: {fileID: 612993319242666062}
   m_Layer: 0
-  m_Name: ISDK_DistanceHandGrabInteraction
+  m_Name: DistanceHandGrab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
