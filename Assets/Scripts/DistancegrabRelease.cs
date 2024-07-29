@@ -1,5 +1,6 @@
 using UnityEngine;
 using Oculus.Interaction;
+using Oculus.Interaction.Input;
 using Oculus.Interaction.HandGrab;
 
 public class DistanceGrabRelease : MonoBehaviour
@@ -21,9 +22,16 @@ public class DistanceGrabRelease : MonoBehaviour
     [Tooltip("Distance threshold to automatically release the grab.")]
     [SerializeField]
     private float releaseDistanceThreshold = 0.1f;
+
+    [SerializeField] 
+    private Transform OVRControllerDrivenHands;
+
+    [SerializeField] private HandGrabInteractable interactable;
     
     private void Update()
     {
+        return;
+        
         if (leftDistanceGrabInteractor.HasSelectedInteractable)
         {
             var selectedInteractable = leftDistanceGrabInteractor.SelectedInteractable;
@@ -57,6 +65,27 @@ public class DistanceGrabRelease : MonoBehaviour
         }
         
         
+    }
+
+    public void ReleaseDistanceGrab(PointerEvent pointerEvent)
+    {
+        DistanceGrabInteractor interactor = pointerEvent.Data as DistanceGrabInteractor;
+        if (interactor == null) return;
+
+        Handedness handedness = interactor.GetComponent<ControllerRef>().Handedness;
+        
+        interactor.Unselect();
+        ForceHandGrab(handedness);
+    }
+
+    public void ForceHandGrab(Handedness handedness)
+    {
+        if (interactable == null) return;
+
+        HandGrabInteractor[] interactors = OVRControllerDrivenHands.GetComponentsInChildren<HandGrabInteractor>(true); 
+        HandGrabInteractor interactor = interactors[(int) handedness];
+        
+        interactor.ForceSelect(interactable, true);
     }
     
 }
