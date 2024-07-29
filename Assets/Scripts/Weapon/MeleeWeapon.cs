@@ -18,9 +18,19 @@ public class MeleeWeapon : MonoBehaviour
     [SerializeField] Transform tipTransform;
     public GameObject[] damageEffects;
 
+    [SerializeField] private float speedThreshold = 1f;
+
     private void Awake()
     {
         isColliding = false;
+    }
+
+    private void Update()
+    {
+        Vector3 leftHandVelocity  = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.LTouch);
+        Vector3 rightHandVelocity = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RTouch);
+        float speed = Mathf.Max(leftHandVelocity.magnitude, rightHandVelocity.magnitude);
+        Debug.Log(speed);
     }
 
     private void OnCollisionEnter(Collision collision) 
@@ -49,6 +59,13 @@ public class MeleeWeapon : MonoBehaviour
         float damage = damageInfo.damage;
 
         if (damage <= 0) return;
+        
+        Vector3 leftHandVelocity  = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.LTouch);
+        Vector3 rightHandVelocity = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RTouch);
+        float speed = Mathf.Max(leftHandVelocity.magnitude, rightHandVelocity.magnitude);
+        if (speed <= speedThreshold) return;
+
+        Debug.Log("Speed: " + speed);
         Debug.Log("Damage: " + damage);
 
         damagable.TakeDamage(damageInfo);

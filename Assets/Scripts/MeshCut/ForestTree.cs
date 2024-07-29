@@ -3,20 +3,35 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using EzySlice;
+using Random = UnityEngine.Random;
 
-public class ForestTree : MonoBehaviour, IDamagable, ISliceable
+public class ForestTree : Item, IDamagable, ISliceable
 {
     public float Health { get; private set; }
-    [SerializeField] private float initHealth;
+    [SerializeField] private float initHealth = 9.9f;
+    
+    [SerializeField]
+    private Material crossSectionalMaterial;
 
-    public Material crossSectionalMaterial;
-
+    [SerializeField]
+    private float respawnCooldown = 10f;
+    
+    [SerializeField]
+    private GameObject[] damageEffects;
+    
+    [SerializeField]
+    public AudioClip[] soundEffect;
+    
     private void Awake()
     {
-        Health = initHealth;
-
+        respawnCooldown = Mathf.Max(respawnCooldown, 0);
     }
-
+    
+    private void OnEnable()
+    {
+        Health = initHealth;
+    }
+    
     private void Start()
     {
         
@@ -30,12 +45,14 @@ public class ForestTree : MonoBehaviour, IDamagable, ISliceable
     public void TakeDamage(DamageInfo damageInfo) 
     {
         Debug.Log("TakeDamage in ForestTree class");
-
-        float amount = damageInfo.damage;
+        
+        float amount = 1f; // Take discrete damage
         if (amount <= 0) return;
 
         Health -= amount;
         Health = Mathf.Max(Health, 0);
+        
+        ApplyDamageEffect(damageInfo.hitInfo);
         
         Debug.Log("Current Health: " + Health);
 
@@ -46,9 +63,18 @@ public class ForestTree : MonoBehaviour, IDamagable, ISliceable
         }
     }
 
-    public void Die() 
+    private void ApplyDamageEffect(HitInfo hitInfo)
     {
-        Destroy(this.gameObject);
+        if (damageEffects == null || damageEffects.Length == 0) return;
+
+        int choice = Random.Range(0, damageEffects.Length);
+        GameObject effectPrefab = damageEffects[choice];
+        GameObject effect = Instantiate(effectPrefab, hitInfo.hitPosition, Quaternion.identity);
+    }
+    
+    public void Die()
+    {
+        SpawnManager.Instance.RespawnAfterDelay(this.gameObject, respawnCooldown);
     }
 
     public void ProcessSlice(HitInfo hitInfo)
@@ -57,11 +83,12 @@ public class ForestTree : MonoBehaviour, IDamagable, ISliceable
         SlicedHull hull = target.Slice(hitInfo.hitPosition, hitInfo.planeNormal);
         if (hull == null) return;
 
-        GameObject upperHull = hull.CreateUpperHull(target);
-        GameObject lowerHull = hull.CreateLowerHull(target);
+        GameObject trunk = hull.CreateUpperHull(target, crossSectionalMaterial);
+        GameObject root = hull.CreateLowerHull(target, crossSectionalMaterial);
 
-        SetUpSlicedComponent(upperHull, false);
-        SetUpSlicedComponent(lowerHull, true);
+        SetUpSlicedComponent(trunk, root);
+        // SetUpSlicedComponent(trunk, false);
+        // SetUpSlicedComponent(root, true);
 
         Die();
     }
@@ -75,14 +102,44 @@ public class ForestTree : MonoBehaviour, IDamagable, ISliceable
         if (isRoot)
         {
             rigidBody.isKinematic = true;
+            
         }
-        else 
+        else
         {
-            float radius = 5.0f;
-            float power = 10.0f;
-            // TODO: use speed as cutForce
-            rigidBody.AddExplosionForce(power, slicedObject.transform.position, 5f, 10f);
+            float radius = 5.0f, power = 5.0f;
+            rigidBody.AddExplosionForce(power, slicedObject.transform.position, radius, power);
         }
     }
 
+    private void SetUpSlicedComponent(GameObject trunk, GameObject root)
+    {
+        // Trunk
+        Rigidbody trunkRigidBody = trunk.AddComponent<Rigidbody>();
+        MeshCollider trunkCollider = trunk.AddComponent<MeshCollider>();
+        ForestTreeTrunk trunkComponent = trunk.AddComponent<ForestTreeTrunk>();
+        trunkRigidBody.isKinematic = false;
+        trunkCollider.convex = true;
+        trunkCollider.isTrigger = false;
+        
+        // Root
+        Rigidbody rootRigidBody = root.AddComponent<Rigidbody>();
+        MeshCollider rootCollider = root.AddComponent<MeshCollider>();
+        ForestTreeRoot rootComponent = root.AddComponent<ForestTreeRoot>();
+        rootRigidBody.isKinematic = true;
+        rootCollider.convex = true;
+        rootCollider.isTrigger = false;
+        
+        // Both
+        trunkComponent.other = rootComponent;
+        trunkComponent.itemInfo = this.itemInfo;
+        
+        rootComponent.other = trunkComponent;
+        rootComponent.itemInfo = this.itemInfo;
+        
+        float radius = 5.0f, power = 5.0f;
+        trunkRigidBody.mass = 100f;
+        trunkRigidBody.AddExplosionForce(power, trunkRigidBody.transform.position, radius, power);
+    }
+    
+    
 }
