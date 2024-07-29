@@ -9,6 +9,7 @@ public class SpearNPC : MonoBehaviour, IAttackAgent
     private Animator animator;
     public bool isSelected = false;
     private Coroutine resetCoroutine;
+    private bool canToggle = true; // 플래그 추가
 
     void Start()
     {
@@ -31,48 +32,73 @@ public class SpearNPC : MonoBehaviour, IAttackAgent
     
     public bool CanAttack()
     {
-        // 공격 가능 여부 로직
-        // 예: 적이 일정 거리에 있고 공격할 수 있는 상태인지 확인
         return true;
     }
 
     public void Attack(Vector3 targetPosition)
     {
-        // 공격 애니메이터 업데이트
         UpdateAnimator();
-
-        // 공격 로직 구현
         Debug.Log("Attacking position: " + targetPosition);
-        // 여기에 공격 애니메이션, 효과 등을 추가
     }
 
     private void UpdateAnimator()
     {
         if (animator != null)
         {
-            // 이전에 실행 중이던 Coroutine을 중지
             if (resetCoroutine != null)
             {
                 StopCoroutine(resetCoroutine);
             }
-
-            // AnimationMode를 2로 설정
             animator.SetInteger("AnimationMode", 2);
-
-            // 새로운 Coroutine 시작
             resetCoroutine = StartCoroutine(ResetAnimationMode());
         }
     }
 
     private IEnumerator ResetAnimationMode()
     {
-        // 0.1초 대기
         yield return new WaitForSeconds(0.1f);
-
         if (animator != null)
         {
-            // AnimationMode를 0으로 설정
             animator.SetInteger("AnimationMode", 0);
         }
+    }
+    
+    public void ToggleSelection()
+    {
+        if (canToggle)
+        {
+            isSelected = !isSelected;
+            Debug.Log($"isSelected toggled for: {gameObject.name} to {isSelected}");
+
+            if (isSelected)
+            {
+                ChangeAnimatorParameterTemporarily();
+            }
+
+            // 쿨다운 시작
+            StartCoroutine(ToggleCooldown());
+        }
+    }
+
+    private void ChangeAnimatorParameterTemporarily()
+    {
+        if (animator != null)
+        {
+            StartCoroutine(ChangeParameterCoroutine());
+        }
+    }
+
+    private IEnumerator ChangeParameterCoroutine()
+    {
+        animator.SetInteger("AnimationMode", 5);
+        yield return new WaitForSeconds(0.1f);
+        animator.SetInteger("AnimationMode", 1);
+    }
+
+    private IEnumerator ToggleCooldown()
+    {
+        canToggle = false;
+        yield return new WaitForSeconds(0.1f);
+        canToggle = true;
     }
 }
