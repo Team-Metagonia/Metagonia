@@ -14,6 +14,7 @@ public class ItemPickUp : MonoBehaviour
     [SerializeField] bool instantPickUp;
     [SerializeField] float duration;
     [SerializeField] RayInteractable[] rays;
+    [SerializeField] GameObject QuickSlotObject;
 
     public void PickUp()
     {
@@ -52,9 +53,23 @@ public class ItemPickUp : MonoBehaviour
     {
         if (!isInSlot) return;
         Debug.Log("Picked Up from Slot");
+
         isInSlot = false;
         gameObject.GetComponent<Rigidbody>().isKinematic = false;
+
+        // Get Parent Object
+        Transform parent = gameObject.transform.parent;
+        Debug.Log(parent);
         gameObject.transform.parent = null;
+        Debug.Log(parent);
+        // Destroy Parent Object(slot) when picked up 
+        //Destroy(parent.gameObject);
+        Destroy(parent.parent.gameObject);
+
+        // Deactivate QuickSlot GameObject
+        //InventoryVR.instance.UIActive = false;
+        InventoryVR.instance.DeactivateQuickSlot();
+        //QuickSlotObject.SetActive(false);
 
         // If Picked up from Slot, disable Inventory ray UI in order to stop double input
         // runtime?
@@ -63,6 +78,14 @@ public class ItemPickUp : MonoBehaviour
             r.enabled = false;
         }
         
+    }
+
+    IEnumerator SlotRelocation(Transform t)
+    {
+        yield return new WaitForEndOfFrame();
+        gameObject.transform.parent = null;
+        Destroy(t.gameObject);
+        QuickSlotObject.SetActive(false);
     }
 
     public void ItemUnSelect()

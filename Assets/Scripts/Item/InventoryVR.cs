@@ -26,12 +26,12 @@ public class InventoryVR : MonoBehaviour
     public Dictionary<ItemSO,int> itemQuantityPairs = new Dictionary<ItemSO,int>();
 
     public ItemPickUp currentPicked;
-    public List<InventorySlot> slots = new List<InventorySlot>();
+    public List<GameObject> slots = new List<GameObject>();
     public GameObject quickSlotParent;
     public GameObject slotObject;
     public GameObject inventory;
     public GameObject quickSlotInventory;
-    bool UIActive;
+    public bool UIActive;
 
     private void Awake()
     {
@@ -57,6 +57,8 @@ public class InventoryVR : MonoBehaviour
         // Create New Item Prefab to put in Slot or Do not Destroy Original obj and just put it in??
         GameObject newItem = Instantiate(item.completePrefab);
         slot.GetComponentInChildren<InventorySlot>().InsertItem(newItem);
+
+        slots.Add(slot);
     }
 
     public void RemoveFromUnStackableList(ItemSO item)
@@ -97,6 +99,11 @@ public class InventoryVR : MonoBehaviour
             }
             return;
         }
+    }
+
+    public void DeactivateQuickSlot()
+    {
+        quickSlotInventory.SetActive(false);
     }
 
     private void Start()

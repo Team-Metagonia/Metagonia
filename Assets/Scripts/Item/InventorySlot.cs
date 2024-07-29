@@ -32,6 +32,7 @@ public class InventorySlot : MonoBehaviour
         }
         obj.transform.parent = itemSlot.transform;
         obj.transform.localPosition = new Vector3(0,0,0);
+        obj.transform.rotation = Quaternion.identity;
         obj.GetComponent<ItemPickUp>().isInSlot = true;
         currentItem = obj.GetComponent<ItemPickUp>().item;
     }

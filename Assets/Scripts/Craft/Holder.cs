@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
-public class Holder : MonoBehaviour
+public class Holder : MonoBehaviour, ISelectHandler
 {
     public GameObject HoldingObject;
     public int itemQuantity;
@@ -41,5 +42,10 @@ public class Holder : MonoBehaviour
     private void OnEnable()
     {
        
+    }
+
+    public void OnSelect(BaseEventData eventData)
+    {
+        Debug.Log(this.gameObject.name + " was selected");
     }
 }
