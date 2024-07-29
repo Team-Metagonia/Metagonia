@@ -1,11 +1,15 @@
 using UnityEngine;
 using Oculus.Interaction;
+using Oculus.Interaction.HandGrab;
 
 public class DistanceGrabRelease : MonoBehaviour
 {
     [Tooltip("Reference to the DistanceGrabInteractor component.")]
     [SerializeField]
     private DistanceGrabInteractor distanceGrabInteractor;
+
+    [SerializeField] 
+    private HandGrabInteractor handGrabInteractor;
 
     [Tooltip("The target transform where the object will be released.")]
     [SerializeField]
@@ -15,6 +19,14 @@ public class DistanceGrabRelease : MonoBehaviour
     [SerializeField]
     private float releaseDistanceThreshold = 0.1f;
 
+    [SerializeField]
+    private bool allowForceGrab = true;
+
+    private void Start()
+    {
+        
+    }
+    
     private void Update()
     {
         if (distanceGrabInteractor == null || targetTransform == null)
@@ -45,6 +57,13 @@ public class DistanceGrabRelease : MonoBehaviour
         {
             distanceGrabInteractor.Unselect(); // 선택 해제
             Debug.Log("Grab released.");
+
+            if (allowForceGrab)
+            {
+                var newInteractable = selectedInteractable.gameObject.GetComponent<HandGrabInteractable>();
+                handGrabInteractor.ForceSelect(newInteractable, true);
+            }
         }
     }
+    
 }
