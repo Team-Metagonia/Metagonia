@@ -130,7 +130,7 @@ public class MeleeWeapon : Item
         Vector3 position = damageInfo.hitInfo.hitPosition;
         if (damageEffects == null || damageEffects.Length == 0) return;
 
-        int choice = Random.Range(1, damageEffects.Length);
+        int choice = Random.Range(0, damageEffects.Length);
         GameObject damageEffect = damageEffects[choice];
         Instantiate(damageEffect, position, Quaternion.identity);
     }
