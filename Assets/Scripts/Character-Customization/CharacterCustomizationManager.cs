@@ -97,6 +97,6 @@ public class CharacterCustomizationManager : MonoBehaviour
     public void CompleteCustomization()
     {
         customizationInfo = selectedCharacter.GetCustomizationInfo();
-        SceneManager.LoadScene("Main 7_21");
+        SceneManager.LoadScene("Final");
     }
 }

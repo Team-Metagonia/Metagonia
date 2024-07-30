@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/OldScences/StoneAxeCrafting.unity
     guid: 337c750c55c142a4aa9dc19b06196a9d
+  - enabled: 1
+    path: Assets/Scenes/LatestScenes_7_30/Final.unity
+    guid: 53082927cb7cf354596d22ec0862b280
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 9c708df254100c04e819e3cf23e9cd75, type: 2}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 1810c5a7d27c71449805d8c9e6030713, type: 2}

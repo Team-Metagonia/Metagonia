@@ -5259,7 +5259,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2037080, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 11389
+      value: 44157
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
       propertyPath: _trackingOriginType
@@ -51371,8 +51371,8 @@ GameObject:
   - component: {fileID: 1665705126}
   - component: {fileID: 1665705132}
   - component: {fileID: 1665705131}
+  - component: {fileID: 1665705134}
   - component: {fileID: 1665705133}
-  - component: {fileID: 1665705129}
   m_Layer: 0
   m_Name: Ray Interaction
   m_TagString: Untagged
@@ -51514,27 +51514,6 @@ MonoBehaviour:
   _selectSurface: {fileID: 0}
   _movementProvider: {fileID: 1665705131}
   _tiebreakerScore: 0
---- !u!114 &1665705129
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1665705124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b80644816ce922468d6e1dc8c12daff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _pivotTransform: {fileID: 0}
-  _rotationAxis: 1
-  _constraints:
-    MinAngle:
-      Constrain: 0
-      Value: 0
-    MaxAngle:
-      Constrain: 0
-      Value: 0
 --- !u!114 &1665705131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51562,8 +51541,8 @@ MonoBehaviour:
   _transferOnSecondSelection: 0
   _addNewPointsToFront: 0
   _forwardElement: {fileID: 0}
-  _oneGrabTransformer: {fileID: 1665705133}
-  _twoGrabTransformer: {fileID: 1665705129}
+  _oneGrabTransformer: {fileID: 1665705134}
+  _twoGrabTransformer: {fileID: 0}
   _targetTransform: {fileID: 1727590550333002719}
   _maxGrabPoints: -1
   _rigidbody: {fileID: 0}
@@ -51601,6 +51580,68 @@ MonoBehaviour:
     MaxZ:
       Constrain: 1
       Value: 0
+--- !u!114 &1665705134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1665705124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb7085c111fcb44493d57d4e336d3fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _positionConstraints:
+    ConstraintsAreRelative: 1
+    XAxis:
+      ConstrainAxis: 0
+      AxisRange:
+        Min: 0
+        Max: 0
+    YAxis:
+      ConstrainAxis: 1
+      AxisRange:
+        Min: 0
+        Max: 0
+    ZAxis:
+      ConstrainAxis: 1
+      AxisRange:
+        Min: 0
+        Max: 0
+  _rotationConstraints:
+    XAxis:
+      ConstrainAxis: 1
+      AxisRange:
+        Min: 0
+        Max: 0
+    YAxis:
+      ConstrainAxis: 0
+      AxisRange:
+        Min: 0
+        Max: 0
+    ZAxis:
+      ConstrainAxis: 1
+      AxisRange:
+        Min: 0
+        Max: 0
+  _scaleConstraints:
+    ConstraintsAreRelative: 1
+    XAxis:
+      ConstrainAxis: 1
+      AxisRange:
+        Min: 1
+        Max: 1
+    YAxis:
+      ConstrainAxis: 1
+      AxisRange:
+        Min: 1
+        Max: 1
+    ZAxis:
+      ConstrainAxis: 1
+      AxisRange:
+        Min: 1
+        Max: 1
 --- !u!1 &1669861769
 GameObject:
   m_ObjectHideFlags: 0
@@ -55492,7 +55533,7 @@ GameObject:
   - component: {fileID: 1808655528}
   - component: {fileID: 1808655532}
   - component: {fileID: 1808655531}
-  - component: {fileID: 1808655533}
+  - component: {fileID: 1808655535}
   - component: {fileID: 1808655534}
   m_Layer: 0
   m_Name: Ray Interaction
@@ -55662,45 +55703,13 @@ MonoBehaviour:
   _transferOnSecondSelection: 0
   _addNewPointsToFront: 0
   _forwardElement: {fileID: 0}
-  _oneGrabTransformer: {fileID: 1808655533}
+  _oneGrabTransformer: {fileID: 1808655535}
   _twoGrabTransformer: {fileID: 1808655534}
   _targetTransform: {fileID: 3013256600216446324}
   _maxGrabPoints: -1
   _rigidbody: {fileID: 0}
   _kinematicWhileSelected: 1
   _throwWhenUnselected: 0
---- !u!114 &1808655533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1808655526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9597e632dfbca247bcf65e49c67078e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _constraints:
-    ConstraintsAreRelative: 1
-    MinX:
-      Constrain: 1
-      Value: -5
-    MaxX:
-      Constrain: 1
-      Value: 5
-    MinY:
-      Constrain: 1
-      Value: 0
-    MaxY:
-      Constrain: 1
-      Value: 1
-    MinZ:
-      Constrain: 1
-      Value: 0
-    MaxZ:
-      Constrain: 1
-      Value: 0
 --- !u!114 &1808655534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55722,6 +55731,68 @@ MonoBehaviour:
     MaxAngle:
       Constrain: 0
       Value: 0
+--- !u!114 &1808655535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1808655526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb7085c111fcb44493d57d4e336d3fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _positionConstraints:
+    ConstraintsAreRelative: 1
+    XAxis:
+      ConstrainAxis: 0
+      AxisRange:
+        Min: 0
+        Max: 0
+    YAxis:
+      ConstrainAxis: 1
+      AxisRange:
+        Min: 0
+        Max: 0
+    ZAxis:
+      ConstrainAxis: 1
+      AxisRange:
+        Min: 0
+        Max: 0
+  _rotationConstraints:
+    XAxis:
+      ConstrainAxis: 1
+      AxisRange:
+        Min: 0
+        Max: 0
+    YAxis:
+      ConstrainAxis: 0
+      AxisRange:
+        Min: 0
+        Max: 0
+    ZAxis:
+      ConstrainAxis: 1
+      AxisRange:
+        Min: 0
+        Max: 0
+  _scaleConstraints:
+    ConstraintsAreRelative: 1
+    XAxis:
+      ConstrainAxis: 1
+      AxisRange:
+        Min: 1
+        Max: 1
+    YAxis:
+      ConstrainAxis: 1
+      AxisRange:
+        Min: 1
+        Max: 1
+    ZAxis:
+      ConstrainAxis: 1
+      AxisRange:
+        Min: 1
+        Max: 1
 --- !u!1 &1813071557
 GameObject:
   m_ObjectHideFlags: 0
@@ -76594,7 +76665,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3800595944889223276
 Transform:
   m_ObjectHideFlags: 0
@@ -78200,7 +78271,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cfc566cca2c74534aaee2743b329015a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6f82c8f581aabe749993cb67e893ab2a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -79550,10 +79621,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2.5
+  m_Radius: 0.3
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0.85, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &4690937336011573672
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79572,8 +79643,8 @@ MonoBehaviour:
   hairMeshTransform: {fileID: 3885238699594914609}
   beardMeshTransform: {fileID: 0}
   moustacheMeshTransform: {fileID: 0}
-  emptyHairSprite: {fileID: 21300000, guid: 7a68b4c71da7438479dc1941dcfb2afc, type: 3}
-  emptyFurSprite: {fileID: 21300000, guid: 7a68b4c71da7438479dc1941dcfb2afc, type: 3}
+  emptyHairSprite: {fileID: 21300000, guid: 21ca545cd9a02ea41a2c9469485a7691, type: 3}
+  emptyFurSprite: {fileID: 21300000, guid: 21ca545cd9a02ea41a2c9469485a7691, type: 3}
   skinColor: {r: 0, g: 0, b: 0, a: 0}
   hairColor: {r: 0, g: 0, b: 0, a: 0}
   furColor: {r: 0, g: 0, b: 0, a: 0}
@@ -79951,7 +80022,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: dee173c56bbc09d4c9f6800b5ced826c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: acdec51e805e0e14d8e27b31e08dd6e7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -84682,7 +84753,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3de7fade7a3cd8f44be6505037ee3a13, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1cacb8d0fe4dd2a4d8e38fef9aeff579, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -85284,7 +85355,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e78e5a9d1446c6e4397043f7088a2e32, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 532bee04cc790bb43be202c98227e656, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -86349,7 +86420,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: edda6ed4b0b2812438c962cc4c268b75, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 93426c157a73fd742966492c61e83546, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -87543,7 +87614,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c41e90561eaa1274e8663a8379f710da, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 24f057014d503514b824ef1358b422f6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -88565,7 +88636,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 6e5345afb4788bd44a9716ff124fae80, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 232bb80af4fd5354688bda3087d33a63, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -90903,7 +90974,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e30bc1fb027bcf04aaca6485937ea1c6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9a251f5e3d2d6b7498747989e1c2597f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -91209,7 +91280,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 812606900828e4f4ab8108c63fb0921d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4732d32e398d80f45a7a367fac101cdc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -92372,7 +92443,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: caf75b288ed96084da7deb92b53f1b60, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 362266db15948c047b3bf9f2e0144cec, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -92999,10 +93070,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2.5
+  m_Radius: 0.3
+  m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0.85, z: 0}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &9165124571869576977
 MonoBehaviour:
   m_ObjectHideFlags: 0
