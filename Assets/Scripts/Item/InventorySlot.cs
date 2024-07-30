@@ -41,4 +41,12 @@ public class InventorySlot : MonoBehaviour
     {
         return obj.TryGetComponent<ItemPickUp>(out ItemPickUp i); 
     }
+
+    private void FixedUpdate()
+    {
+        if (currentItem != null) 
+        {
+            
+        }
+    }
 }

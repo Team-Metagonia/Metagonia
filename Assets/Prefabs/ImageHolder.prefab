@@ -91,6 +91,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HoldingObject: {fileID: 0}
+  HoldingSlot: {fileID: 0}
   itemQuantity: 0
 --- !u!114 &2066825735106295809
 MonoBehaviour:

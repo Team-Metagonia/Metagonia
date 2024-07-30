@@ -15,9 +15,11 @@ MonoBehaviour:
   id: 0
   itemName: 
   value: 0
-  quantity: 0
+  quantity: 1
   type: 1
   icon: {fileID: 0}
+  simplePrefab: {fileID: 0}
+  completePrefab: {fileID: 837780289740710123, guid: ea79fc05a83940f4985a22f856e6ebbc, type: 3}
   isSlot: 0
   slotRotation: {x: 0, y: 0, z: 0}
   currentSlot: {fileID: 0}

@@ -52,10 +52,13 @@ public class ItemPickUp : MonoBehaviour
     public void SlotPickUp()
     {
         if (!isInSlot) return;
+       
         Debug.Log("Picked Up from Slot");
 
         isInSlot = false;
         gameObject.GetComponent<Rigidbody>().isKinematic = false;
+
+        if (item.itemInfo.type == ItemSO.ItemType.Material) return;
 
         // Get Parent Object
         Transform parent = gameObject.transform.parent;

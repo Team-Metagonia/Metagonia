@@ -1,3 +1,4 @@
+using Oculus.Interaction.HandGrab;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -28,5 +29,8 @@ public class OVRBrain : MonoBehaviour
     }
     public GameObject LeftHandObject;
     public GameObject RightHandObject;
+
+    public HandGrabInteractor leftHandGrabInteractor;
+    public HandGrabInteractor rightHandGrabInteractor;
 
 }
