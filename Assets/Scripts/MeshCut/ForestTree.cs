@@ -132,9 +132,11 @@ public class ForestTree : Item, IDamagable, ISliceable
         // Both
         trunkComponent.other = rootComponent;
         trunkComponent.itemInfo = this.itemInfo;
+        trunkComponent.transform.position = this.transform.position;
         
         rootComponent.other = trunkComponent;
         rootComponent.itemInfo = this.itemInfo;
+        rootComponent.transform.position = this.transform.position;
         
         float radius = 5.0f, power = 5.0f;
         trunkRigidBody.mass = 100f;

@@ -16,33 +16,32 @@ public class DistanceGrabRelease : MonoBehaviour
     [SerializeField]
     private Transform OVRControllerDrivenHands;
 
+    private HandGrabInteractor[] newInteractors;
+
     [SerializeField]
     private HandGrabInteractable interactable;
 
+    private void Start()
+    {
+        newInteractors = OVRControllerDrivenHands.GetComponentsInChildren<HandGrabInteractor>(true);    
+    }
+    
     public void ReleaseDistanceGrab(PointerEvent pointerEvent)
     {
         DistanceGrabInteractor interactor = pointerEvent.Data as DistanceGrabInteractor;
-        if (interactor == null) return;
-
+        if (interactor == null || interactable == null) return;
+        
         Handedness handedness = interactor.GetComponent<ControllerRef>().Handedness;
-
-        interactor.Unselect();
-        ForceHandGrab(handedness);
-    }
-
-    public void ForceHandGrab(Handedness handedness)
-    {
-        if (interactable == null) return;
-
-        HandGrabInteractor[] interactors = OVRControllerDrivenHands.GetComponentsInChildren<HandGrabInteractor>(true);
-        HandGrabInteractor interactor = interactors[(int)handedness];
+        HandGrabInteractor newInteractor = newInteractors[(int)handedness];
+        if (newInteractor == null) return;
 
         Debug.Log($"[ForceHandGrab] Selected Hand: {handedness}, Interactor: {interactor.name}");
         
         if (handSelection == handedness)
         {
             Debug.Log("[ForceHandGrab] Hand match found, executing ForceSelect.");
-            interactor.ForceSelect(interactable, true);
+            interactor.Unselect();
+            newInteractor.ForceSelect(interactable, true);
         }
         else
         {

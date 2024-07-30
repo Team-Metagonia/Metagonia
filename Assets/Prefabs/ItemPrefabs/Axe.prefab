@@ -741,7 +741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db292f3cd8600b4448d3099cd5460f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
+  item: {fileID: 1033609649554875249}
   isInSlot: 0
   isInSlotRange: 0
   instantPickUp: 0
@@ -768,8 +768,7 @@ MonoBehaviour:
   headTransform: {fileID: 7205285728011605466}
   bodyTransform: {fileID: 2799775587264288387}
   tipTransform: {fileID: 433859885200611419}
-  damageEffects:
-  - {fileID: 2674090004261804438}
+  damageEffects: []
 --- !u!1 &6823412387474033984
 GameObject:
   m_ObjectHideFlags: 0
