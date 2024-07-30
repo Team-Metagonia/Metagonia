@@ -2,42 +2,32 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CharacterCustomizationManager : MonoBehaviour
 {
-    private static CharacterCustomizationManager instance = null;
     public Action<CharacterCustomization> OnSexSelectionFinished;
-    public Action OnCharacterSelected;
 
     public OVRCameraRig cameraRig;
+    public Canvas customizationCanvas;
+    public CustomizationPanelController panelController;
+
+    [HideInInspector]
     public CharacterCustomization selectedCharacter;
 
     private float durationOffset = 2f;
     private float cameraMovingDuration = 3f;
 
+    public CustomizationInfo customizationInfo;
+
     private void Awake()
     {
-        if (null == instance)
-        {
-            instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else
-        {
-            Destroy(this.gameObject);
-        }
+        DontDestroyOnLoad(gameObject);
     }
 
-    public static CharacterCustomizationManager Instance
+    private void Start()
     {
-        get
-        {
-            if (null == instance)
-            {
-                return null;
-            }
-            return instance;
-        }
+        DisableCustomizationCanvas();
     }
 
     public void SexSelectionFinished(CharacterCustomization customCharacter)
@@ -47,10 +37,9 @@ public class CharacterCustomizationManager : MonoBehaviour
 
         Vector3 cameraPositionAfterSelected = GenerateCameraPositionAfterSelected();
         StartCoroutine(MoveCamera(cameraPositionAfterSelected, cameraMovingDuration, durationOffset));
-        
-        // StartCoroutine(
-        //     MoveCamera(selectedCharacter.cameraTransformWhenSelected.position, cameraMovingDuration, durationOffset)
-        // );
+
+        EnableCutomizationCanvas();
+        InitializePanelController();
     }
 
     private Vector3 GenerateCameraPositionAfterSelected()
@@ -87,5 +76,27 @@ public class CharacterCustomizationManager : MonoBehaviour
     
         // Set Exact Position
         cameraRig.transform.position = targetPos;
+    }
+
+    private void EnableCutomizationCanvas()
+    {
+        customizationCanvas.gameObject.SetActive(true);
+    }
+    
+    private void DisableCustomizationCanvas()
+    {
+        customizationCanvas.gameObject.SetActive(false);
+    }
+
+    private void InitializePanelController()
+    {
+        panelController.InjectCustomCharacter(selectedCharacter);
+        panelController.Initialize(selectedCharacter);
+    }
+
+    public void CompleteCustomization()
+    {
+        customizationInfo = selectedCharacter.GetCustomizationInfo();
+        SceneManager.LoadScene("Main 7_21");
     }
 }
