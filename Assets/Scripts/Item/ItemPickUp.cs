@@ -57,6 +57,7 @@ public class ItemPickUp : MonoBehaviour
 
         isInSlot = false;
         gameObject.GetComponent<Rigidbody>().isKinematic = false;
+        gameObject.GetComponentInParent<InventorySlot>().currentItem = null;
 
         if (item.itemInfo.type == ItemSO.ItemType.Material) return;
 
