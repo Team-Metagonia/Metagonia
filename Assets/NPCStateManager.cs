@@ -16,6 +16,8 @@ public class NPCStateManager : MonoBehaviour
     public UnityEvent<bool> OnCommandState;
 
     public GameObject commandObject;
+    public GameObject poseObject;
+
     public bool _isActive;
     public bool _lastActiveState;
 
@@ -34,10 +36,15 @@ public class NPCStateManager : MonoBehaviour
 
     void SetCommandBoolean(bool isActive)
     {
-        foreach (NPCStateChanger c in stateChangers) 
+        
+        commandObject.SetActive(isActive);
+        poseObject.SetActive(isActive);
+
+        foreach (NPCStateChanger c in stateChangers)
         {
             c.isChangeable = isActive;
         }
+
     }
 
     void SetCommandHelper(bool isActive)
@@ -57,7 +64,7 @@ public class NPCStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(OVRInput.GetDown(OVRInput.Button.Two))
+        if(OVRInput.GetDown(OVRInput.Button.SecondaryThumbstick))
         {
             _isActive = !_isActive;
         }
@@ -68,7 +75,7 @@ public class NPCStateManager : MonoBehaviour
         {
             _lastActiveState = _isActive;
             SetCommandBoolean(_isActive);
-            SetCommandHelper(_isActive);
+            
             Debug.Log(_isActive);
         }
     }
