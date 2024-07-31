@@ -84,12 +84,19 @@ namespace BehaviorDesigner.Runtime.Tactical.Tasks
                 var targetPosition = defendObject.Value.transform.TransformPoint(radius.Value * Mathf.Sin(theta * formationIndex), 0, radius.Value * Mathf.Cos(theta * formationIndex));
                 tacticalAgent.UpdateRotation(true);
                 tacticalAgent.SetDestination(targetPosition);
+                Debug.Log("not attck");
+                
                 if (tacticalAgent.HasArrived()) {
                     // Face away from the defending object.
                     var direction = targetPosition - defendObject.Value.transform.position;
                     direction.y = 0;
+
+                    // 디버깅 로그 추가
+                    Debug.Log($"Target Position: {targetPosition}, Defend Object Position: {defendObject.Value.transform.position}, Direction: {direction}");
+
                     tacticalAgent.RotateTowards(Quaternion.LookRotation(direction));
                 }
+
             }
 
             return TaskStatus.Running;
