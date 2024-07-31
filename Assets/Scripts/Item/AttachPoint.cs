@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AttachPoint : MonoBehaviour
 {
-
+    [SerializeField] int attachPointIndex;
     
     private void OnTriggerEnter(Collider col)
     {
@@ -15,7 +15,7 @@ public class AttachPoint : MonoBehaviour
         {
             Item attachedItem = i;
 
-            attachable.Attach(baseItem, attachedItem);
+            attachable.Attach(baseItem, attachedItem, attachPointIndex);
             //If there are more than one branch, Same events are subscribed multiple times and cause problem
             //WorkBench.OnAttach?.Invoke(baseItem, attachedItem);
 

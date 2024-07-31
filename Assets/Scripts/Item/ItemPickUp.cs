@@ -52,32 +52,40 @@ public class ItemPickUp : MonoBehaviour
     public void SlotPickUp()
     {
         if (!isInSlot) return;
-       
-        Debug.Log("Picked Up from Slot");
 
         isInSlot = false;
         gameObject.GetComponent<Rigidbody>().isKinematic = false;
         gameObject.GetComponentInParent<InventorySlot>().currentItem = null;
 
-        if (item.itemInfo.type == ItemSO.ItemType.Material) return;
+        Debug.Log("Picked Up from Slot");
+        if (item.itemInfo.type == ItemSO.ItemType.Material)
+        {
+            gameObject.transform.parent = null;
+        }
+        
 
-        // Get Parent Object
-        Transform parent = gameObject.transform.parent;
-        Debug.Log(parent);
-        gameObject.transform.parent = null;
-        Debug.Log(parent);
-        // Destroy Parent Object(slot) when picked up 
-        //Destroy(parent.gameObject);
-        Destroy(parent.parent.gameObject);
+        else
+        {
+            // Get Parent Object
+            Transform parent = gameObject.transform.parent;
+            Debug.Log(parent);
+            gameObject.transform.parent = null;
+            Debug.Log(parent);
+            // Destroy Parent Object(slot) when picked up 
+            //Destroy(parent.gameObject);
+            Destroy(parent.parent.gameObject);
 
-        // Deactivate QuickSlot GameObject
-        //InventoryVR.instance.UIActive = false;
-        InventoryVR.instance.DeactivateQuickSlot();
-        //QuickSlotObject.SetActive(false);
+            // Deactivate QuickSlot GameObject
+            //InventoryVR.instance.UIActive = false;
+            InventoryVR.instance.DeactivateQuickSlot();
+            //QuickSlotObject.SetActive(false);
+        }
+
+
 
         // If Picked up from Slot, disable Inventory ray UI in order to stop double input
         // runtime?
-        foreach(var r in rays)
+        foreach (var r in rays)
         {
             r.enabled = false;
         }

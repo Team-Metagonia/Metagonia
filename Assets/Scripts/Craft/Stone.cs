@@ -112,7 +112,7 @@ public class Stone : Item, IDamagable, IDroppable, IAttachable
         quit = true;
     }
 
-    public void Attach(Item item1, Item item2)
+    public void Attach(Item item1, Item item2, int attachPointIndex)
     {
         throw new System.NotImplementedException();
     }

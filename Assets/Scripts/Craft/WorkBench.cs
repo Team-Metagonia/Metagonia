@@ -12,10 +12,9 @@ public class WorkBench : MonoBehaviour
     private IActiveState ActiveState { get; set; }
 
     private bool _lastActiveValue = false;
-    bool isEntered = false;
+    bool _lastEnteredValue = false;
 
-    [Tooltip("Boolean to check if player is in range")]
-    public bool isWorkable = false;
+    
 
     [Tooltip("WorkBench Canvas GameObject")]
     public GameObject workBenchUI;
@@ -25,6 +24,16 @@ public class WorkBench : MonoBehaviour
 
     [Tooltip("Respawn trigger object")]
     public GameObject respawnObj;
+
+    public GameObject spawnSlot;
+
+    [SerializeField] GameObject target;
+    [SerializeField] float range;
+    [SerializeField] float targetDistance => Vector3.Distance(target.transform.position, this.transform.position);
+
+    [Tooltip("Boolean to check if player is in range")]
+
+    public bool isWorkable => targetDistance < range;
 
     
 
@@ -37,37 +46,37 @@ public class WorkBench : MonoBehaviour
     [SerializeField] GameObject currentLeftObject => OVRBrain.Instance.LeftHandObject;
     [SerializeField] GameObject currentRightObject => OVRBrain.Instance.RightHandObject;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.CompareTag("Player") && !isEntered)
-        {
-            Debug.Log("Is Workable");
-            isEntered = true;
-            isWorkable = true;
-            //workBenchUI.SetActive(true);
-            OnWorkBenchEnter?.Invoke(isEntered);
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if(other.gameObject.CompareTag("Player") && !isEntered)
+    //    {
+    //        Debug.Log("Is Workable");
+    //        isEntered = true;
+    //        //isWorkable = true;
+    //        //workBenchUI.SetActive(true);
+    //        OnWorkBenchEnter?.Invoke(isEntered);
+    //    }
+    //}
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("Is Not Workable");
-            isEntered = false;
-            isWorkable = false;
-            //workBenchUI.SetActive(false);
-            OnWorkBenchEnter?.Invoke(isEntered);
-            OnWorkStateChange?.Invoke(isWorkable);
-        }
-    }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Player"))
+    //    {
+    //        Debug.Log("Is Not Workable");
+    //        isEntered = false;
+    //        //isWorkable = false;
+    //        //workBenchUI.SetActive(false);
+    //        OnWorkBenchEnter?.Invoke(isEntered);
+    //        OnWorkStateChange?.Invoke(isWorkable);
+    //    }
+    //}
 
     void Awake()
     {
         ActiveState = _activeState as IActiveState;
-        isWorkable = ActiveState.Active;
+        //isWorkable = ActiveState.Active;
         workBenchUI.gameObject.SetActive(false);
-        OnWorkBenchEnter += test;
+        OnWorkBenchEnter += SetActiveState;
     }
 
     // Start is called before the first frame update
@@ -76,11 +85,12 @@ public class WorkBench : MonoBehaviour
         
     }
 
-    void test(bool isActive)
+    void SetActiveState(bool isActive)
     {
         Debug.Log($"Entered WorkBench Area : {isActive}");
         workBenchUI.SetActive(isActive);
         respawnObj.SetActive(isActive);
+        //spawnSlot.SetActive(isActive);
     }
 
     bool CheckValidness(GameObject g, GameObject gg)
@@ -96,6 +106,14 @@ public class WorkBench : MonoBehaviour
     // Check whether workbench is workable - If you are inside the area and holding valid items in both hands 
     void Update()
     {
+        bool isEnter = isWorkable;
+        if(_lastEnteredValue!=isEnter)
+        {
+            _lastEnteredValue = isEnter;
+            OnWorkBenchEnter?.Invoke(isEnter);
+        }
+
+
         bool isBothHandGrab = ActiveState.Active;
 
         bool isActive = isBothHandGrab && CheckValidness(currentLeftObject,currentRightObject) && isWorkable;

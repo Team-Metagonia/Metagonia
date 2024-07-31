@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 464366faee1ae8a47b29a3b22095ccdc, type: 3}
+  m_Name: Hoe_Recipe
+  m_EditorClassIdentifier: 
+  id: Hoe_Recipe
+  attachPoint: 1
+  ingredients:
+  - {fileID: 11400000, guid: d9b1c0938a90d914d91200a26749dbfc, type: 2}
+  - {fileID: 11400000, guid: ffcb7e27a8bc445458a4e9c5e2572a81, type: 2}
+  results:
+  - {fileID: 2737451461066521978, guid: 26054cb53dec5be449e1035d555ce475, type: 3}
