@@ -145,7 +145,7 @@ public class CharacterCustomization : MonoBehaviour
         else
         {
             animator.SetTrigger("Death");
-            StartCoroutine(DisappearAfterDelay(5f));
+            StartCoroutine(DisappearAfterDelay(2.5f));
         }
     }
 

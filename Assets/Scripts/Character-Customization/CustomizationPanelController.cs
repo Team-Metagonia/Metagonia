@@ -77,7 +77,7 @@ public class CustomizationPanelController : MonoBehaviour
     private Vector3 GeneratePanelPositionAfterSelected(CharacterCustomization character)
     {
         Vector3 origin = character.GetComponent<Collider>().bounds.center;
-        Vector3 dir = -0.5f * character.transform.forward;
+        Vector3 dir = -0.5f * character.transform.forward + (-1f) * character.transform.right;
         return origin + dir;
     }
 
