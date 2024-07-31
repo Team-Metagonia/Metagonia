@@ -7,6 +7,9 @@ TagManager:
   - SamplesInfoPanel
   - CinemachineTarget
   - Enemy
+  - Projectile
+  - Floor
+  - Weapon
   layers:
   - Default
   - TransparentFX
@@ -27,7 +30,7 @@ TagManager:
   - 
   - Tree
   - 
-  - 
+  - Ignore Collision
   - 
   - 
   - 
