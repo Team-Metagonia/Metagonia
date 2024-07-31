@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class NPCStateManager : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class NPCStateManager : MonoBehaviour
 
     public List<NPCStateChanger> stateChangers = new List<NPCStateChanger>();
 
+    public UnityEvent<bool> OnCommandState;
+
+    public GameObject commandObject;
     public bool _isActive;
     public bool _lastActiveState;
 
@@ -36,6 +40,13 @@ public class NPCStateManager : MonoBehaviour
         }
     }
 
+    void SetCommandHelper(bool isActive)
+    {
+        commandObject.SetActive(isActive);
+    }
+
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -57,6 +68,7 @@ public class NPCStateManager : MonoBehaviour
         {
             _lastActiveState = _isActive;
             SetCommandBoolean(_isActive);
+            SetCommandHelper(_isActive);
             Debug.Log(_isActive);
         }
     }
