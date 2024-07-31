@@ -5,8 +5,10 @@ using UnityEngine;
 using EzySlice;
 using Random = UnityEngine.Random;
 
-public class ForestTree : Item, IDamagable, ISliceable
+public class ForestTree : MonoBehaviour, IDamagable, ISliceable
 {
+    public ItemSO itemInfo;
+    
     public float Health { get; private set; }
     [SerializeField] private float initHealth = 9.9f;
     
@@ -14,7 +16,7 @@ public class ForestTree : Item, IDamagable, ISliceable
     private Material crossSectionalMaterial;
 
     [SerializeField]
-    private float respawnCooldown = 10f;
+    private float respawnCooldown = 60f;
     
     [SerializeField]
     private GameObject[] damageEffects;
@@ -87,28 +89,7 @@ public class ForestTree : Item, IDamagable, ISliceable
         GameObject root = hull.CreateLowerHull(target, crossSectionalMaterial);
 
         SetUpSlicedComponent(trunk, root);
-        // SetUpSlicedComponent(trunk, false);
-        // SetUpSlicedComponent(root, true);
-
         Die();
-    }
-
-    public void SetUpSlicedComponent(GameObject slicedObject, bool isRoot) 
-    {
-        Rigidbody rigidBody = slicedObject.AddComponent<Rigidbody>();
-        MeshCollider collider = slicedObject.AddComponent<MeshCollider>();
-        collider.convex = true;
-
-        if (isRoot)
-        {
-            rigidBody.isKinematic = true;
-            
-        }
-        else
-        {
-            float radius = 5.0f, power = 5.0f;
-            rigidBody.AddExplosionForce(power, slicedObject.transform.position, radius, power);
-        }
     }
 
     private void SetUpSlicedComponent(GameObject trunk, GameObject root)
@@ -118,6 +99,7 @@ public class ForestTree : Item, IDamagable, ISliceable
         MeshCollider trunkCollider = trunk.AddComponent<MeshCollider>();
         ForestTreeTrunk trunkComponent = trunk.AddComponent<ForestTreeTrunk>();
         trunkRigidBody.isKinematic = false;
+        trunkRigidBody.useGravity = true;
         trunkCollider.convex = true;
         trunkCollider.isTrigger = false;
         
@@ -137,11 +119,18 @@ public class ForestTree : Item, IDamagable, ISliceable
         rootComponent.other = trunkComponent;
         rootComponent.itemInfo = this.itemInfo;
         rootComponent.transform.position = this.transform.position;
+
+        // Layer Setting
+        trunk.layer = this.gameObject.layer;
+        root.layer  = this.gameObject.layer;
         
-        float radius = 5.0f, power = 5.0f;
-        trunkRigidBody.mass = 100f;
+        int defaultLayer = LayerMask.NameToLayer("Default");
+        trunkCollider.excludeLayers = 1 << defaultLayer;
+        rootCollider.excludeLayers  = 1 << defaultLayer;
+        
+        // Explosion
+        float radius = 1.0f, power = 5.0f;
+        trunkRigidBody.mass = 1f;
         trunkRigidBody.AddExplosionForce(power, trunkRigidBody.transform.position, radius, power);
     }
-    
-    
 }

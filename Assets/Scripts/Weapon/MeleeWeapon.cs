@@ -18,6 +18,8 @@ public class MeleeWeapon : Item
     [SerializeField] Transform tipTransform;
     public GameObject[] damageEffects;
 
+    [SerializeField] private float thresholdLocalControllerSpeed = 1f;
+
     protected override void Awake()
     {
         isColliding = false;
@@ -51,14 +53,11 @@ public class MeleeWeapon : Item
         if (damage <= 0) return;
         Debug.Log("Damage: " + damage);
 
+        float speed = GetMaxLocalControllerSpeed();
+        if (speed <= thresholdLocalControllerSpeed) return;
+
         damagable.TakeDamage(damageInfo);
         ApplyDamageEffect(damageInfo);
-
-        // Vector3 leftHandVelocity  = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.LTouch);
-        // Vector3 rightHandVelocity = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RTouch);
-        // float speed = Mathf.Max(leftHandVelocity.magnitude, rightHandVelocity.magnitude);
-
-        // Debug.Log("Speed: " + speed);
 
 
         // Give Haptics
@@ -187,6 +186,18 @@ public class MeleeWeapon : Item
         }
     
         OVRInput.SetControllerVibration(0, 0, controller);
+    }
+    
+    #endregion
+    
+    #region Local Controller Speed
+
+    private float GetMaxLocalControllerSpeed()
+    {
+        Vector3 leftHandVelocity  = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.LTouch);
+        Vector3 rightHandVelocity = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RTouch);
+        float maxSpeed = Mathf.Max(leftHandVelocity.magnitude, rightHandVelocity.magnitude);
+        return maxSpeed;
     }
     
     #endregion
