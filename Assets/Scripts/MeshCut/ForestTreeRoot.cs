@@ -6,6 +6,7 @@ public class ForestTreeRoot : MonoBehaviour, IDroppable
 {
     public ItemSO itemInfo;
     public ForestTreeTrunk other;
+    public float respawnCooldown;
     
     [SerializeField] private int numsToDrop = 2;
     [SerializeField] private bool dropAll = true;

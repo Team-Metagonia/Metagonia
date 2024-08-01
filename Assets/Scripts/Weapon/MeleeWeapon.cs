@@ -10,6 +10,9 @@ enum HandDominance
 public class MeleeWeapon : Item
 {
     private bool isColliding;
+    private bool isRapidColliding = false;
+
+    [SerializeField] private bool ignoreHitDirection = true;
     
     [SerializeField] private float hitPoint;
 
@@ -23,6 +26,7 @@ public class MeleeWeapon : Item
     protected override void Awake()
     {
         isColliding = false;
+        isRapidColliding = false;
     }
 
     private void OnCollisionEnter(Collision collision) 
@@ -45,11 +49,19 @@ public class MeleeWeapon : Item
 
     private void HandleDamagable(Collision collision)
     {
+        if (isRapidColliding) return;
+        
         IDamagable damagable = collision.gameObject.GetComponent<IDamagable>();
 
         DamageInfo damageInfo = CalculateAngleBasedDamage(collision);
         float damage = damageInfo.damage;
 
+        if (ignoreHitDirection)
+        {
+            damage = hitPoint;
+            damageInfo.damage = damage;
+        }
+        
         if (damage <= 0) return;
         Debug.Log("Damage: " + damage);
 
@@ -58,7 +70,7 @@ public class MeleeWeapon : Item
 
         damagable.TakeDamage(damageInfo);
         ApplyDamageEffect(damageInfo);
-
+        PreventRapidCollision();
 
         // Give Haptics
         float vibrationStrength = (hitPoint > 0) ? damage / hitPoint : 0;
@@ -200,5 +212,21 @@ public class MeleeWeapon : Item
         return maxSpeed;
     }
     
+    #endregion
+
+    #region Prevent Rapid Collision
+
+    private void PreventRapidCollision()
+    {
+        StartCoroutine(IEPreventRapidCollision());
+    }
+    
+    private IEnumerator IEPreventRapidCollision()
+    {
+        isRapidColliding = true;
+        yield return new WaitForSeconds(0.5f);
+        isRapidColliding = false;
+    }
+
     #endregion
 }
