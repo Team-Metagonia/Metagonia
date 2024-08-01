@@ -12,8 +12,6 @@ public class CustomizationApplier : MonoBehaviour
     private CharacterCustomization customCharacter;
     private CharacterCustomizationManager customizationManager;
     private CustomizationInfo info;
-    
-    public bool customizationInfoExist = true;
 
     private void Awake()
     {   
@@ -22,6 +20,9 @@ public class CustomizationApplier : MonoBehaviour
 
     private void Start()
     {
+        customizationManager = FindObjectOfType<CharacterCustomizationManager>();
+        bool customizationInfoExist = (customizationManager != null);
+        
         if (!customizationInfoExist)
         {
             FinishCustomizationEarly();
@@ -35,7 +36,6 @@ public class CustomizationApplier : MonoBehaviour
 
     private void Initialize()
     {
-        customizationManager = FindObjectOfType<CharacterCustomizationManager>();
         Debug.Assert(customizationManager != null, "Manager Disappears!");
 
         info = customizationManager.customizationInfo;

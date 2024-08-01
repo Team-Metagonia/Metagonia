@@ -15,8 +15,8 @@ public class CharacterCustomizationManager : MonoBehaviour
     [HideInInspector]
     public CharacterCustomization selectedCharacter;
 
-    private float durationOffset = 2f;
-    private float cameraMovingDuration = 3f;
+    private float durationOffset = 1.75f;
+    private float cameraMovingDuration = 0.75f;
 
     public CustomizationInfo customizationInfo;
 
@@ -37,9 +37,6 @@ public class CharacterCustomizationManager : MonoBehaviour
 
         Vector3 cameraPositionAfterSelected = GenerateCameraPositionAfterSelected();
         StartCoroutine(MoveCamera(cameraPositionAfterSelected, cameraMovingDuration, durationOffset));
-
-        EnableCutomizationCanvas();
-        InitializePanelController();
     }
 
     private Vector3 GenerateCameraPositionAfterSelected()
@@ -53,7 +50,7 @@ public class CharacterCustomizationManager : MonoBehaviour
         float dist = 1.5f;
         Transform characterTransform = selectedCharacter.gameObject.transform;
         Vector3 origin = characterTransform.position;
-        Vector3 adj = characterTransform.forward * dist;
+        Vector3 adj = characterTransform.forward * dist + characterTransform.right * (-1f);
         Vector3 targetPos = origin + adj;
         targetPos.y = cameraRig.transform.position.y;
 
@@ -76,6 +73,10 @@ public class CharacterCustomizationManager : MonoBehaviour
     
         // Set Exact Position
         cameraRig.transform.position = targetPos;
+        
+        // Initialize Customization Canvas
+        EnableCutomizationCanvas();
+        InitializePanelController();
     }
 
     private void EnableCutomizationCanvas()
