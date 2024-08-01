@@ -124,12 +124,12 @@ public class ForestTree : MonoBehaviour, IDamagable, ISliceable
         trunk.layer = this.gameObject.layer;
         root.layer  = this.gameObject.layer;
         
-        int defaultLayer = LayerMask.NameToLayer("Default");
-        trunkCollider.excludeLayers = 1 << defaultLayer;
-        rootCollider.excludeLayers  = 1 << defaultLayer;
+        // int defaultLayer = LayerMask.NameToLayer("Default");
+        // trunkCollider.excludeLayers = 1 << defaultLayer;
+        // rootCollider.excludeLayers  = 1 << defaultLayer;
         
         // Explosion
-        float radius = 1.0f, power = 5.0f;
+        float radius = 1.0f, power = 10.0f;
         trunkRigidBody.mass = 1f;
         trunkRigidBody.AddExplosionForce(power, trunkRigidBody.transform.position, radius, power);
     }

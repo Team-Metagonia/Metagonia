@@ -98,6 +98,6 @@ public class CharacterCustomizationManager : MonoBehaviour
     public void CompleteCustomization()
     {
         customizationInfo = selectedCharacter.GetCustomizationInfo();
-        SceneManager.LoadScene("Final");
+        SceneManager.LoadScene("Final SY");
     }
 }
