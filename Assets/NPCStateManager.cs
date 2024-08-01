@@ -39,12 +39,6 @@ public class NPCStateManager : MonoBehaviour
         
         commandObject.SetActive(isActive);
         poseObject.SetActive(isActive);
-
-        foreach (NPCStateChanger c in stateChangers)
-        {
-            c.isChangeable = isActive;
-        }
-
     }
 
     void SetCommandHelper(bool isActive)

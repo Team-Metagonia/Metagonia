@@ -107,7 +107,18 @@ public class StepOverObstacle : MonoBehaviour
 
         Debug.Log($"Moving to: {targetPosition}, Current Position: {currentPosition}, New Position: {newPosition}");
 
+        // Check if the object has reached the target position
         if (Mathf.Abs(currentPosition.y - targetPosition.y) < 0.05f)
+        {
+            isSteppingOver = false;
+        }
+
+        // Check if the object is no longer stepping over an obstacle
+        RaycastHit hit;
+        Vector3 origin = transform.position + Vector3.up * 0.1f;
+        LayerMask combinedMask = terrainLayerMask | playerLayerMask;
+
+        if (!Physics.Raycast(origin, transform.forward, out hit, 0.5f, ~combinedMask))
         {
             isSteppingOver = false;
         }
