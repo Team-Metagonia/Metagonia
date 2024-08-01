@@ -27,7 +27,7 @@ public class Stone : Item, IDamagable, IDroppable, IAttachable
     private void OnDisable() 
     {
         if (isInBag) return;
-        DropItems();
+       
     }
 
 
@@ -59,6 +59,7 @@ public class Stone : Item, IDamagable, IDroppable, IAttachable
 
     public void Die()
     {
+        DropItems();
         Destroy(this.gameObject);
     }
 
@@ -75,7 +76,7 @@ public class Stone : Item, IDamagable, IDroppable, IAttachable
         );
         Quaternion spawnRotation = this.transform.rotation;
 
-        GameObject resultItem = Instantiate(itemToDrop, spawnPosition, spawnRotation);
+        GameObject resultItem = Instantiate(itemToDrop, transform.position, spawnRotation);
 
         IAttachable attachable = this;
         HandGrabInteractable[] interactable = resultItem.GetComponentsInChildren<HandGrabInteractable>();

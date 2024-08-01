@@ -23,6 +23,7 @@ public class DistanceGrabRelease : MonoBehaviour
 
     private void Start()
     {
+        OVRControllerDrivenHands = GameObject.Find("OVRControllerDrivenHands").transform;
         newInteractors = OVRControllerDrivenHands.GetComponentsInChildren<HandGrabInteractor>(true);    
     }
     
