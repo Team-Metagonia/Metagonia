@@ -17,7 +17,7 @@ MonoBehaviour:
   value: 0
   quantity: 1
   type: 0
-  icon: {fileID: 21300000, guid: 28865e3766dc95c45b0a5720af378d53, type: 3}
+  icon: {fileID: 21300000, guid: dcc6e5273be516e4c8c3b0fc9f03e1d4, type: 3}
   simplePrefab: {fileID: 6152730827485020129, guid: 92829b0e8aeeeae4f85f36e749b03825, type: 3}
   completePrefab: {fileID: 6480985418915026185, guid: 96398216c66559546a9ec6aa8ff94d2d, type: 3}
   isSlot: 0

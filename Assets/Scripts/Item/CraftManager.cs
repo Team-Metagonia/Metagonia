@@ -32,12 +32,12 @@ public class CraftManager : MonoBehaviour
 
     public List<RecipeSO> recipeList = new List<RecipeSO>();
 
-    public GameObject CheckRecipeValidness(Item item1, Item item2)
+    public GameObject CheckRecipeValidness(Item item1, Item item2, int attachpoint)
     {
         foreach (RecipeSO recipe in recipeList)
         {
             List<ItemSO> r = recipe.ingredients;
-            if (r.Contains(item1.itemInfo) && r.Contains(item2.itemInfo))
+            if (r.Contains(item1.itemInfo) && r.Contains(item2.itemInfo) && attachpoint == recipe.attachPoint)
             {
                 return recipe.results[0];
             }

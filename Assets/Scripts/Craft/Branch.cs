@@ -21,10 +21,12 @@ public class Branch : Item, IAttachable, IDamagable
     [SerializeField]
     //HandGrabInteractor _currentHandInteractor;
 
-    public void Attach(Item baseitem, Item attacheditem)
+    public void Attach(Item baseitem, Item attacheditem, int attachPointIndex)
     {
+        Debug.Log("Attach Start");
+        Debug.Log($"Base Item : {baseitem}, attached Item : {attacheditem}, attachPointIndex : {attachPointIndex}");
         //Check if Recipe is Valid and return result Object & catch exception
-        GameObject obj = CraftManager.Instance.CheckRecipeValidness(baseitem, attacheditem);
+        GameObject obj = CraftManager.Instance.CheckRecipeValidness(baseitem, attacheditem, attachPointIndex);
         if (obj == null)
         {
             Debug.Log("Invalid Recipe. Recipe must be declared in RecipeSO in order to succesfully attach items.");
