@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 public class ForestTree : MonoBehaviour, IDamagable, ISliceable
 {
     public ItemSO itemInfo;
+    public int numsToDrop = 1;
+    public bool dropAll = true;
     
     public float Health { get; private set; }
     [SerializeField] private float initHealth = 9.9f;
@@ -121,6 +123,8 @@ public class ForestTree : MonoBehaviour, IDamagable, ISliceable
         rootComponent.itemInfo = this.itemInfo;
         rootComponent.transform.position = this.transform.position;
         rootComponent.respawnCooldown = this.respawnCooldown;
+        rootComponent.numsToDrop = this.numsToDrop;
+        rootComponent.dropAll = this.dropAll;
 
         // Layer Setting
         trunk.layer = this.gameObject.layer;
