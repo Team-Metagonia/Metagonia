@@ -109,7 +109,7 @@ public class FracturedChunk : MonoBehaviour
         {
             return;
         }
-
+        
         if(collision.contacts == null)
         {
             return;
@@ -158,7 +158,9 @@ public class FracturedChunk : MonoBehaviour
                     bOtherIsFreeChunkFromSameObject = true;
                 }
             }
-
+            
+            Debug.Log("Chunk Collision: " + collision.gameObject.name);
+            
             if(bOtherIsFreeChunkFromSameObject == false && collision.relativeVelocity.magnitude > FracturedObjectSource.EventDetachMinVelocity && fMass > FracturedObjectSource.EventDetachMinMass && GetComponent<Rigidbody>() != null && IsDestructibleChunk() && Check(collision))
             {
                 CollisionInfo collisionInfo = new CollisionInfo(this, collision, true);
@@ -567,14 +569,7 @@ public class FracturedChunk : MonoBehaviour
     
     private bool Check(Collision collision)
     {
-        Vector3 leftHandVelocity  = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.LTouch);
-        Vector3 rightHandVelocity = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RTouch);
-        float maxSpeed = Mathf.Max(leftHandVelocity.magnitude, rightHandVelocity.magnitude);
-        if (maxSpeed < 1f) return false;
-
-        bool tagAllowed = collision.gameObject.CompareTag("Weapon") || collision.gameObject.CompareTag("Terrain"); 
-        if (!tagAllowed) return false;
-
-        return true;
+        var checker = FracturedObjectSource.GetComponent<CheckFragmentCanBeDetached>();
+        return checker.Check(collision);
     }
 }
