@@ -23,7 +23,7 @@ public class CheckFragmentCanBeDetached : MonoBehaviour
 
     public bool Check(Collision collision)
     {
-        // if (!CheckIfGrabbed()) return false;
+        if (!CheckIfGrabbed()) return false;
         if (!CheckLocalControllerVelocity(localControllerThresholdSpeed)) return false;
         if (!CheckTagIsAllowed(collision, tagsAllowed)) return false;
 
