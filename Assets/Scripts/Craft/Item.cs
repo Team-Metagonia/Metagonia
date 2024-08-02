@@ -48,7 +48,9 @@ public class Item : MonoBehaviour
             InventoryVR.instance.AddToStackableList(this.itemInfo);
         }
         else InventoryVR.instance.AddToUnStackableList(this.itemInfo, this.gameObject);
-        
+
+        EncyclopediaManager.Instance.UpdateItemDic(itemInfo);
+
         Destroy(gameObject);
     }
 

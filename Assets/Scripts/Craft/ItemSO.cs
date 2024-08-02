@@ -13,6 +13,7 @@ public class ItemSO : ScriptableObject
     public ItemType type;
     public Sprite icon;
     public GameObject simplePrefab;
+    public GameObject encyclopediaPrefab;
     public GameObject completePrefab;
 
     public bool isSlot;
