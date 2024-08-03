@@ -70,4 +70,32 @@ public class CheckFragmentCanBeDetached : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _isGrabbed = true;
     }
+
+    public void OnDetachChunkCollision(FracturedChunk.CollisionInfo collisionInfo)
+    {
+        SetControllerVibration();
+    }
+    
+    private void SetControllerVibration()
+    {
+        Vector3 leftHandVelocity  = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.LTouch);
+        Vector3 rightHandVelocity = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RTouch);
+        float maxSpeed = Mathf.Max(leftHandVelocity.magnitude, rightHandVelocity.magnitude);
+        
+        OVRInput.Controller[] controllers = { OVRInput.Controller.LTouch, OVRInput.Controller.RTouch };
+        float vibrationStrength = maxSpeed;
+        float vibrationDuration = 0.3f;
+        
+        foreach (var controller in controllers)
+        {
+            OVRInput.SetControllerVibration(vibrationStrength, vibrationStrength, controller);
+            StartCoroutine(StopVibrationAfterDelay(controller, vibrationDuration));   
+        }
+    }
+        
+    private IEnumerator StopVibrationAfterDelay(OVRInput.Controller controller, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        OVRInput.SetControllerVibration(0, 0, controller);
+    }
 }

@@ -453,7 +453,7 @@ MonoBehaviour:
   SplitMaterial: {fileID: -876546973899608171, guid: c84b7c6d5462d8c4c83e6a9691e7f302, type: 3}
   SplitMappingTileU: 1
   SplitMappingTileV: 1
-  GUIExpandEvents: 0
+  GUIExpandEvents: 1
   EventDetachMinMass: -1
   EventDetachMinVelocity: -1
   EventDetachExitForce: 0.1
@@ -463,8 +463,8 @@ MonoBehaviour:
   - MinLifeTime: 0.5
     MaxLifeTime: 1
     GameObject: {fileID: 100000, guid: 0e8cd68f95c811d498cc00e8eb21356a, type: 3}
-  EventDetachCollisionCallMethod: 
-  EventDetachCollisionCallGameObject: {fileID: 0}
+  EventDetachCollisionCallMethod: OnDetachChunkCollision
+  EventDetachCollisionCallGameObject: {fileID: 3145815622241516241}
   EventDetachedMinLifeTime: Infinity
   EventDetachedMaxLifeTime: Infinity
   EventDetachedOffscreenLifeTime: Infinity
