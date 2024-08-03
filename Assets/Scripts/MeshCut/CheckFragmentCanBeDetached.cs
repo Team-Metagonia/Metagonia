@@ -25,7 +25,7 @@ public class CheckFragmentCanBeDetached : MonoBehaviour
     {
         if (!CheckIfGrabbed()) return false;
         if (!CheckLocalControllerVelocity(localControllerThresholdSpeed)) return false;
-        if (!CheckTagIsAllowed(collision, tagsAllowed)) return false;
+        if (!CheckTagIsAllowed(collision)) return false;
 
         return true;
     }
@@ -40,9 +40,7 @@ public class CheckFragmentCanBeDetached : MonoBehaviour
     
     private bool CheckLocalControllerVelocity(float thresholdSpeed)
     {
-        Vector3 leftHandVelocity  = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.LTouch);
-        Vector3 rightHandVelocity = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RTouch);
-        float maxSpeed = Mathf.Max(leftHandVelocity.magnitude, rightHandVelocity.magnitude);
+        float maxSpeed = GetMaxLocalControllerSpeed();
         
         if (maxSpeed > thresholdSpeed) Debug.Log("Local controller velocity is high enough: " + maxSpeed);
         else Debug.Log("Local controller velocity is low: " + maxSpeed);
@@ -50,9 +48,9 @@ public class CheckFragmentCanBeDetached : MonoBehaviour
         return maxSpeed > thresholdSpeed;
     }
 
-    private bool CheckTagIsAllowed(Collision collision, string[] tags)
+    private bool CheckTagIsAllowed(Collision collision)
     {
-        foreach (string objectTag in tags)
+        foreach (string objectTag in tagsAllowed)
         {
             if (collision.gameObject.CompareTag(objectTag))
             {
@@ -70,22 +68,30 @@ public class CheckFragmentCanBeDetached : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         _isGrabbed = true;
     }
-
-    public void OnDetachChunkCollision(FracturedChunk.CollisionInfo collisionInfo)
+    
+    public void OnChunkCollision(FracturedChunk.CollisionInfo collisionInfo)
     {
-        SetControllerVibration();
+        return;
     }
     
-    private void SetControllerVibration()
+    public void OnDetachChunkCollision(FracturedChunk.CollisionInfo collisionInfo)
+    {
+        float localControllerSpeed = GetMaxLocalControllerSpeed();
+        SetControllerVibration(localControllerSpeed, 0.2f);
+    }
+
+    private float GetMaxLocalControllerSpeed()
     {
         Vector3 leftHandVelocity  = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.LTouch);
         Vector3 rightHandVelocity = OVRInput.GetLocalControllerVelocity(OVRInput.Controller.RTouch);
         float maxSpeed = Mathf.Max(leftHandVelocity.magnitude, rightHandVelocity.magnitude);
         
+        return maxSpeed;
+    }
+    
+    private void SetControllerVibration(float vibrationStrength, float vibrationDuration)
+    {
         OVRInput.Controller[] controllers = { OVRInput.Controller.LTouch, OVRInput.Controller.RTouch };
-        float vibrationStrength = maxSpeed;
-        float vibrationDuration = 0.3f;
-        
         foreach (var controller in controllers)
         {
             OVRInput.SetControllerVibration(vibrationStrength, vibrationStrength, controller);

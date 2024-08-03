@@ -51,6 +51,8 @@ public class FracturedObjectEditor : Editor
     SerializedProperty PropEventDetachUpwardsModifier;
     SerializedProperty PropEventDetachSound;
     SerializedProperty PropEventDetachPrefabsArray;
+    SerializedProperty PropEventCollisionCallMethod;
+    SerializedProperty PropEventCollisionCallGameObject;
     SerializedProperty PropEventDetachCollisionCallMethod;
     SerializedProperty PropEventDetachCollisionCallGameObject;
     SerializedProperty PropEventDetachedMinLifeTime;
@@ -157,6 +159,8 @@ public class FracturedObjectEditor : Editor
         PropEventDetachUpwardsModifier              = serializedObject.FindProperty("EventDetachUpwardsModifier");
         PropEventDetachSound                        = serializedObject.FindProperty("EventDetachSound");
         PropEventDetachPrefabsArray                 = serializedObject.FindProperty("EventDetachPrefabsArray");
+        PropEventCollisionCallMethod                = serializedObject.FindProperty("EventCollisionCallMethod");
+        PropEventCollisionCallGameObject            = serializedObject.FindProperty("EventCollisionCallGameObject");
         PropEventDetachCollisionCallMethod          = serializedObject.FindProperty("EventDetachCollisionCallMethod");
         PropEventDetachCollisionCallGameObject      = serializedObject.FindProperty("EventDetachCollisionCallGameObject");
         PropEventDetachedMinLifeTime                = serializedObject.FindProperty("EventDetachedMinLifeTime");
@@ -466,6 +470,8 @@ public class FracturedObjectEditor : Editor
             EditorGUILayout.PropertyField(PropEventDetachUpwardsModifier,               new GUIContent("Upwards Modifier",       "Adds an upwards explosion effect to the chunks that have exit force. A value of 0.0 won't add any effect, while 2.0 means it will apply the force from a distance of 2 below the chunk."));
             EditorGUILayout.PropertyField(PropEventDetachSound,                         new GUIContent("Detach Sound",           "Will play this sound on the collision point when a chunk is detached due to an impact."));
             EditorGUILayout.PropertyField(PropEventDetachPrefabsArray,                  new GUIContent("Instance Prefab List (1 Randomly Spawned On Detach)", "A list of prefabs. When a chunk is detached due to an impact, a random prefab will be picked from this list and instanced on the collision point. Use this for particles/explosions."), true);
+            EditorGUILayout.PropertyField(PropEventCollisionCallMethod,                 new GUIContent("Call Method Name",       "The method name that will be called on collision."));
+            EditorGUILayout.PropertyField(PropEventCollisionCallGameObject,             new GUIContent("Call GameObject",        "The GameObject whose method will be called."));
             EditorGUILayout.PropertyField(PropEventDetachCollisionCallMethod,           new GUIContent("Call Method Name",       "The method name that will be called on an impact-triggered detach chunk event."));
             EditorGUILayout.PropertyField(PropEventDetachCollisionCallGameObject,       new GUIContent("Call GameObject",        "The GameObject whose method will be called."));
             EditorGUI.indentLevel -= nIndentationJump;

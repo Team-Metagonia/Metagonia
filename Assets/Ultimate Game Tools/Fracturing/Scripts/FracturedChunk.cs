@@ -161,9 +161,12 @@ public class FracturedChunk : MonoBehaviour
             
             Debug.Log("Chunk Collision: " + collision.gameObject.name);
             
-            if(bOtherIsFreeChunkFromSameObject == false && collision.relativeVelocity.magnitude > FracturedObjectSource.EventDetachMinVelocity && fMass > FracturedObjectSource.EventDetachMinMass && GetComponent<Rigidbody>() != null && IsDestructibleChunk() && Check(collision))
+            if(bOtherIsFreeChunkFromSameObject == false && collision.relativeVelocity.magnitude > FracturedObjectSource.EventDetachMinVelocity && fMass > FracturedObjectSource.EventDetachMinMass && GetComponent<Rigidbody>() != null && IsDestructibleChunk())
             {
                 CollisionInfo collisionInfo = new CollisionInfo(this, collision, true);
+                FracturedObjectSource.NotifyChunkCollision(collisionInfo);
+
+                if (!Check(collision)) return;
                 FracturedObjectSource.NotifyDetachChunkCollision(collisionInfo);
 
                 if(collisionInfo.bCancelCollisionEvent == false)

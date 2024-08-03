@@ -463,6 +463,8 @@ MonoBehaviour:
   - MinLifeTime: 0.5
     MaxLifeTime: 1
     GameObject: {fileID: 100000, guid: 0e8cd68f95c811d498cc00e8eb21356a, type: 3}
+  EventCollisionCallMethod: OnChunkCollision
+  EventCollisionCallGameObject: {fileID: 3145815622241516241}
   EventDetachCollisionCallMethod: OnDetachChunkCollision
   EventDetachCollisionCallGameObject: {fileID: 3145815622241516241}
   EventDetachedMinLifeTime: Infinity

@@ -76,6 +76,8 @@ public class FracturedObject : MonoBehaviour
     public float            EventDetachUpwardsModifier           = 0.0f;
     public AudioClip        EventDetachSound                     = null;
     public PrefabInfo[]     EventDetachPrefabsArray              = null;
+    public string           EventCollisionCallMethod             = "";
+    public GameObject       EventCollisionCallGameObject         = null;
     public string           EventDetachCollisionCallMethod       = "";
     public GameObject       EventDetachCollisionCallGameObject   = null;
     public float            EventDetachedMinLifeTime             = Mathf.Infinity;
@@ -593,6 +595,14 @@ public class FracturedObject : MonoBehaviour
         return m_bDetached;
     }
 
+    public void NotifyChunkCollision(FracturedChunk.CollisionInfo collisionInfo)
+    {
+        if (EventCollisionCallGameObject != null && EventCollisionCallMethod.Length > 0)
+        {
+            EventCollisionCallGameObject.SendMessage(EventCollisionCallMethod, collisionInfo);
+        }
+    }
+    
     public void NotifyChunkDetach(FracturedChunk chunk)
     {
         m_bDetached = true;
