@@ -19,7 +19,8 @@ MonoBehaviour:
   type: 0
   icon: {fileID: 21300000, guid: dcc6e5273be516e4c8c3b0fc9f03e1d4, type: 3}
   simplePrefab: {fileID: 6152730827485020129, guid: 92829b0e8aeeeae4f85f36e749b03825, type: 3}
-  completePrefab: {fileID: 6480985418915026185, guid: 42c1ac0fe14fab647a996662710931ad, type: 3}
+  encyclopediaPrefab: {fileID: 7050034626781495362, guid: 2222c9239c20a5440b5ee41ba0f6672f, type: 3}
+  completePrefab: {fileID: 6480985418915026185, guid: 96398216c66559546a9ec6aa8ff94d2d, type: 3}
   isSlot: 0
   slotRotation: {x: 0, y: 0, z: 0}
   currentSlot: {fileID: 0}

@@ -29,6 +29,7 @@ public class InventoryBag : MonoBehaviour
                 i.isInBag = true;
                 i.PickUp();
                 OnPickedUpToBag?.Invoke();
+                
             }
            
         }
