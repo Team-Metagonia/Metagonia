@@ -61,9 +61,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1909529516632117982}
-        m_TargetAssemblyTypeName: CheckFragmentCanBeDetached, Assembly-CSharp
+        m_TargetAssemblyTypeName: FragmentManager, Assembly-CSharp
         m_MethodName: WhenSelect
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -119,9 +119,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1909529516632117982}
-        m_TargetAssemblyTypeName: CheckFragmentCanBeDetached, Assembly-CSharp
+        m_TargetAssemblyTypeName: FragmentManager, Assembly-CSharp
         m_MethodName: WhenSelect
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -177,9 +177,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1909529516632117982}
-        m_TargetAssemblyTypeName: CheckFragmentCanBeDetached, Assembly-CSharp
+        m_TargetAssemblyTypeName: FragmentManager, Assembly-CSharp
         m_MethodName: WhenSelect
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -235,9 +235,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1909529516632117982}
-        m_TargetAssemblyTypeName: CheckFragmentCanBeDetached, Assembly-CSharp
+        m_TargetAssemblyTypeName: FragmentManager, Assembly-CSharp
         m_MethodName: WhenSelect
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -414,7 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52e48df0ab758a4b83a1eac26746ca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUIExpandMain: 0
+  GUIExpandMain: 1
   SourceObject: {fileID: 8217662291560517865}
   GenerateIslands: 1
   GenerateChunkConnectionInfo: 1
@@ -426,7 +426,7 @@ MonoBehaviour:
   ChunkIslandConnectionMaxDistance: 0.02
   TotalMass: 10
   ChunkPhysicMaterial: {fileID: 0}
-  MinColliderVolumeForBox: 0.01
+  MinColliderVolumeForBox: 1048576
   CapPrecisionFix: 0
   InvertCapNormals: 0
   GUIExpandSplits: 0
@@ -453,7 +453,7 @@ MonoBehaviour:
   SplitMaterial: {fileID: -876546973899608171, guid: c84b7c6d5462d8c4c83e6a9691e7f302, type: 3}
   SplitMappingTileU: 1
   SplitMappingTileV: 1
-  GUIExpandEvents: 1
+  GUIExpandEvents: 0
   EventDetachMinMass: -1
   EventDetachMinVelocity: -1
   EventDetachExitForce: 0.1
