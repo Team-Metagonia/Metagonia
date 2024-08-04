@@ -16,17 +16,17 @@ public class FragmentManager : MonoBehaviour
     public string[] tagsAllowed;
     public float localControllerThresholdSpeed = 0.5f;
 
-    public Transform root;
-    public Rigidbody hiddenMesh;
-    private FracturedChunk[] chunks;
-    private FracturedChunk lastChunk;
-    
     private int numFragments;
     private Dictionary<FracturedChunk, BoxCollider> chunkToColliderMap;
 
     private int numDetachedFragments = 0;
-    private int maxDetachedFragments = 3;
-    private float collisionCooldown = 0.5f;
+    public  int maxDetachedFragments = 3;
+    public float collisionCooldown = 0.5f;
+    
+    public Transform root;
+    public Rigidbody hiddenMesh;
+    private FracturedChunk[] chunks;
+    private FracturedChunk lastChunk;
     
     public GameObject prefabToInstantiateAfterDie;
     private GameObject instantiatedGameObject;
@@ -133,6 +133,8 @@ public class FragmentManager : MonoBehaviour
                 lastChunk = chunk;
                 lastChunk.GetComponent<Collider>().isTrigger = true;
             }
+
+            chunk.gameObject.layer = 1 << LayerMask.NameToLayer("Fragment");
         }
         
         numFragments = chunks.Length;
@@ -241,6 +243,7 @@ public class FragmentManager : MonoBehaviour
         fragmentColliders.transform.localPosition = Vector3.zero;
         fragmentColliders.transform.localRotation = Quaternion.identity;
         fragmentColliders.transform.localScale = Vector3.one;
+        fragmentColliders.gameObject.layer = 1 << LayerMask.NameToLayer("Ignore Collision");
 
         chunkToColliderMap = new Dictionary<FracturedChunk, BoxCollider>();
         
@@ -251,8 +254,6 @@ public class FragmentManager : MonoBehaviour
             destinationCollider.center = sourceCollider.center + sourceCollider.transform.localPosition;
             destinationCollider.size = sourceCollider.size;
             destinationCollider.excludeLayers = 1 << LayerMask.NameToLayer("Fragment");
-            
-            destinationCollider.gameObject.layer = 1 << LayerMask.NameToLayer("Ignore Collision");
             
             chunkToColliderMap.Add(chunk, destinationCollider);
         }
