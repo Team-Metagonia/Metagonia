@@ -345,7 +345,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7078614214361802439}
   m_Layer: 0
-  m_Name: LargeStone Fragments
+  m_Name: LargeStone Fragments Template
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -414,7 +414,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52e48df0ab758a4b83a1eac26746ca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GUIExpandMain: 1
+  GUIExpandMain: 0
   SourceObject: {fileID: 8217662291560517865}
   GenerateIslands: 1
   GenerateChunkConnectionInfo: 1
@@ -467,9 +467,9 @@ MonoBehaviour:
   EventCollisionCallGameObject: {fileID: 3145815622241516241}
   EventDetachCollisionCallMethod: OnDetachChunkCollision
   EventDetachCollisionCallGameObject: {fileID: 3145815622241516241}
-  EventDetachedMinLifeTime: Infinity
-  EventDetachedMaxLifeTime: Infinity
-  EventDetachedOffscreenLifeTime: Infinity
+  EventDetachedMinLifeTime: 3
+  EventDetachedMaxLifeTime: 5
+  EventDetachedOffscreenLifeTime: 4
   EventDetachedMinMass: 0.1
   EventDetachedMinVelocity: 0.1
   EventDetachedMaxSounds: 5
