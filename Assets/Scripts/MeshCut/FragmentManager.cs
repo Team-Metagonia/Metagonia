@@ -39,6 +39,9 @@ public class FragmentManager : MonoBehaviour
 
     private Vector3 lastPosition;
     private Quaternion lastRotation;
+
+    private GrabInteractor _lastGrabInteractor;
+    private DistanceGrabInteractor _lastDistanceGrabInteractor;
     
     private void Awake()
     {
@@ -54,6 +57,24 @@ public class FragmentManager : MonoBehaviour
             {
                 instantiatedGameObject.transform.position = lastChunk.transform.position;
                 instantiatedGameObject.transform.rotation = lastChunk.transform.rotation;
+            
+                // Handedness
+                _lastGrabInteractor = _grabInteractor;
+                _lastDistanceGrabInteractor = _distanceGrabInteractor;
+                
+                Handedness handedness = Handedness.Left;
+                if (_grabInteractor != null)         handedness = _grabInteractor.GetComponent<ControllerRef>().Handedness;
+                else if (_distanceGrabInteractor != null) handedness = _distanceGrabInteractor.GetComponent<ControllerRef>().Handedness;
+
+                if (_grabInteractor == null && _distanceGrabInteractor == null)
+                {
+                    Debug.LogError("FragmentManage: Interactors are null. Something wrong");
+                }
+                if      (handedness == Handedness.Left)  OVRBrain.Instance.LeftHandObject  = instantiatedGameObject;
+                else if (handedness == Handedness.Right) OVRBrain.Instance.RightHandObject = instantiatedGameObject;
+                
+                if      (handedness == Handedness.Left)  Debug.Log("Last grab hand is left");
+                else if (handedness == Handedness.Right) Debug.Log("Last grab hand is right");
             }
             else if (!isDying)
             {
@@ -67,6 +88,21 @@ public class FragmentManager : MonoBehaviour
                 
                 StartCoroutine(IEDestroyNextFrame(root.gameObject));
                 Debug.Log("Root GameObject Destroy => Check Item Collision");
+                
+                // Handedness
+                Handedness lastHandedness = Handedness.Left;
+                if (_lastGrabInteractor != null)
+                    lastHandedness = _lastGrabInteractor.GetComponent<ControllerRef>().Handedness;
+                else if (_lastDistanceGrabInteractor != null)
+                    lastHandedness = _lastDistanceGrabInteractor.GetComponent<ControllerRef>().Handedness;
+                
+                if      (lastHandedness == Handedness.Left)  OVRBrain.Instance.LeftHandObject  = null;
+                else if (lastHandedness == Handedness.Right) OVRBrain.Instance.RightHandObject = null;
+                
+                if      (lastHandedness == Handedness.Left)  Debug.Log("Last ungrab hand is left");
+                else if (lastHandedness == Handedness.Right) Debug.Log("Last ungrab hand is right");
+                
+                
             }
         }
     }
@@ -235,16 +271,8 @@ public class FragmentManager : MonoBehaviour
         numDetachedFragments = 0;
         
         lastChunk.gameObject.SetActive(false);
-        
-        Handedness handedness = Handedness.Left;
-        if (_grabInteractor != null)         handedness = _grabInteractor.GetComponent<ControllerRef>().Handedness;
-        if (_distanceGrabInteractor != null) handedness = _distanceGrabInteractor.GetComponent<ControllerRef>().Handedness;
-        
         instantiatedGameObject = Instantiate(prefabToInstantiateAfterDie, lastChunk.transform.position, lastChunk.transform.rotation);
         instantiatedGameObject.transform.SetParent(null);
-
-        if      (handedness == Handedness.Left)  OVRBrain.Instance.LeftHandObject  = instantiatedGameObject;
-        else if (handedness == Handedness.Right) OVRBrain.Instance.RightHandObject = instantiatedGameObject;
     }
     
     private IEnumerator IEDestroyNextFrame(GameObject rootGameObject)
