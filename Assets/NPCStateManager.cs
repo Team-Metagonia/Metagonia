@@ -36,7 +36,6 @@ public class NPCStateManager : MonoBehaviour
 
     void SetCommandBoolean(bool isActive)
     {
-        
         commandObject.SetActive(isActive);
         poseObject.SetActive(isActive);
     }

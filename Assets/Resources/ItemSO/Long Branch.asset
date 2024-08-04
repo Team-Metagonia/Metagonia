@@ -24,4 +24,5 @@ MonoBehaviour:
   slotRotation: {x: 0, y: 0, z: 0}
   currentSlot: {fileID: 0}
   dropItems:
-  - {fileID: 5192707588144672756, guid: 66980671b8efd4f4cad3ae9fb4256366, type: 3}
+  - {fileID: 6334730217627051269, guid: ed7d6c037a950b5468d60d5320504664, type: 3}
+  - {fileID: 6334730217627051269, guid: ed7d6c037a950b5468d60d5320504664, type: 3}

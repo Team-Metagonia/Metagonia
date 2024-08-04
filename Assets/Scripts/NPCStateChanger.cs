@@ -8,7 +8,8 @@ public class NPCStateChanger : MonoBehaviour
 
     public void SetState()
     {
-       // Set the global variable "currentState" to the specified state
+
+        // Set the global variable "currentState" to the specified state
         GlobalVariables.Instance.SetVariableValue("currentState", stateToSet);
         Debug.Log($"[NPCStateChanger] SetState: currentState set to {stateToSet}");
     }

@@ -54,24 +54,40 @@ public class Item : MonoBehaviour
 
     public void SendSelectedItemInfo(PointerEvent pointerEvent)
     {
-        
         _currentHandInteractor = pointerEvent.Data as HandGrabInteractor;
-        if (_currentHandInteractor.gameObject.GetComponent<HandRef>().Handedness == Handedness.Left)
+        if (_currentHandInteractor == null) return;
+        if (_currentHandInteractor.gameObject.TryGetComponent<HandRef>(out HandRef h))
         {
-            OVRBrain.Instance.LeftHandObject = this.gameObject;
-        }
-        else OVRBrain.Instance.RightHandObject = this.gameObject;
+            if(h.Handedness == Handedness.Left)
+            {
+                OVRBrain.Instance.LeftHandObject = this.gameObject;
+            }
+
+            else OVRBrain.Instance.RightHandObject = this.gameObject;
+        }   
     }
 
     public void SendUnselectedItemInfo(PointerEvent pointerEvent)
     {
-        
         _currentHandInteractor = pointerEvent.Data as HandGrabInteractor;
-        if (_currentHandInteractor.gameObject.GetComponent<HandRef>().Handedness == Handedness.Left)
+        if (_currentHandInteractor == null) return;
+        if (_currentHandInteractor.gameObject.TryGetComponent<HandRef>(out HandRef h))
         {
-            OVRBrain.Instance.LeftHandObject = null;
+            if (h.Handedness == Handedness.Left)
+            {
+                OVRBrain.Instance.LeftHandObject = null;
+            }
+
+            else OVRBrain.Instance.RightHandObject = null;
         }
-        else OVRBrain.Instance.RightHandObject = null;
         _currentHandInteractor = null;
+
+        //_currentHandInteractor = pointerEvent.Data as HandGrabInteractor;
+        //if (_currentHandInteractor.gameObject.GetComponent<HandRef>().Handedness == Handedness.Left)
+        //{
+        //    OVRBrain.Instance.LeftHandObject = null;
+        //}
+        //else OVRBrain.Instance.RightHandObject = null;
+        //_currentHandInteractor = null;
     }
 }
