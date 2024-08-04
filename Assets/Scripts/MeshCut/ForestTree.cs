@@ -8,6 +8,8 @@ using Random = UnityEngine.Random;
 public class ForestTree : MonoBehaviour, IDamagable, ISliceable
 {
     public ItemSO itemInfo;
+    public int numsToDrop = 1;
+    public bool dropAll = true;
     
     public float Health { get; private set; }
     [SerializeField] private float initHealth = 9.9f;
@@ -115,10 +117,14 @@ public class ForestTree : MonoBehaviour, IDamagable, ISliceable
         trunkComponent.other = rootComponent;
         trunkComponent.itemInfo = this.itemInfo;
         trunkComponent.transform.position = this.transform.position;
+        trunkComponent.respawnCooldown = this.respawnCooldown;
         
         rootComponent.other = trunkComponent;
         rootComponent.itemInfo = this.itemInfo;
         rootComponent.transform.position = this.transform.position;
+        rootComponent.respawnCooldown = this.respawnCooldown;
+        rootComponent.numsToDrop = this.numsToDrop;
+        rootComponent.dropAll = this.dropAll;
 
         // Layer Setting
         trunk.layer = this.gameObject.layer;
@@ -129,7 +135,7 @@ public class ForestTree : MonoBehaviour, IDamagable, ISliceable
         // rootCollider.excludeLayers  = 1 << defaultLayer;
         
         // Explosion
-        float radius = 1.0f, power = 10.0f;
+        float radius = 1.0f, power = 5.0f;
         trunkRigidBody.mass = 1f;
         trunkRigidBody.AddExplosionForce(power, trunkRigidBody.transform.position, radius, power);
     }

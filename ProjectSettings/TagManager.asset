@@ -10,6 +10,7 @@ TagManager:
   - Projectile
   - Floor
   - Weapon
+  - WorkBench
   layers:
   - Default
   - TransparentFX
@@ -32,7 +33,7 @@ TagManager:
   - 
   - Ignore Collision
   - 
-  - 
+  - Fragment
   - 
   - 
   - 

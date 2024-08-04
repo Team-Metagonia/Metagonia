@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 enum HandDominance
 {
@@ -10,6 +12,9 @@ enum HandDominance
 public class MeleeWeapon : Item
 {
     private bool isColliding;
+    private bool isRapidColliding = false;
+
+    [SerializeField] private bool ignoreHitDirection = true;
     
     [SerializeField] private float hitPoint;
 
@@ -19,37 +24,69 @@ public class MeleeWeapon : Item
     public GameObject[] damageEffects;
 
     [SerializeField] private float thresholdLocalControllerSpeed = 1f;
+    
+    private Vector3 previousHeadPosition;
+    private Vector3 previousBodyPosition;
+    private Vector3 previousTipPosition;
+
+    private Quaternion previousRotation;
+
 
     protected override void Awake()
     {
-        isColliding = false;
+        isRapidColliding = false;
+    }
+
+    private void LateUpdate()
+    {
+        previousHeadPosition = this.headTransform.position;
+        previousBodyPosition = this.bodyTransform.position;
+        previousTipPosition  = this.tipTransform.position;
+
+        previousRotation = this.transform.rotation;
     }
 
     private void OnCollisionEnter(Collision collision) 
     {
-        if (isColliding) return;
-        isColliding = true;
-        
         IDamagable damagable = collision.gameObject.GetComponent<IDamagable>();
-        if (damagable != null) 
+        if (damagable != null)
         {
+            this.transform.rotation = previousRotation;
+            //this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
+            //this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationY;
+            //this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+            this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+            // StartCoroutine(F());
+            
             HandleDamagable(collision);
             return;
         }
     }
+    
+    
 
     private void OnCollisionExit(Collision collision) 
     {
-        isColliding = false;
+        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        
+        Debug.Log("OnCollisionExit: " + collision.gameObject.name);
     }
 
     private void HandleDamagable(Collision collision)
     {
+        if (isRapidColliding) return;
+        
         IDamagable damagable = collision.gameObject.GetComponent<IDamagable>();
 
         DamageInfo damageInfo = CalculateAngleBasedDamage(collision);
         float damage = damageInfo.damage;
 
+        if (ignoreHitDirection)
+        {
+            damage = hitPoint;
+            damageInfo.damage = damage;
+        }
+        
         if (damage <= 0) return;
         Debug.Log("Damage: " + damage);
 
@@ -58,13 +95,15 @@ public class MeleeWeapon : Item
 
         damagable.TakeDamage(damageInfo);
         ApplyDamageEffect(damageInfo);
-
+        PreventRapidCollision();
 
         // Give Haptics
         float vibrationStrength = (hitPoint > 0) ? damage / hitPoint : 0;
         // float vibrationDuration = 0.1f;
         // UseControllerVibration(vibrationStrength, vibrationDuration);
         UseControllerVibrationWhileColliding(vibrationStrength, HandDominance.Both);
+        
+        
     }
 
     #region Calculate Damage
@@ -87,7 +126,8 @@ public class MeleeWeapon : Item
         position *= 1f / (float) cnt;
         normal *= 1f / (float) cnt;
 
-        Vector3 vec = tipTransform.position - headTransform.position;
+        // Vector3 vec = tipTransform.position - headTransform.position;
+        Vector3 vec = previousTipPosition - previousHeadPosition;
         float damage = Vector3.Dot(-vec.normalized, normal.normalized);
         damage = Mathf.Max(damage, 0);
         damage *= hitPoint;
@@ -95,8 +135,11 @@ public class MeleeWeapon : Item
         // 0 <= damage <= 1
 
         // Get Plane Normal
-        Vector3 x = headTransform.position - tipTransform.position;
-        Vector3 y = headTransform.position - bodyTransform.position;
+        // Vector3 x = headTransform.position - tipTransform.position;
+        // Vector3 y = headTransform.position - bodyTransform.position;
+        Vector3 x = previousHeadPosition - previousTipPosition;
+        Vector3 y = previousHeadPosition - previousBodyPosition;
+        
         x = x.normalized;
         y = y.normalized;
         Vector3 planeNormal = Vector3.Cross(x, y);
@@ -201,4 +244,29 @@ public class MeleeWeapon : Item
     }
     
     #endregion
+
+    #region Prevent Rapid Collision
+
+    private void PreventRapidCollision()
+    {
+        StartCoroutine(IEPreventRapidCollision());
+    }
+    
+    private IEnumerator IEPreventRapidCollision()
+    {
+        isRapidColliding = true;
+        yield return new WaitForSeconds(0.5f);
+        isRapidColliding = false;
+    }
+
+    #endregion
+
+    private IEnumerator F()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        var originalConstraints = this.GetComponent<Rigidbody>().constraints; 
+        var unfreezePosition = ~RigidbodyConstraints.FreezePosition;  
+        this.GetComponent<Rigidbody>().constraints = originalConstraints & unfreezePosition;
+    }
 }
