@@ -530,8 +530,10 @@ MonoBehaviour:
   tagsAllowed:
   - Weapon
   - WorkBench
-  localControllerThresholdSpeed: 0.5
+  localControllerThresholdSpeed: 0.1
+  root: {fileID: 7078614214361802439}
   hiddenMesh: {fileID: 1974514286648326162}
+  prefabToInstantiateAfterDie: {fileID: 3140972075568157767, guid: ddbb1fe997ff1a942985348fa6530b10, type: 3}
 --- !u!1 &3498932887277714827
 GameObject:
   m_ObjectHideFlags: 0
