@@ -573,7 +573,7 @@ public class FracturedChunk : MonoBehaviour
     
     private bool Check(Collision collision)
     {
-        var checker = FracturedObjectSource.GetComponent<CheckFragmentCanBeDetached>();
+        var checker = FracturedObjectSource.GetComponent<FragmentManager>();
         return checker.Check(collision);
     }
 }

@@ -1,15 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
+using Unity.VisualScripting;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
-public class CheckFragmentCanBeDetached : MonoBehaviour
+public class FragmentManager : MonoBehaviour
 {
     private bool _isGrabbed = false;
     public bool IsGrabbed { get { return _isGrabbed; } }
     
     public string[] tagsAllowed;
     public float localControllerThresholdSpeed = 0.5f;
-
+    
+    public Rigidbody hiddenMesh;
+    private FracturedChunk[] chunks;
+    private int numFragments;
+    private Dictionary<FracturedChunk, BoxCollider> chunkToColliderMap;
+    
+    private void Awake()
+    {
+        chunks = GetComponentsInChildren<FracturedChunk>();
+        numFragments = chunks.Length;
+        SetUpCompoundCollider();
+    }
+    
     public void WhenSelect()
     {
         StartCoroutine(IEWhenSelect());
@@ -78,6 +94,14 @@ public class CheckFragmentCanBeDetached : MonoBehaviour
     {
         float localControllerSpeed = GetMaxLocalControllerSpeed();
         SetControllerVibration(localControllerSpeed, 0.2f);
+
+        numFragments--;
+        AdjustCollider(collisionInfo);
+    }
+
+    public void OnChunkDetach()
+    {
+        return;
     }
 
     private float GetMaxLocalControllerSpeed()
@@ -103,5 +127,34 @@ public class CheckFragmentCanBeDetached : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         OVRInput.SetControllerVibration(0, 0, controller);
+    }
+
+    private void SetUpCompoundCollider()
+    {
+        GameObject fragmentColliders = new GameObject("Fragment Colliders");
+        fragmentColliders.transform.SetParent(hiddenMesh.transform);
+        fragmentColliders.transform.localPosition = Vector3.zero;
+        fragmentColliders.transform.localRotation = Quaternion.identity;
+        fragmentColliders.transform.localScale = Vector3.one;
+
+        chunkToColliderMap = new Dictionary<FracturedChunk, BoxCollider>();
+        
+        foreach (FracturedChunk chunk in chunks)
+        {
+            BoxCollider sourceCollider = chunk.GetComponent<BoxCollider>();
+            BoxCollider destinationCollider = fragmentColliders.AddComponent<BoxCollider>();
+            destinationCollider.center = sourceCollider.center + sourceCollider.transform.localPosition;
+            destinationCollider.size = sourceCollider.size;
+            destinationCollider.excludeLayers = 1 << LayerMask.NameToLayer("Fragment");
+            
+            chunkToColliderMap.Add(chunk, destinationCollider);
+        }
+    }
+
+    private void AdjustCollider(FracturedChunk.CollisionInfo collisionInfo)
+    {
+        FracturedChunk detachedChunk = collisionInfo.chunk;
+        BoxCollider colliderToDisable = chunkToColliderMap[detachedChunk];
+        colliderToDisable.enabled = false;
     }
 }
