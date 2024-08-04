@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 2659184391971825818}
   - component: {fileID: 4402272113001866663}
+  - component: {fileID: 8840222622211315489}
+  - component: {fileID: 641144891666716389}
   m_Layer: 0
-  m_Name: HandGrabInteraction
+  m_Name: LeftInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,6 +77,44 @@ MonoBehaviour:
   _handAligment: 1
   _handGrabPoses:
   - {fileID: 5715797054147065591}
+--- !u!114 &8840222622211315489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55689944135699744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07525681efbca7a4e9643ab3a592ada7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactorFilters: []
+  _maxInteractors: -1
+  _maxSelectingInteractors: -1
+  _data: {fileID: 0}
+  _pointableElement: {fileID: 3700056105510438625}
+  _rigidbody: {fileID: 6101810744362678665}
+  _grabSource: {fileID: 0}
+  _resetGrabOnGrabsUpdated: 1
+  _physicsGrabbable: {fileID: 0}
+  _movementProvider: {fileID: 0}
+--- !u!114 &641144891666716389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55689944135699744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c762aa82bee7bbe43a00e97209785172, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  releaseDistanceThreshold: 0.1
+  handSelection: 0
+  OVRControllerDrivenHands: {fileID: 0}
+  interactable: {fileID: 4402272113001866663}
 --- !u!1 &215182682133772799
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,8 +290,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4277248549619470390}
   - component: {fileID: 3746564120025653659}
+  - component: {fileID: 7050258514246606535}
+  - component: {fileID: 5836336040607868823}
   m_Layer: 0
-  m_Name: HandGrabInteraction_mirror
+  m_Name: RightInteraction
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -315,6 +357,44 @@ MonoBehaviour:
   _handAligment: 1
   _handGrabPoses:
   - {fileID: 1933231201124189509}
+--- !u!114 &7050258514246606535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800748763914681925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07525681efbca7a4e9643ab3a592ada7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _interactorFilters: []
+  _maxInteractors: -1
+  _maxSelectingInteractors: -1
+  _data: {fileID: 0}
+  _pointableElement: {fileID: 3700056105510438625}
+  _rigidbody: {fileID: 6101810744362678665}
+  _grabSource: {fileID: 0}
+  _resetGrabOnGrabsUpdated: 1
+  _physicsGrabbable: {fileID: 0}
+  _movementProvider: {fileID: 0}
+--- !u!114 &5836336040607868823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800748763914681925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c762aa82bee7bbe43a00e97209785172, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  releaseDistanceThreshold: 0.1
+  handSelection: 1
+  OVRControllerDrivenHands: {fileID: 0}
+  interactable: {fileID: 3746564120025653659}
 --- !u!1 &6089247652049148948
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,6 +407,8 @@ GameObject:
   - component: {fileID: 2247926974845287561}
   - component: {fileID: 3585851896533871945}
   - component: {fileID: 2248707339356024061}
+  - component: {fileID: 6459109351085317013}
+  - component: {fileID: 6645186374774951592}
   m_Layer: 0
   m_Name: Wrapper
   m_TagString: Untagged
@@ -529,6 +611,98 @@ MonoBehaviour:
   _whenCancel:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6459109351085317013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6089247652049148948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f8f6e9e6f3e114b9bf9a57c2160615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pointable: {fileID: 3700056105510438625}
+  _whenRelease:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenHover:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenUnhover:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenSelect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 641144891666716389}
+        m_TargetAssemblyTypeName: DistanceGrabRelease, Assembly-CSharp
+        m_MethodName: ReleaseDistanceGrab
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _whenUnselect:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenMove:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenCancel:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &6645186374774951592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6089247652049148948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2f8f6e9e6f3e114b9bf9a57c2160615, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pointable: {fileID: 3700056105510438625}
+  _whenRelease:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenHover:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenUnhover:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenSelect:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5836336040607868823}
+        m_TargetAssemblyTypeName: DistanceGrabRelease, Assembly-CSharp
+        m_MethodName: ReleaseDistanceGrab
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _whenUnselect:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenMove:
+    m_PersistentCalls:
+      m_Calls: []
+  _whenCancel:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6172421901326166231
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,7 +722,7 @@ GameObject:
   - component: {fileID: 6384920378803910466}
   - component: {fileID: 1033609649554875249}
   m_Layer: 0
-  m_Name: StoneHammer
+  m_Name: StoneHammer_complete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -769,6 +943,7 @@ MonoBehaviour:
   bodyTransform: {fileID: 2799775587264288387}
   tipTransform: {fileID: 433859885200611419}
   damageEffects: []
+  thresholdLocalControllerSpeed: 1
 --- !u!1 &6823412387474033984
 GameObject:
   m_ObjectHideFlags: 0
