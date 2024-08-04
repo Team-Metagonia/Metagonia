@@ -2,114 +2,168 @@ using UnityEngine;
 
 public class StepOverObstacle : MonoBehaviour
 {
-    [Tooltip("The maximum height of the obstacle the player can step over")]
+    /// <summary>
+    /// Maximum height of steps that can be stepped over.
+    /// </summary>
+    [Tooltip("최대 넘어갈 수 있는 계단 높이")]
     [SerializeField]
-    private float maxStepHeight = 0.5f;
+    private float stepHeight = 0.5f;
 
-    [Tooltip("The speed at which the player will step over the obstacle")]
+    /// <summary>
+    /// Distance to check in front of the character for steps.
+    /// </summary>
+    [Tooltip("계단을 확인할 앞쪽 거리")]
     [SerializeField]
-    private float stepSpeed = 2.0f;
+    private float stepCheckDistance = 0.3f;
 
-    [Tooltip("The layer mask to specify which layers to detect")]
+    /// <summary>
+    /// Speed to step over the obstacle.
+    /// </summary>
+    [Tooltip("장애물을 넘는 속도")]
     [SerializeField]
-    private LayerMask terrainLayerMask;
+    private float stepOverSpeed = 2.0f;
 
-    [Tooltip("The layer mask to specify which layers to exclude")]
+    /// <summary>
+    /// Starting height of the low raycast.
+    /// </summary>
+    [Tooltip("Low 레이캐스트 시작 높이")]
     [SerializeField]
-    private LayerMask playerLayerMask;
+    private float lowRaycastHeight = 0.01f;
 
-    private Rigidbody rigidBody;
-    private bool isSteppingOver = false;
-    private Vector3 targetPosition;
+    /// <summary>
+    /// LayerMask to specify which layers the raycasts should not collide with.
+    /// </summary>
+    [Tooltip("레이캐스트가 충돌하지 않을 레이어")]
+    [SerializeField]
+    private LayerMask excludeLayerMask;
 
-    void Start()
+    /// <summary>
+    /// Reference to the Rigidbody component.
+    /// </summary>
+    private Rigidbody _rigidbody;
+
+    /// <summary>
+    /// Reference to the Collider component.
+    /// </summary>
+    private Collider _collider;
+
+    private bool _isSteppingOver;
+    private Vector3 _stepTargetPosition;
+    private Collider _initialStepCollider;
+    private Vector3 _stepDirection;
+
+    private void Awake()
     {
-        rigidBody = GetComponent<Rigidbody>();
-        if (rigidBody == null)
-        {
-            Debug.LogError("Rigidbody component is missing.");
-        }
+        _rigidbody = GetComponent<Rigidbody>();
+        _collider = GetComponent<Collider>();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        if (isSteppingOver)
+        if (_isSteppingOver)
         {
             StepOver();
         }
         else
         {
-            CheckStep();
+            CheckForStep();
         }
     }
 
-    private void CheckStep()
+    private void CheckForStep()
     {
-        Vector3[] directions = {
-            transform.forward,
-            transform.right,
-            -transform.forward,
-            -transform.right,
-            (transform.forward + transform.right).normalized,
-            (transform.forward - transform.right).normalized,
-            (-transform.forward + transform.right).normalized,
-            (-transform.forward - transform.right).normalized
-        };
+        Vector3[] directions = Get8Directions();
+        Vector3 originLow = transform.position + Vector3.up * lowRaycastHeight;
+        Vector3 originHigh = transform.position + Vector3.up * (lowRaycastHeight + stepHeight);
+        int layerMask = ~excludeLayerMask; // excludeLayerMask에서 제외한 레이어들만 포함
 
         foreach (var direction in directions)
         {
-            if (TryStep(direction))
+            bool lowHit = Physics.Raycast(originLow, direction, out RaycastHit hitLow, stepCheckDistance, layerMask);
+            bool highHit = Physics.Raycast(originHigh, direction, out RaycastHit hitHigh, stepCheckDistance, layerMask);
+
+            Debug.Log("Low Raycast hit at position: " + (lowHit ? hitLow.point.ToString() : "no hit") + " with collider: " + (lowHit ? hitLow.collider.name : "null"));
+            Debug.Log("High Raycast hit at position: " + (highHit ? hitHigh.point.ToString() : "no hit") + " with collider: " + (highHit ? hitHigh.collider.name : "null"));
+
+            // 첫 번째 레이캐스트는 충돌하고, 두 번째 레이캐스트가 충돌하지 않았거나 두 레이캐스트가 다른 콜라이더와 충돌한 경우
+            if (lowHit && (!highHit || hitLow.collider != hitHigh.collider))
             {
-                break;
-            }
-        }
-    }
-
-    private bool TryStep(Vector3 direction)
-    {
-        RaycastHit hit;
-        Vector3 origin = transform.position + Vector3.up * 0.1f;
-        Debug.DrawRay(origin, direction * 0.5f, Color.red);
-
-        // Combine both terrain and player layers to ignore in the raycast
-        LayerMask combinedMask = terrainLayerMask | playerLayerMask;
-
-        // Raycast with layer mask that ignores both terrain and player layers
-        if (Physics.Raycast(origin, direction, out hit, 0.5f, ~combinedMask))
-        {
-            Debug.Log($"[StepOverObstacle] [Ray] Hit: {hit.collider.name}, Height: {hit.collider.bounds.max.y}, Player Y: {transform.position.y}");
-
-            float obstacleHeight = hit.collider.bounds.max.y - transform.position.y;
-            Debug.Log($"Obstacle Height: {obstacleHeight}");
-
-            if (obstacleHeight <= maxStepHeight)
-            {
-                Vector3 stepOrigin = new Vector3(hit.point.x, hit.collider.bounds.max.y + 0.1f, hit.point.z);
-                Debug.DrawRay(stepOrigin, Vector3.down * 0.2f, Color.green);
-
-                if (Physics.Raycast(stepOrigin, Vector3.down, out RaycastHit stepHit, 0.2f, ~combinedMask))
+                Debug.Log("Low and High Raycast hit different colliders or High Raycast hit nothing. Low hit: " + hitLow.collider.name + ", High hit: " + (highHit ? hitHigh.collider.name : "null"));
+                Vector2 leftStickInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
+                if (leftStickInput != Vector2.zero) // OVR 왼쪽 스틱 입력이 있을 때만 계단을 넘음
                 {
-                    Debug.Log($"Step Hit: {stepHit.collider.name}, Step Point Y: {stepHit.point.y}");
-                    isSteppingOver = true;
-                    targetPosition = new Vector3(transform.position.x, stepHit.point.y, transform.position.z);
-                    return true;
+                    Debug.Log("Initiating step over. Target position: " + _stepTargetPosition);
+                    _isSteppingOver = true;
+                    _stepTargetPosition = new Vector3(transform.position.x, hitLow.point.y + _collider.bounds.extents.y, transform.position.z) + direction * stepCheckDistance;
+                    _initialStepCollider = hitLow.collider;
+                    _stepDirection = direction;
+                    return; // 하나라도 조건에 맞으면 즉시 반환
                 }
             }
         }
-        return false;
     }
 
     private void StepOver()
     {
-        Vector3 currentPosition = transform.position;
-        Vector3 newPosition = Vector3.MoveTowards(currentPosition, targetPosition, stepSpeed * Time.fixedDeltaTime);
-        rigidBody.MovePosition(new Vector3(currentPosition.x, newPosition.y, currentPosition.z));
+        Vector2 leftStickInput = OVRInput.Get(OVRInput.Axis2D.PrimaryThumbstick);
+        Vector3 direction = GetDirectionFromInput(leftStickInput);
 
-        Debug.Log($"Moving to: {targetPosition}, Current Position: {currentPosition}, New Position: {newPosition}");
-
-        if (Mathf.Abs(currentPosition.y - targetPosition.y) < 0.05f)
+        // 조이스틱 입력이 현재 스텝오버 방향과 맞지 않으면 스텝오버 취소
+        if (direction == Vector3.zero || Vector3.Dot(direction, _stepDirection) < 0.5f)
         {
-            isSteppingOver = false;
+            _isSteppingOver = false;
+            _rigidbody.velocity = Vector3.zero;
+            Debug.Log("Stepping over canceled due to stick input direction change.");
+            return;
         }
+
+        Vector3 originLow = transform.position + Vector3.up * lowRaycastHeight;
+        int layerMask = ~excludeLayerMask; // excludeLayerMask에서 제외한 레이어들만 포함
+
+        bool currentLowHit = Physics.Raycast(originLow, _stepDirection, out RaycastHit hitLow, stepCheckDistance, layerMask);
+
+        if (!currentLowHit || hitLow.collider == null || hitLow.collider != _initialStepCollider)
+        {
+            _isSteppingOver = false;
+            _rigidbody.velocity = Vector3.zero; // 이동을 멈춤
+            Debug.Log("Stepping over canceled due to target collider change or null. Initial collider: " + (_initialStepCollider != null ? _initialStepCollider.name : "null") + ", Current collider: " + (currentLowHit ? (hitLow.collider != null ? hitLow.collider.name : "null") : "no hit"));
+            return;
+        }
+
+        Vector3 newPosition = Vector3.MoveTowards(transform.position, _stepTargetPosition, stepOverSpeed * Time.deltaTime);
+        Vector3 moveDirection = (newPosition - transform.position).normalized;
+        _rigidbody.velocity = moveDirection * stepOverSpeed;
+    }
+
+    private Vector3[] Get8Directions()
+    {
+        Vector3 forward = transform.forward;
+        Vector3 right = transform.right;
+        Vector3 left = -right;
+        Vector3 back = -forward;
+
+        return new Vector3[]
+        {
+            forward,
+            back,
+            right,
+            left,
+            (forward + right).normalized,
+            (forward + left).normalized,
+            (back + right).normalized,
+            (back + left).normalized
+        };
+    }
+
+    private Vector3 GetDirectionFromInput(Vector2 input)
+    {
+        Vector3 direction = Vector3.zero;
+
+        if (input.y > 0) direction += transform.forward;
+        if (input.y < 0) direction += -transform.forward;
+        if (input.x < 0) direction += -transform.right;
+        if (input.x > 0) direction += transform.right;
+
+        return direction.normalized;
     }
 }
