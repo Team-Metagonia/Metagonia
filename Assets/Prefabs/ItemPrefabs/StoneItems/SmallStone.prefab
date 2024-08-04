@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blockId: 7358e191-33b7-43ca-b066-b2f00531ac66
-  instanceId: 39a1cda3-0ecb-4b61-8c69-fd7a8f2705b8
+  instanceId: bc06cfb9-617f-48ab-b667-cba83f3f35a7
   version: 1
   installationRoutineCheckpoint:
     _installationRoutineId: 
@@ -834,6 +834,26 @@ Transform:
   - {fileID: 6368576587593522821}
   m_Father: {fileID: 2383138063324840373}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1799952834747499765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8517073693015101619}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b023183069df224080314a560e6e1ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockId: f8766c17-aaf8-4b55-9431-de8deea83842
+  instanceId: 77205aed-b306-4a5a-956a-4b084ff62ebc
+  version: 1
+  installationRoutineCheckpoint:
+    _installationRoutineId: f8338144-8280-4ff6-9455-ae2bb9c20fe8
+    _installationVariants:
+    - _memberName: mode
+      _value: '{"value__":0}'
 --- !u!114 &1373445807706083167
 MonoBehaviour:
   m_ObjectHideFlags: 0
