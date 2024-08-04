@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using Oculus.Interaction;
+using Oculus.Interaction.Input;
 using Unity.VisualScripting;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
@@ -13,28 +15,91 @@ public class FragmentManager : MonoBehaviour
     
     public string[] tagsAllowed;
     public float localControllerThresholdSpeed = 0.5f;
-    
+
+    public Transform root;
     public Rigidbody hiddenMesh;
     private FracturedChunk[] chunks;
+    private FracturedChunk lastChunk;
+    
     private int numFragments;
     private Dictionary<FracturedChunk, BoxCollider> chunkToColliderMap;
+
+    private int numDetachedFragments = 0;
+    private int maxDetachedFragments = 3;
+    private float collisionCooldown = 0.5f;
+    
+    public GameObject prefabToInstantiateAfterDie;
+    private GameObject instantiatedGameObject;
+
+    private bool isDied = false;
+    private bool isDying = false;
+    
+    private GrabInteractor _grabInteractor;
+    private DistanceGrabInteractor _distanceGrabInteractor;
+
+    private Vector3 lastPosition;
+    private Quaternion lastRotation;
     
     private void Awake()
     {
-        chunks = GetComponentsInChildren<FracturedChunk>();
-        numFragments = chunks.Length;
+        InitializeChunkInfo();
         SetUpCompoundCollider();
     }
-    
-    public void WhenSelect()
+
+    private void Update()
     {
-        StartCoroutine(IEWhenSelect());
+        if (isDied)
+        {
+            if (_isGrabbed)
+            {
+                instantiatedGameObject.transform.position = lastChunk.transform.position;
+                instantiatedGameObject.transform.rotation = lastChunk.transform.rotation;
+            }
+            else if (!isDying)
+            {
+                lastPosition = lastChunk.transform.position;
+                lastRotation = lastChunk.transform.rotation;
+
+                instantiatedGameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                
+                hiddenMesh.gameObject.SetActive(false);
+                Debug.Log("HiddenMesh SetActive false => Check Item Collision work");
+                
+                StartCoroutine(IEDestroyNextFrame(root.gameObject));
+                Debug.Log("Root GameObject Destroy => Check Item Collision");
+            }
+        }
+    }
+    
+    public void WhenSelect(PointerEvent pointerEvent)
+    {
+        StartCoroutine(IEWhenSelect(pointerEvent));
     }
 
     public void WhenUnselect()
     {
         StopAllCoroutines();
         _isGrabbed = false;
+
+        _grabInteractor = null;
+        _distanceGrabInteractor = null;
+        
+        numDetachedFragments = 0;
+    }
+
+    private void InitializeChunkInfo()
+    {
+        chunks = GetComponentsInChildren<FracturedChunk>();
+        foreach (FracturedChunk chunk in chunks)
+        {
+            if (chunk.IsSupportChunk)
+            {
+                lastChunk = chunk;
+                lastChunk.GetComponent<Collider>().isTrigger = true;
+            }
+        }
+        
+        numFragments = chunks.Length;
     }
 
     public bool Check(Collision collision)
@@ -79,10 +144,13 @@ public class FragmentManager : MonoBehaviour
         return false;
     }
 
-    private IEnumerator IEWhenSelect()
+    private IEnumerator IEWhenSelect(PointerEvent pointerEvent)
     {
         yield return new WaitForSeconds(0.5f);
         _isGrabbed = true;
+        
+        _grabInteractor = pointerEvent.Data as GrabInteractor;
+        _distanceGrabInteractor = pointerEvent.Data as DistanceGrabInteractor;
     }
     
     public void OnChunkCollision(FracturedChunk.CollisionInfo collisionInfo)
@@ -91,17 +159,18 @@ public class FragmentManager : MonoBehaviour
     }
     
     public void OnDetachChunkCollision(FracturedChunk.CollisionInfo collisionInfo)
-    {
+    {   
         float localControllerSpeed = GetMaxLocalControllerSpeed();
         SetControllerVibration(localControllerSpeed, 0.2f);
-
-        numFragments--;
         AdjustCollider(collisionInfo);
     }
 
     public void OnChunkDetach()
     {
-        return;
+        numFragments--;
+        if (numFragments <= 1) Die();
+
+        CountDetachedFragment(collisionCooldown);
     }
 
     private float GetMaxLocalControllerSpeed()
@@ -147,6 +216,8 @@ public class FragmentManager : MonoBehaviour
             destinationCollider.size = sourceCollider.size;
             destinationCollider.excludeLayers = 1 << LayerMask.NameToLayer("Fragment");
             
+            destinationCollider.gameObject.layer = 1 << LayerMask.NameToLayer("Ignore Collision");
+            
             chunkToColliderMap.Add(chunk, destinationCollider);
         }
     }
@@ -156,5 +227,58 @@ public class FragmentManager : MonoBehaviour
         FracturedChunk detachedChunk = collisionInfo.chunk;
         BoxCollider colliderToDisable = chunkToColliderMap[detachedChunk];
         colliderToDisable.enabled = false;
+    }
+
+    private void Die()
+    {
+        isDied = true;
+        numDetachedFragments = 0;
+        
+        lastChunk.gameObject.SetActive(false);
+        
+        Handedness handedness = Handedness.Left;
+        if (_grabInteractor != null)         handedness = _grabInteractor.GetComponent<ControllerRef>().Handedness;
+        if (_distanceGrabInteractor != null) handedness = _distanceGrabInteractor.GetComponent<ControllerRef>().Handedness;
+        
+        instantiatedGameObject = Instantiate(prefabToInstantiateAfterDie, lastChunk.transform.position, lastChunk.transform.rotation);
+        instantiatedGameObject.transform.SetParent(null);
+
+        if      (handedness == Handedness.Left)  OVRBrain.Instance.LeftHandObject  = instantiatedGameObject;
+        else if (handedness == Handedness.Right) OVRBrain.Instance.RightHandObject = instantiatedGameObject;
+    }
+    
+    private IEnumerator IEDestroyNextFrame(GameObject rootGameObject)
+    {
+        isDying = true;
+
+        yield return null;
+            
+        instantiatedGameObject.transform.position = lastPosition;
+        instantiatedGameObject.transform.rotation = lastRotation;   
+        
+        Destroy(rootGameObject);
+    }
+
+    private void CountDetachedFragment(float duration)
+    {
+        StartCoroutine(IECountDetachedFragment(duration));
+    }
+    
+    private IEnumerator IECountDetachedFragment(float duration)
+    {
+        numDetachedFragments++;
+        yield return new WaitForSeconds(duration);
+        numDetachedFragments--;
+    }
+
+    public bool CheckNumDetachedFragment()
+    {
+        Debug.Log("Num Detach: " + numDetachedFragments);
+        Debug.Log("Num Max: " + maxDetachedFragments);
+        if (numDetachedFragments >= maxDetachedFragments)
+        {
+            Debug.Log("Check work");
+        }
+        return numDetachedFragments < maxDetachedFragments;
     }
 }

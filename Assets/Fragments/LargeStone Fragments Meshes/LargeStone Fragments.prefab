@@ -1493,7 +1493,7 @@ GameObject:
   - component: {fileID: 2769116546185742199}
   - component: {fileID: 2115777891213170943}
   m_Layer: 21
-  m_Name: LargeStone Source9
+  m_Name: Support Chunk
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1630,7 +1630,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -4651,8 +4651,10 @@ MonoBehaviour:
   tagsAllowed:
   - Weapon
   - WorkBench
-  localControllerThresholdSpeed: 0.5
+  localControllerThresholdSpeed: 0.1
+  root: {fileID: 170390681608061228}
   hiddenMesh: {fileID: 5843146088618376031}
+  prefabToInstantiateAfterDie: {fileID: 3140972075568157767, guid: ddbb1fe997ff1a942985348fa6530b10, type: 3}
 --- !u!1 &6109420924422507040
 GameObject:
   m_ObjectHideFlags: 0
