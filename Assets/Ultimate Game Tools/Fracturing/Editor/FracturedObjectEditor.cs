@@ -624,7 +624,39 @@ public class FracturedObjectEditor : Editor
                 PropMeshAssetDataFile.stringValue = "";
             }
         }
+        
+        if (GUILayout.Button("Save All Meshes"))
+        {
+            string folderPath = EditorUtility.SaveFolderPanel("Select folder to save meshes", "Assets/", "Fragments");
+            if (folderPath.StartsWith(Application.dataPath))
+            {
+                folderPath = "Assets" + folderPath.Substring(Application.dataPath.Length);
+            }
+            
+            if (!string.IsNullOrEmpty(folderPath))
+            {
+                for (int nChunk = 0; nChunk < fracturedComponent.ListFracturedChunks.Count; nChunk++)
+                {
+                    FracturedChunk chunk = fracturedComponent.ListFracturedChunks[nChunk];
+                    MeshFilter meshFilter = chunk.GetComponent<MeshFilter>();
+                    if (meshFilter == null || meshFilter.sharedMesh == null) continue;
+                    
+                    Mesh meshCopy = Instantiate(meshFilter.sharedMesh);
+                    string assetName = chunk.name + ".asset";
+                    string assetPath = folderPath + "/" + assetName;
+                    
+                    AssetDatabase.CreateAsset(meshCopy, assetPath);
+                    AssetDatabase.ImportAsset(assetPath);
 
+                    chunk.GetComponent<MeshFilter>().sharedMesh = meshCopy;
+                }
+            }
+            
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+            Debug.Log("All chunk meshes saved to separate assets in: " + folderPath);
+        }
+        
         PropVerbose.boolValue = EditorGUILayout.Toggle(new GUIContent("Output Console Info", "Outputs messages and warnings to the console window."), PropVerbose.boolValue);
 
         // Fracture?
