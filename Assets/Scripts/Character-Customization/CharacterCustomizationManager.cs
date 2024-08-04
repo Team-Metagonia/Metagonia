@@ -20,6 +20,8 @@ public class CharacterCustomizationManager : MonoBehaviour
 
     public CustomizationInfo customizationInfo;
 
+    public string nextSceneName;
+
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -98,6 +100,6 @@ public class CharacterCustomizationManager : MonoBehaviour
     public void CompleteCustomization()
     {
         customizationInfo = selectedCharacter.GetCustomizationInfo();
-        SceneManager.LoadScene("Final SY");
+        SceneManager.LoadScene(nextSceneName);
     }
 }

@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LatestScenes_7_30/Final SY.unity
     guid: fa6bbb4ed9f53ec41b1b2d35ecf13e8c
+  - enabled: 1
+    path: Assets/Scenes/New Scene/FinalMerge.unity
+    guid: 1af8ab5993b39a143ab483c12325f23b
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 9c708df254100c04e819e3cf23e9cd75, type: 2}
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: 1810c5a7d27c71449805d8c9e6030713, type: 2}
