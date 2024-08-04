@@ -39,6 +39,7 @@ public class CraftManager : MonoBehaviour
             List<ItemSO> r = recipe.ingredients;
             if (r.Contains(item1.itemInfo) && r.Contains(item2.itemInfo) && attachpoint == recipe.attachPoint)
             {
+                EncyclopediaManager.Instance.UpdateActionDic("Craft");
                 return recipe.results[0];
             }
         }
