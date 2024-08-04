@@ -21,7 +21,7 @@ public class EncyclopediaManager : MonoBehaviour
 
     public UnityEvent<ItemSO> OnItemUpdate;
 
-    public UnityEvent OnActionUpdate;
+    public UnityEvent<string> OnActionUpdate;
     void SetItemDic()
     {
         //Object[] items = Resources.LoadAll("ItemSO/");
@@ -63,7 +63,7 @@ public class EncyclopediaManager : MonoBehaviour
         if (ActionDic[actionInfo]) return;
 
         ActionDic[actionInfo] = true;
-        OnActionUpdate?.Invoke();
+        OnActionUpdate?.Invoke(actionInfo);
     }
 
 

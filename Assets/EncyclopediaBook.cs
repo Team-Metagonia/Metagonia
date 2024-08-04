@@ -17,12 +17,18 @@ public class EncyclopediaBook : MonoBehaviour
 
     public Transform _interactionTarget;
     [SerializeField] GameObject _interactionButton;
-    [SerializeField] Transform _buttonParent;
+    [SerializeField] Transform _itemButtonParent;
+    [SerializeField] Transform _actionButtonParent;
     [SerializeField] HandGrabInteractor _leftinteractor;
     [SerializeField] HandGrabInteractor _rightinteractor;
 
-    [SerializeField] GameObject leftCanvas;
-    [SerializeField] GameObject rightCanvas;
+    [SerializeField] Sprite _chopsprite;
+    [SerializeField] Sprite _craftsprite;
+
+    [SerializeField] GameObject _chopObj;
+    [SerializeField] GameObject _craftObj;
+
+    [SerializeField] GameObject _vfxObj;
 
     public UnityEvent OnCloseInteractionMode;
     // Start is called before the first frame update
@@ -35,8 +41,9 @@ public class EncyclopediaBook : MonoBehaviour
         Debug.Log($"initPosition : {_initPos}");
         Debug.Log($"initRotation : {_initRot}");
 
-        EncyclopediaManager.Instance.OnItemUpdate.AddListener(UpdateUI);
-
+        EncyclopediaManager.Instance.OnItemUpdate.AddListener(UpdateItemUI);
+        EncyclopediaManager.Instance.OnActionUpdate.AddListener(UpdateActionUI);
+        
         OnCloseInteractionMode.AddListener(CloseBookInteractionMode);
     }
 
@@ -68,6 +75,7 @@ public class EncyclopediaBook : MonoBehaviour
         
         yield return new WaitForEndOfFrame();
         Debug.Log("ResetBook");
+        _vfxObj.SetActive(false);
         transform.localPosition = _initPos;
         transform.localRotation = _initRot;
     }
@@ -103,13 +111,47 @@ public class EncyclopediaBook : MonoBehaviour
         ResetBook();
     }
 
-    public void UpdateUI(ItemSO iteminfo)
+    public void UpdateItemUI(ItemSO iteminfo)
     {
-        GameObject obj = Instantiate(_interactionButton, _buttonParent);
+        GameObject obj = Instantiate(_interactionButton, _itemButtonParent);
         obj.GetComponent<Image>().sprite = iteminfo.icon;
-        obj.GetComponent<Button>().onClick.AddListener(OnInteractionModeChange);
+        //obj.GetComponent<Button>().onClick.AddListener(OnInteractionModeChange);
+        obj.GetComponent<Button>().onClick.AddListener(() => _vfxObj.SetActive(true));
         obj.GetComponent<EncyclopediaHolder>().EncyclopediaObj = iteminfo.encyclopediaPrefab;
     }
 
-    
+    public void UpdateActionUI(string actioninfo)
+    {
+        Sprite selectedsprite;
+
+        GameObject selectedObj;
+
+        switch (actioninfo)
+        {
+            case "Chop":
+                selectedsprite = _chopsprite;
+                selectedObj = _chopObj;
+                break;
+            case "Craft":
+                selectedsprite = _craftsprite;
+                selectedObj = _craftObj;
+                break;
+            default:
+                selectedsprite = null;
+                selectedObj = null;
+                Debug.Log("Wrong Info! Check string information");
+                break;
+        }
+
+        
+
+
+
+        GameObject obj = Instantiate(_interactionButton, _actionButtonParent);
+        obj.GetComponent <Image>().sprite = selectedsprite;
+        obj.GetComponent<Button>().onClick.AddListener(OnInteractionModeChange);
+        obj.GetComponent<EncyclopediaHolder>().EncyclopediaObj = selectedObj;
+        //obj.GetComponent<Image>().sprite = selctedsprite;
+    }
+
 }
