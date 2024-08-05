@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/LatestScenes_7_30/Character Customization.unity
-    guid: 55a0ea9df24b5fc4bb8f4bfdf8973c51
-  - enabled: 1
     path: Assets/Scenes/New Scene/FinalMerge.unity
     guid: 1af8ab5993b39a143ab483c12325f23b
   m_configObjects:
