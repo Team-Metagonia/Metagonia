@@ -3,32 +3,27 @@ using UnityEngine.AI;
 
 namespace BehaviorDesigner.Runtime.Tasks.Movement
 {
-    [TaskDescription("Evade the target specified using the Unity NavMesh.")]
+    [TaskDescription("Approach the target specified using the Unity NavMesh and attack when in range.")]
     [TaskCategory("Movement")]
     [HelpURL("https://www.opsive.com/support/documentation/behavior-designer-movement-pack/")]
     [TaskIcon("cecc9277e75f9964e98d167be763695c", "992feefbe2d39f945b808bed5b4f0986")]
-    public class Evade_nara : NavMeshMovement
+    public class ApproachAndAttack : NavMeshMovement 
     {
-        [Tooltip("The agent has evaded when the magnitude is greater than this value")]
-        [UnityEngine.Serialization.FormerlySerializedAs("evadeDistance")]
-        public SharedFloat m_EvadeDistance = 10;
-        [Tooltip("The distance to look ahead when evading")]
-        [UnityEngine.Serialization.FormerlySerializedAs("lookAheadDistance")]
+        [Tooltip("The agent has approached when the magnitude is less than this value")]
+        public SharedFloat m_ApproachDistance = 10; // 접근 거리 설정
+        [Tooltip("The distance to look ahead when approaching")]
         public SharedFloat m_LookAheadDistance = 5;
         [Tooltip("How far to predict the distance ahead of the target. Lower values indicate less distance should be predicated")]
-        [UnityEngine.Serialization.FormerlySerializedAs("targetDistPrediction")]
         public SharedFloat m_TargetDistPrediction = 20;
         [Tooltip("Multiplier for predicting the look ahead distance")]
-        [UnityEngine.Serialization.FormerlySerializedAs("targetDistPredictionMult")]
         public SharedFloat m_TargetDistPredictionMult = 20;
-        [Tooltip("The GameObject that the agent is evading")]
-        [UnityEngine.Serialization.FormerlySerializedAs("target")]
+        [Tooltip("The GameObject that the agent is approaching")]
         public SharedGameObject m_Target;
         [Tooltip("The maximum number of interations that the position should be set")]
-        [UnityEngine.Serialization.FormerlySerializedAs("maxInterations")]
         public int m_MaxInterations = 1;
+        [Tooltip("The distance within which the agent attacks the target")]
+        public SharedFloat m_AttackDistance = 5; // 공격 거리 설정
 
-        // The position of the target at the last frame
         private Vector3 m_TargetPosition;
         private NavMeshAgent navMeshAgent;
         private Animator animator;
@@ -38,9 +33,9 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
         private float nextPositionUpdateTime = 0;
         private float nextRandomMoveTime = 0;
         private float randomMoveInterval = 5.0f;
-        
-        private float fixedSpeed = 3.0f;
-        private bool isDead = false;
+        private float fixedSpeed = 3.0f; // 기본 속도
+        private float approachSpeed = 6.0f; // 접근 시 속도
+        private bool isAttacking = false;
 
         public override void OnStart()
         {
@@ -49,7 +44,8 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
             animator = GetComponent<Animator>();
             navMeshAgent.speed = fixedSpeed;
             navMeshAgent.angularSpeed = 500.0f;
-            navMeshAgent.acceleration = 20.0f;
+            navMeshAgent.acceleration = 50.0f; // 가속도 증가
+            navMeshAgent.autoBraking = false; // autoBraking 비활성화
 
             m_TargetPosition = m_Target.Value.transform.position;
             previousPosition = transform.position;
@@ -61,17 +57,15 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
 
         public override TaskStatus OnUpdate()
         {
-            if (isDead || animator.GetBool("isDead")) { // 애니메이터 상태 확인 추가
-                StopMovement();
-                return TaskStatus.Running;
-            }
+            float distanceToTarget = Vector3.Magnitude(transform.position - m_Target.Value.transform.position);
+            Debug.Log("Distance to target: " + distanceToTarget); // 디버그 메시지 추가
 
-            navMeshAgent.speed = fixedSpeed;
-
-            if (Vector3.Magnitude(transform.position - m_Target.Value.transform.position) <= m_EvadeDistance.Value) {
-                Evade();
+            if (distanceToTarget <= m_AttackDistance.Value) {
+                Attack(); // 공격 동작
+            } else if (distanceToTarget <= m_ApproachDistance.Value) {
+                Approach(); // 접근 동작
             } else {
-                RandomMove();
+                RandomMove(); // 타겟이 없을 때 이동
             }
 
             if (Time.time >= nextPositionUpdateTime) {
@@ -89,24 +83,63 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
             return TaskStatus.Running;
         }
 
-        private void Evade()
+        private void Approach()
         {
             if (navMeshAgent.isStopped) {
                 navMeshAgent.isStopped = false;
             }
 
-            if (navMeshAgent.velocity.sqrMagnitude == 0) {
-                navMeshAgent.velocity = (navMeshAgent.destination - navMeshAgent.transform.position).normalized * navMeshAgent.speed;
+            navMeshAgent.speed = approachSpeed; 
+            animator.SetBool("isRunning", true); 
+            animator.SetBool("isWalking", false); 
+            animator.SetBool("isAttacking", false); 
+
+            Vector3 targetPosition = m_Target.Value.transform.position;
+
+            if (SetDestination(targetPosition)) {
+                Debug.Log("Approaching target: " + targetPosition);
+                navMeshAgent.SetDestination(targetPosition);
+            } else {
+                Debug.LogWarning("Failed to set destination for approach.");
             }
 
-            var interation = 0;
-            while (!SetDestination(Target(interation)) && interation < m_MaxInterations - 1) {
-                interation++;
+            // 강제 업데이트
+            navMeshAgent.isStopped = false;
+            navMeshAgent.updatePosition = true;
+            navMeshAgent.updateRotation = true;
+
+            // 추가 디버그 정보
+            Debug.Log("NavMeshAgent velocity: " + navMeshAgent.velocity);
+            Debug.Log("NavMeshAgent remainingDistance: " + navMeshAgent.remainingDistance);
+            Debug.Log("NavMeshAgent pathPending: " + navMeshAgent.pathPending);
+            Debug.Log("NavMeshAgent isPathStale: " + navMeshAgent.isPathStale);
+            Debug.Log("NavMeshAgent pathStatus: " + navMeshAgent.pathStatus);
+        }
+
+        private void Attack()
+        {
+            navMeshAgent.speed = fixedSpeed; 
+            if (!isAttacking) {
+                isAttacking = true;
+                animator.SetBool("isRunning", false);
+                animator.SetBool("isAttacking", true);
+                navMeshAgent.isStopped = true;
+                StartCoroutine(ResetAttack(1.0f)); 
             }
+        }
+
+        private System.Collections.IEnumerator ResetAttack(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            isAttacking = false;
+            animator.SetBool("isAttacking", false); // 공격 애니메이션 종료
+            navMeshAgent.isStopped = false; // 공격이 끝나면 다시 움직이기
         }
 
         private void RandomMove()
         {
+            navMeshAgent.speed = fixedSpeed; // 타겟이 없을 때 고정 속도 유지
+            animator.SetBool("isRunning", false); // 걷기 애니메이션 사용
             if (Time.time >= nextRandomMoveTime || navMeshAgent.remainingDistance <= 0.5f) {
                 nextRandomMoveTime = Time.time + randomMoveInterval;
 
@@ -139,7 +172,7 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
             if (NavMesh.SamplePosition(position, out hit, 1.0f, NavMesh.AllAreas)) {
                 position = hit.position; 
             }
-            return transform.position + (transform.position - position).normalized * m_LookAheadDistance.Value * ((m_MaxInterations - iteration) / m_MaxInterations);
+            return transform.position + (position - transform.position).normalized * m_LookAheadDistance.Value * ((m_MaxInterations - iteration) / m_MaxInterations);
         }
 
         private bool SetDestination(Vector3 targetPosition)
@@ -149,36 +182,18 @@ namespace BehaviorDesigner.Runtime.Tasks.Movement
             }
             navMeshAgent.isStopped = false;
             bool result = navMeshAgent.SetDestination(targetPosition);
+            Debug.Log("SetDestination result: " + result + " for position: " + targetPosition);
             return result;
         }
 
         public override void OnReset()
         {
             base.OnReset();
-            m_EvadeDistance = 10;
+            m_ApproachDistance = 10;
             m_LookAheadDistance = 5;
             m_TargetDistPrediction = 20;
             m_TargetDistPredictionMult = 20;
             m_Target = null;
-        }
-
-        public void SetIsDead(bool isDead) // 추가
-        {
-            this.isDead = isDead;
-            if (isDead)
-            {
-                StopMovement(); // 사망 시 즉시 이동 중지
-            }
-        }
-
-        private void StopMovement()
-        {
-            if (navMeshAgent != null)
-            {
-                navMeshAgent.isStopped = true;
-                navMeshAgent.ResetPath(); // 경로 초기화
-                navMeshAgent.velocity = Vector3.zero; // 속도 초기화
-            }
         }
     }
 }
