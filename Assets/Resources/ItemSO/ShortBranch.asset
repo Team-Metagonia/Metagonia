@@ -21,6 +21,10 @@ MonoBehaviour:
   simplePrefab: {fileID: 6946851757845232910, guid: f5c4d4669696b7d46acdd073d93db164, type: 3}
   encyclopediaPrefab: {fileID: 7050034626781495362, guid: 58eb1cbca782e94488956183b4c7ca21, type: 3}
   completePrefab: {fileID: 6334730217627051269, guid: ed7d6c037a950b5468d60d5320504664, type: 3}
+  itemExplanation: "\uC11D\uAE30\uC2DC\uB300(stone age)\uD558\uBA74 \uB5A0\uC624\uB974\uB294
+    \uB3C4\uAD6C\uB294 \uC5ED\uC2DC \uC11D\uAE30, \uC989 \uB3CC\uC774\uB2E4. \uADF8\uB7EC\uB098
+    \uB3CC \uB9D0\uACE0\uB3C4 \uD558\uB098 \uB354\uBD99\uC5EC\uC57C \uD560 \uAC83\uC774
+    \uC788\uC73C\uB2C8 \uBC14\uB85C \uB098\uBB34\uB2E4."
   isSlot: 0
   slotRotation: {x: 0, y: 0, z: 0}
   currentSlot: {fileID: 0}

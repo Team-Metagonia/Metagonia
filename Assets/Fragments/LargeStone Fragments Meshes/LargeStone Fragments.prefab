@@ -3415,6 +3415,8 @@ GameObject:
   - component: {fileID: 1165324399035097851}
   - component: {fileID: 961619983525612528}
   - component: {fileID: 5055373644443102031}
+  - component: {fileID: 7484054970366827180}
+  - component: {fileID: 149169645146683048}
   m_Layer: 19
   m_Name: Gravity Applier
   m_TagString: Weapon
@@ -3516,6 +3518,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transformsFollowingMe:
   - {fileID: 3538719680539718334}
+--- !u!65 &7484054970366827180
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4255993636732834029}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.3, y: 0.3, z: 0.3}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &149169645146683048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4255993636732834029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77e6204aa35d572449097e692aa150d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemInfo: {fileID: 11400000, guid: 614aeda11bb2c3746910a29b9c6ea5ff, type: 2}
+  _currentHandInteractor: {fileID: 0}
+  distanceGrabbed: 0
+  isInBag: 0
+  numsToDrop: 0
+  initHealth: 0
+  dropAll: 0
 --- !u!1 &4549175457070870583
 GameObject:
   m_ObjectHideFlags: 0
@@ -4652,6 +4694,8 @@ MonoBehaviour:
   - Weapon
   - WorkBench
   localControllerThresholdSpeed: 0.1
+  maxDetachedFragments: 3
+  collisionCooldown: 0.5
   root: {fileID: 170390681608061228}
   hiddenMesh: {fileID: 5843146088618376031}
   prefabToInstantiateAfterDie: {fileID: 3140972075568157767, guid: ddbb1fe997ff1a942985348fa6530b10, type: 3}
