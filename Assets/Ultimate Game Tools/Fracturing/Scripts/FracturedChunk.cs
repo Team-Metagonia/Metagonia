@@ -456,7 +456,7 @@ public class FracturedChunk : MonoBehaviour
             m_bNonSupportedChunkStored = IsNonSupportedChunk;
 
             transform.parent      = null;
-            gameObject.layer = LayerMask.NameToLayer("Default");
+            gameObject.layer = LayerMask.NameToLayer("Ignore Collision");
             GetComponent<Rigidbody>().isKinematic = false;
             IsDetachedChunk       = true;
             IsNonSupportedChunk   = true;
