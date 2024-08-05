@@ -148,22 +148,23 @@ public class EncyclopediaBook : MonoBehaviour
         }
         GameObject obj = Instantiate(_interactionButton, _actionButtonParent);
         obj.GetComponent <Image>().sprite = selectedsprite;
-        obj.GetComponent<Button>().onClick.AddListener(OnInteractionModeChange);
+        //obj.GetComponent<Button>().onClick.AddListener(OnInteractionModeChange);
         obj.GetComponent<EncyclopediaHolder>().EncyclopediaObj = selectedObj;
-        //obj.GetComponent<Image>().sprite = selctedsprite;
+        obj.GetComponent<Image>().sprite = selectedsprite;
+        obj.GetComponent<Button>().onClick.AddListener(() => _vfxObj.SetActive(true));
     }
 
     public void ActivateItemCanvas()
     {
         _actionButtonParent.parent.gameObject.SetActive(false);
         _itemButtonParent.parent.gameObject.SetActive(true);
-        _textCanvas.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "";
+        //_textCanvas.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "";
     }
 
     public void ActivateActionCanvas()
     {
         _itemButtonParent.parent.gameObject.SetActive(false);
         _actionButtonParent.parent.gameObject.SetActive(true);
-        _textCanvas.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "";
+        //_textCanvas.gameObject.GetComponentInChildren<TextMeshProUGUI>().text = "";
     }
 }

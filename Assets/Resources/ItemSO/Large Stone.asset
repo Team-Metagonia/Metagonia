@@ -19,7 +19,7 @@ MonoBehaviour:
   type: 0
   icon: {fileID: 21300000, guid: dcc6e5273be516e4c8c3b0fc9f03e1d4, type: 3}
   simplePrefab: {fileID: 6152730827485020129, guid: 92829b0e8aeeeae4f85f36e749b03825, type: 3}
-  encyclopediaPrefab: {fileID: 7050034626781495362, guid: 2222c9239c20a5440b5ee41ba0f6672f, type: 3}
+  encyclopediaPrefab: {fileID: 5869622654396806592, guid: cf3d43ad679bb2a4e848c2d44351983f, type: 3}
   completePrefab: {fileID: 7767406843601375825, guid: 2048be2fc02664d4786030fab663e6c4, type: 3}
   itemExplanation: "\uC11D\uAE30 \uC2DC\uB300\uB294 \uC778\uAC04\uC774 \uB3CC\uC744
     \uC8FC\uC694\uD55C \uB3C4\uAD6C\uB85C \uC0AC\uC6A9\uD55C \uC2DC\uB300\uB97C \uB9D0\uD55C\uB2E4.

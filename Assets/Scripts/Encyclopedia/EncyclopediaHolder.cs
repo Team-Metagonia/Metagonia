@@ -15,9 +15,9 @@ public class EncyclopediaHolder : MonoBehaviour
     static GameObject _instantiatedObj;
     private void Start()
     {
-        book = GetComponentInParent<EncyclopediaBook>();
+        book = GetComponentInParent<EncyclopediaBook>(true);
         book.OnCloseInteractionMode.AddListener(ClearObj);
-        _textMeshPro = GameObject.Find("TextCanvas").GetComponentInChildren<TextMeshProUGUI>();
+        //_textMeshPro = GameObject.Find("TextCanvas").GetComponentInChildren<TextMeshProUGUI>();
         InteractableUnityEventWrapper[] wrappers = book.GetComponentsInChildren<InteractableUnityEventWrapper>();
 
         foreach (InteractableUnityEventWrapper w in wrappers) 
@@ -30,6 +30,7 @@ public class EncyclopediaHolder : MonoBehaviour
     {
         ClearObj();
         GameObject obj = Instantiate(EncyclopediaObj, book._interactionTarget);
+        Debug.Log("Book state : " + book);
         //obj.transform.localPosition = new Vector3(0, 0, -1);
         _instantiatedObj = obj;
     }
