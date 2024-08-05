@@ -17,7 +17,8 @@ public class FragmentManager : MonoBehaviour
     public float localControllerThresholdSpeed = 0.5f;
 
     private int numFragments;
-    private Dictionary<FracturedChunk, BoxCollider> chunkToColliderMap;
+    private int numSupportFragments = 0;
+    private Dictionary<FracturedChunk, Collider> chunkToColliderMap;
 
     private int numDetachedFragments = 0;
     public  int maxDetachedFragments = 3;
@@ -130,11 +131,13 @@ public class FragmentManager : MonoBehaviour
         {
             if (chunk.IsSupportChunk)
             {
+                numSupportFragments++;
+                
                 lastChunk = chunk;
                 lastChunk.GetComponent<Collider>().isTrigger = true;
             }
 
-            chunk.gameObject.layer = 1 << LayerMask.NameToLayer("Fragment");
+            chunk.gameObject.layer = LayerMask.NameToLayer("Fragment");
         }
         
         numFragments = chunks.Length;
@@ -206,7 +209,7 @@ public class FragmentManager : MonoBehaviour
     public void OnChunkDetach()
     {
         numFragments--;
-        if (numFragments <= 1) Die();
+        if (numFragments <= numSupportFragments) Die();
 
         CountDetachedFragment(collisionCooldown);
     }
@@ -243,26 +246,49 @@ public class FragmentManager : MonoBehaviour
         fragmentColliders.transform.localPosition = Vector3.zero;
         fragmentColliders.transform.localRotation = Quaternion.identity;
         fragmentColliders.transform.localScale = Vector3.one;
-        fragmentColliders.gameObject.layer = 1 << LayerMask.NameToLayer("Ignore Collision");
+        fragmentColliders.gameObject.layer = LayerMask.NameToLayer("Ignore Collision");
 
-        chunkToColliderMap = new Dictionary<FracturedChunk, BoxCollider>();
+        chunkToColliderMap = new Dictionary<FracturedChunk, Collider>();
         
         foreach (FracturedChunk chunk in chunks)
         {
             BoxCollider sourceCollider = chunk.GetComponent<BoxCollider>();
             BoxCollider destinationCollider = fragmentColliders.AddComponent<BoxCollider>();
+            destinationCollider.excludeLayers = 
+                (1 << LayerMask.NameToLayer("Fragment")) |
+                (1 << LayerMask.NameToLayer("Ignore Collision"));
+            
             destinationCollider.center = sourceCollider.center + sourceCollider.transform.localPosition;
-            destinationCollider.size = sourceCollider.size;
-            destinationCollider.excludeLayers = 1 << LayerMask.NameToLayer("Fragment");
+            destinationCollider.size = sourceCollider.size * 0.01f;
             
             chunkToColliderMap.Add(chunk, destinationCollider);
         }
+
+        /*foreach (FracturedChunk chunk in chunks)
+        {
+            GameObject newCollider = new GameObject("Fragment Collider");
+            newCollider.transform.SetParent(fragmentColliders.transform);
+            newCollider.transform.localPosition = chunk.transform.localPosition;
+            newCollider.transform.localRotation = chunk.transform.localRotation;
+            newCollider.transform.localScale = chunk.transform.localScale;
+            newCollider.gameObject.layer = LayerMask.NameToLayer("Ignore Collision");
+            
+            MeshCollider destinationCollider = newCollider.AddComponent<MeshCollider>();
+            destinationCollider.excludeLayers = 
+                (1 << LayerMask.NameToLayer("Fragment")) |
+                (1 << LayerMask.NameToLayer("Ignore Collision"));
+            
+            destinationCollider.sharedMesh = chunk.GetComponent<MeshFilter>().sharedMesh;
+            destinationCollider.convex = true;
+            
+            chunkToColliderMap.Add(chunk, destinationCollider);
+        }*/
     }
 
     private void AdjustCollider(FracturedChunk.CollisionInfo collisionInfo)
     {
         FracturedChunk detachedChunk = collisionInfo.chunk;
-        BoxCollider colliderToDisable = chunkToColliderMap[detachedChunk];
+        Collider colliderToDisable = chunkToColliderMap[detachedChunk];
         colliderToDisable.enabled = false;
     }
 
