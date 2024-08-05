@@ -51,11 +51,11 @@ public class MeleeWeapon : Item
         IDamagable damagable = collision.gameObject.GetComponent<IDamagable>();
         if (damagable != null)
         {
-            this.transform.rotation = previousRotation;
+            // this.transform.rotation = previousRotation;
             //this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
             //this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationY;
             //this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
-            this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
+            // this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
             // StartCoroutine(F());
             
             HandleDamagable(collision);
@@ -67,7 +67,7 @@ public class MeleeWeapon : Item
 
     private void OnCollisionExit(Collision collision) 
     {
-        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        // this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
         
         Debug.Log("OnCollisionExit: " + collision.gameObject.name);
     }

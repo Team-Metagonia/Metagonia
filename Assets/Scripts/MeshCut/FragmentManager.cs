@@ -259,7 +259,7 @@ public class FragmentManager : MonoBehaviour
                 (1 << LayerMask.NameToLayer("Ignore Collision"));
             
             destinationCollider.center = sourceCollider.center + sourceCollider.transform.localPosition;
-            destinationCollider.size = sourceCollider.size * 0.01f;
+            destinationCollider.size = sourceCollider.size;
             
             chunkToColliderMap.Add(chunk, destinationCollider);
         }
