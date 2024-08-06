@@ -79,8 +79,8 @@ public class FragmentManager : MonoBehaviour
                 lastPosition = lastChunk.transform.position;
                 lastRotation = lastChunk.transform.rotation;
 
-                Rigidbody[] allRigidbody = instantiatedGameObject.GetComponentsInChildren<Rigidbody>();
-                foreach (Rigidbody rigidbody in allRigidbody) rigidbody.velocity = Vector3.zero;
+                // Rigidbody[] allRigidbody = instantiatedGameObject.GetComponentsInChildren<Rigidbody>();
+                // foreach (Rigidbody rigidbody in allRigidbody) rigidbody.velocity = Vector3.zero;
 
                 Collider[] allColliders = hiddenMesh.GetComponentsInChildren<Collider>();
                 foreach (Collider collider in allColliders) collider.excludeLayers = -1;
@@ -95,6 +95,7 @@ public class FragmentManager : MonoBehaviour
                 else if (_lastDistanceGrabInteractor != null)
                     lastHandedness = _lastDistanceGrabInteractor.GetComponent<ControllerRef>().Handedness;
                 
+
                 if      (lastHandedness == Handedness.Left)  OVRBrain.Instance.LeftHandObject  = null;
                 else if (lastHandedness == Handedness.Right) OVRBrain.Instance.RightHandObject = null;
                 
