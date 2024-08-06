@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
+>
+  <editor:IntegerField label="Gird Size X" name="gridSizeX" tooltip="Horizontal node count to generate."/>
+  <editor:IntegerField label="Gird Size Y" name="gridSizeY" tooltip="Vertical node count to generate."/>
+  <engine:Toggle label="Edge Neighbors Only" name="edgeNeighborsOnly" tooltip="Consider only nodes with common edge as neighbors."/>
+</engine:UXML>
