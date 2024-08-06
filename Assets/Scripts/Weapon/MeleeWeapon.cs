@@ -11,7 +11,7 @@ enum HandDominance
 
 public class MeleeWeapon : Item
 {
-    private bool isColliding;
+    private bool isColliding = false;
     private bool isRapidColliding = false;
 
     [SerializeField] private bool ignoreHitDirection = true;
@@ -46,18 +46,13 @@ public class MeleeWeapon : Item
         previousRotation = this.transform.rotation;
     }
 
-    private void OnCollisionEnter(Collision collision) 
+    private void OnCollisionEnter(Collision collision)
     {
+        isColliding = true;
+        
         IDamagable damagable = collision.gameObject.GetComponent<IDamagable>();
         if (damagable != null)
         {
-            // this.transform.rotation = previousRotation;
-            //this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
-            //this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationY;
-            //this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
-            // this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
-            // StartCoroutine(F());
-            
             HandleDamagable(collision);
             return;
         }
@@ -65,11 +60,9 @@ public class MeleeWeapon : Item
     
     
 
-    private void OnCollisionExit(Collision collision) 
+    private void OnCollisionExit(Collision collision)
     {
-        // this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-        
-        Debug.Log("OnCollisionExit: " + collision.gameObject.name);
+        isColliding = false;
     }
 
     private void HandleDamagable(Collision collision)
@@ -98,11 +91,13 @@ public class MeleeWeapon : Item
         PreventRapidCollision();
 
         // Give Haptics
-        float vibrationStrength = (hitPoint > 0) ? damage / hitPoint : 0;
-        // float vibrationDuration = 0.1f;
-        // UseControllerVibration(vibrationStrength, vibrationDuration);
-        UseControllerVibrationWhileColliding(vibrationStrength, HandDominance.Both);
         
+        // float vibrationStrength = 1f;
+        // float vibrationDuration = 0.2f;
+        // UseControllerVibration(vibrationStrength, vibrationDuration, HandDominance.Both);
+        
+        float vibrationStrength = (hitPoint > 0) ? damage / hitPoint : 0;
+        UseControllerVibrationWhileColliding(vibrationStrength, HandDominance.Both);
         
     }
 
@@ -260,13 +255,4 @@ public class MeleeWeapon : Item
     }
 
     #endregion
-
-    private IEnumerator F()
-    {
-        yield return new WaitForSeconds(0.1f);
-
-        var originalConstraints = this.GetComponent<Rigidbody>().constraints; 
-        var unfreezePosition = ~RigidbodyConstraints.FreezePosition;  
-        this.GetComponent<Rigidbody>().constraints = originalConstraints & unfreezePosition;
-    }
 }

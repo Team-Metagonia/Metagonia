@@ -1,9 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Numerics;
 using Oculus.Interaction;
 using Oculus.Interaction.Input;
-using Unity.VisualScripting;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 using Vector3 = UnityEngine.Vector3;
@@ -33,7 +31,6 @@ public class FragmentManager : MonoBehaviour
     private GameObject instantiatedGameObject;
 
     private bool isDied = false;
-    private bool isDying = false;
     
     private GrabInteractor _grabInteractor;
     private DistanceGrabInteractor _distanceGrabInteractor;
@@ -77,18 +74,19 @@ public class FragmentManager : MonoBehaviour
                 if      (handedness == Handedness.Left)  Debug.Log("Last grab hand is left");
                 else if (handedness == Handedness.Right) Debug.Log("Last grab hand is right");
             }
-            else if (!isDying)
+            else 
             {
                 lastPosition = lastChunk.transform.position;
                 lastRotation = lastChunk.transform.rotation;
 
-                instantiatedGameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                Rigidbody[] allRigidbody = instantiatedGameObject.GetComponentsInChildren<Rigidbody>();
+                foreach (Rigidbody rigidbody in allRigidbody) rigidbody.velocity = Vector3.zero;
+
+                Collider[] allColliders = hiddenMesh.GetComponentsInChildren<Collider>();
+                foreach (Collider collider in allColliders) collider.excludeLayers = -1;
                 
                 hiddenMesh.gameObject.SetActive(false);
                 Debug.Log("HiddenMesh SetActive false => Check Item Collision work");
-                
-                StartCoroutine(IEDestroyNextFrame(root.gameObject));
-                Debug.Log("Root GameObject Destroy => Check Item Collision");
                 
                 // Handedness
                 Handedness lastHandedness = Handedness.Left;
@@ -300,18 +298,6 @@ public class FragmentManager : MonoBehaviour
         lastChunk.gameObject.SetActive(false);
         instantiatedGameObject = Instantiate(prefabToInstantiateAfterDie, lastChunk.transform.position, lastChunk.transform.rotation);
         instantiatedGameObject.transform.SetParent(null);
-    }
-    
-    private IEnumerator IEDestroyNextFrame(GameObject rootGameObject)
-    {
-        isDying = true;
-
-        yield return null;
-            
-        instantiatedGameObject.transform.position = lastPosition;
-        instantiatedGameObject.transform.rotation = lastRotation;   
-        
-        Destroy(rootGameObject);
     }
 
     private void CountDetachedFragment(float duration)
