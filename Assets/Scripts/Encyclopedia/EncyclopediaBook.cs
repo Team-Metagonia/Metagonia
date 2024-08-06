@@ -53,15 +53,18 @@ public class EncyclopediaBook : MonoBehaviour
     public void RotateCanvasLeftHand()
     {
 
-        gameObject.GetComponentInChildren<RectTransform>().localEulerAngles = new Vector3(94, 30, -60);
+        //gameObject.GetComponentInChildren<RectTransform>().localEulerAngles = new Vector3(94, 30, -60);
+        _itemButtonParent.parent.GetComponent<RectTransform>().localEulerAngles = new Vector3(94, 30, -60);
+        _actionButtonParent.parent.GetComponent<RectTransform>().localEulerAngles = new Vector3(94, 30, -60);
 
     }
 
     public void RotateCanvasRightHand()
     {
 
-        gameObject.GetComponentInChildren<RectTransform>().localEulerAngles = new Vector3(86.91f, 210, -60);
-
+        //gameObject.GetComponentInChildren<RectTransform>().localEulerAngles = new Vector3(86.91f, 210, -60);
+        _itemButtonParent.parent.GetComponent<RectTransform>().localEulerAngles = new Vector3(86.91f, 210, -60);
+        _actionButtonParent.parent.GetComponent<RectTransform>().localEulerAngles = new Vector3(86.91f, 210, -60);
 
     }
 
