@@ -35,7 +35,12 @@ public class ForestTree : MonoBehaviour, IDamagable, ISliceable
     {
         Health = initHealth;
     }
-    
+
+    private void OnDisable()
+    {
+        EncyclopediaManager.Instance.UpdateActionDic("Chop");
+    }
+
     private void Start()
     {
         
