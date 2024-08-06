@@ -1,0 +1,951 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Polymorphic Grid Runtime</name>
+    </assembly>
+    <members>
+        <member name="T:TheoryTeam.PolymorphicGrid.BinarySearchNode`1">
+            <summary>
+            Tree data stucture to make faster search through a set of number.
+            </summary>
+            <typeparam name="T">Data type to be handled by the data structure</typeparam>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.BinarySearchNode`1.value">
+            <summary>
+            Value stored in this node.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.BinarySearchNode`1.right">
+            <summary>
+            Right child which should be greater than current node.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.BinarySearchNode`1.left">
+            <summary>
+            Left child which should be less than current node.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.BinarySearchNode`1.comparer">
+            <summary>
+            Comparer used to compare and sort values in the tree.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.BinarySearchNode`1.#ctor(`0,System.Collections.Generic.IComparer{`0})">
+            <summary>
+            Create new node to add it to the tree.
+            </summary>
+            <param name="value"></param>
+            <param name="comparer"></param>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.BinarySearchNode`1.Search(`0)">
+            <summary>
+            Search through the tree starting from this node.
+            </summary>
+            <param name="value">Value to search for</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.BinarySearchNode`1.Add(`0)">
+            <summary>
+            Create new node and add it to the tree in its' right place.
+            </summary>
+            <param name="value">Value to store in the created node</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.BinarySearchNode`1.Contains(`0)">
+            <summary>
+            Check for a value to see if it is contained in the tree.
+            </summary>
+            <param name="value">Value to search for</param>
+            <returns></returns>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.BinarySearchNode2D`1">
+            <summary>
+            This class is used to create two dimensional binary search tree.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.BinarySearchNode2D`1.childHead">
+            <summary>
+            Child tree head.
+            </summary>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.GenericGrid">
+            <summary>
+            Base class for generating and handling functionality any type of grid.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.GenericGrid.layersCount">
+            <summary>
+            Node layers count to generate.
+            </summary>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.GridMaster">
+            <summary>
+            Base class to create any grid shape and do operations on it.
+            </summary>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.GridMaster.SimpleFloatComparer">
+            <summary>
+            Float comparer implementation with accuracy attribut to avoid binary calculation mistakes.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.GridMaster.SimpleFloatComparer.accuracy">
+            <summary>
+            Minimum difference to decide that two floats are equal.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.GridMaster.nodeRadius">
+            <summary>
+            This value is used to calculate node corners and node spacing while generating your grid.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.GridMaster.nodePrefab">
+            <summary>
+            Prefab to be instantiated at each node position.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.GridMaster.createNodeObject">
+            <summary>
+            Create prefab on each node position.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.GridMaster.nodes">
+            <summary>
+            All nodes in the grid.
+            </summary>
+        </member>
+        <member name="P:TheoryTeam.PolymorphicGrid.GridMaster.MaxSize">
+            <summary>
+            Generated nodes count in this grid.
+            </summary>
+        </member>
+        <member name="P:TheoryTeam.PolymorphicGrid.GridMaster.NodeDiameter">
+            <summary>
+            Node Radius x2.
+            </summary>
+        </member>
+        <member name="P:TheoryTeam.PolymorphicGrid.GridMaster.Nodes">
+            <summary>
+            Get all nodes in the grid.
+            </summary>
+        </member>
+        <member name="P:TheoryTeam.PolymorphicGrid.GridMaster.GeneratedNodeRadius">
+            <summary>
+            Node radius value used to generated the grid.
+            </summary>
+        </member>
+        <member name="P:TheoryTeam.PolymorphicGrid.GridMaster.EdgeNeighborsOnly">
+            <summary>
+            Consider only nodes with common edge as neighbors.
+            </summary>
+        </member>
+        <member name="P:TheoryTeam.PolymorphicGrid.GridMaster.DistanceTraversal">
+            <summary>
+            Traversal used by GetDistance method.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridMaster.GetNodeCorners">
+            <summary>
+            Get default node vertices.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridMaster.CalculateNodesPositions">
+            <summary>
+            Define where to place each node in the grid.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridMaster.GetNodeCorners(TheoryTeam.PolymorphicGrid.Node)">
+            <summary>
+            Get specific node vertices.
+            </summary>
+            <param name="n"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridMaster.GetNeighbors(TheoryTeam.PolymorphicGrid.Node)">
+            <summary>
+            Get surrounded nodes for a given node.
+            </summary>
+            <param name="node"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridMaster.GetGeometricalNeighbors(UnityEngine.Vector3)">
+            <summary>
+            Calculate expected positions of the neighbors of a given nodes' position.
+            </summary>
+            <param name="current"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridMaster.Init(System.Boolean)">
+            <summary>
+            Create nodes and initialize the grid.
+            </summary>
+            <param name="reassignNeighbors"></param>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridMaster.ReassignNeighbors">
+            <summary>
+            Reassign neighbors for each node in the grid.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridMaster.IsNeighbors(TheoryTeam.PolymorphicGrid.Node@,TheoryTeam.PolymorphicGrid.Node@)">
+            <summary>
+            Return true if the two given nodes are neighbors.
+            </summary>
+            <param name="a">First node to check</param>
+            <param name="b">Second node to check</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridMaster.Serialize">
+            <summary>
+            Save generated grid into scriptable object so you can store it and load it when ever you want.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridMaster.Deserialize(TheoryTeam.PolymorphicGrid.SerializableGrid)">
+            <summary>
+            Load generated grid form disk.
+            </summary>
+            <param name="grid">Grid to load</param>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridMaster.GetDistance(TheoryTeam.PolymorphicGrid.Node,TheoryTeam.PolymorphicGrid.Node)">
+            <summary>
+            Get minimum distance between any two nodes on the grid.
+            </summary>
+            <param name="a">First node</param>
+            <param name="b">Second node</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridMaster.GetNodeIndex(UnityEngine.Vector3@)">
+            <summary>
+            Project position on the grid and find to which node belongs.
+            </summary>
+            <param name="position">Position to find its' node</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridMaster.GetStraightDistance(TheoryTeam.PolymorphicGrid.Node,TheoryTeam.PolymorphicGrid.Node)">
+            <summary>
+            Get the straight distance between two nodes.
+            </summary>
+            <param name="a">First node</param>
+            <param name="b">Second node</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridMaster.GetApproxStraightDistance(TheoryTeam.PolymorphicGrid.Node,TheoryTeam.PolymorphicGrid.Node)">
+            <summary>
+            Get approximetely the straight distance between two nodes.
+            </summary>
+            <param name="a">First node</param>
+            <param name="b">Second node</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridMaster.GetNode(System.Int32@)">
+            <summary>
+            Get node for nodes list using an index.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridMaster.GetNode(UnityEngine.Vector3@)">
+            <summary>
+            Project position on the grid and find to which node belongs.
+            </summary>
+            <param name="position">Position to find its' node</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridMaster.Clear">
+            <summary>
+            Clear and destroy all nodes and connections for this grid.
+            </summary>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.Node">
+            <summary>
+            Representation for node in each grid.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.Node.walkable">
+            <summary>
+            This field is used by path finding system to check whether this node is walkable or not.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.Node.localPosition">
+            <summary>
+            Position of this node local to its' grid master.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.Node.neighbors">
+            <summary>
+            Indexes of all neighbors of this node.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.Node.grid">
+            <summary>
+            Grid master of this node.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.Node.worldObject">
+            <summary>
+            Associated object in the scene with this node (if no object found this will return null).
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.Node.vertices">
+            <summary>
+            Corners which shape this node.
+            </summary>
+        </member>
+        <member name="P:TheoryTeam.PolymorphicGrid.Node.WorldPosition">
+            <summary>
+            Position of this node in world space.
+            </summary>
+        </member>
+        <member name="P:TheoryTeam.PolymorphicGrid.Node.Index">
+            <summary>
+            Index of this node in the grid.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.Node.#ctor(UnityEngine.Vector3,System.Int32,TheoryTeam.PolymorphicGrid.GridMaster,UnityEngine.Transform,UnityEngine.Vector3[])">
+            <summary>
+            Create new node using main parameters.
+            </summary>
+            <param name="localPosition"></param>
+            <param name="index"></param>
+            <param name="grid"></param>
+            <param name="worldObject"></param>
+            <param name="vertices"></param>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.Node.#ctor(TheoryTeam.PolymorphicGrid.SerializableNode@,System.Int32,TheoryTeam.PolymorphicGrid.GridMaster,UnityEngine.Transform)">
+            <summary>
+            Create new node using serialized node.
+            </summary>
+            <param name="snode"></param>
+            <param name="index"></param>
+            <param name="grid"></param>
+            <param name="worldObject"></param>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.Node.ContainsPoint(UnityEngine.Vector3)">
+            <summary>
+            Check whether a given point is inside node borders or not.
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.NonSymmetricalGenericGrid">
+            <summary>
+            Base class for handling any non symmetrical grid generation and functionality.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.NonSymmetricalGenericGrid.GetNodeCorners(System.Boolean)">
+            <summary>
+            Get corners depending on mirror atribute.
+            </summary>
+            <param name="mirrored"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.NonSymmetricalGenericGrid.IsMirrored(UnityEngine.Vector3)">
+            <summary>
+            Check wheather the node in the given position is mirrored or not.
+            </summary>
+            <param name="pos"></param>
+            <returns></returns>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.SquareGrid.gridSizeX">
+            <summary>
+            Horizontal node count to generate.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.SquareGrid.gridSizeY">
+            <summary>
+            Vertical node count to generate.
+            </summary>
+        </member>
+        <member name="P:TheoryTeam.PolymorphicGrid.SquareGrid.Max">
+            <summary>
+            Position of the last node in the top right corner of the grid.
+            </summary>
+        </member>
+        <member name="P:TheoryTeam.PolymorphicGrid.SquareGrid.Min">
+            <summary>
+            Position of the first node in the down left corner of the grid.
+            </summary>
+        </member>
+        <member name="P:TheoryTeam.PolymorphicGrid.SquareGrid.GeneratedGridSizeX">
+            <summary>
+            Horizontal node count in the generated grid.
+            </summary>
+        </member>
+        <member name="P:TheoryTeam.PolymorphicGrid.SquareGrid.GeneratedGridSizeY">
+            <summary>
+            Vertical ndoe count in the generated grid.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.SquareGrid.GetNeighbors(System.Int32,System.Int32)">
+            <summary>
+            Get neighbors for given node using its' x, y indexes.
+            </summary>
+            <param name="xpos">X index of the node</param>
+            <param name="ypos">Y index of the node</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.SquareGrid.ConvertIndex(System.Int32@,System.Int32@,System.Int32@)">
+            <summary>
+            Convert into x, y indexes.
+            </summary>
+            <param name="index">Index to convert</param>
+            <param name="x">X index</param>
+            <param name="y">Y index</param>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.SquareGrid.Convert2Index(System.Int32@,System.Int32@)">
+            <summary>
+            Convert form x, y indexes into array index.
+            </summary>
+            <param name="x">X index</param>
+            <param name="y">Y index</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.SquareGrid.GetNode(System.Int32@,System.Int32@)">
+            <summary>
+            Get node using its' x, y indexes.
+            </summary>
+            <param name="x">X index</param>
+            <param name="y">Y index</param>
+            <returns></returns>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.AllPathesResponse">
+            <summary>
+            Class for responsing to all paths request.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.AllPathesResponse.traversal">
+            <summary>
+            Traversal used by path finder to hold all data about found paths.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.AllPathesResponse.#ctor">
+            <summary>
+            Create empty all paths response.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.AllPathesResponse.#ctor(TheoryTeam.PolymorphicGrid.PathRequestBase,TheoryTeam.PolymorphicGrid.Node)">
+            <summary>
+            Create new all paths response.
+            </summary>
+            <param name="request"></param>
+            <param name="target"></param>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.PathFinder.NodeData">
+            <summary>
+            Data that will be used to find path.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.PathFinder.NodeData.node">
+            <summary>
+            Data owner.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.PathFinder.NodeData.parent">
+            <summary>
+            Parent node used by path finding system to retrace found path.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.PathFinder.NodeData.gCost">
+            <summary>
+            Distance between current node and start node.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.PathFinder.NodeData.hCost">
+            <summary>
+            Distance between current node and target node.
+            </summary>
+        </member>
+        <member name="P:TheoryTeam.PolymorphicGrid.PathFinder.NodeData.FCost">
+            <summary>
+            Total distance cost for this node.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.PathFinder.NodeData.CompareTo(TheoryTeam.PolymorphicGrid.PathFinder.NodeData)">
+            <summary>
+            Compare two nodes to decide which one have higher priority.
+            </summary>
+            <param name="n"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.PathFindingManager">
+            <summary>
+            Main class for finding a path accross grids using the optimal ways.
+            </summary>
+        </member>
+        <member name="P:TheoryTeam.PolymorphicGrid.PathFindingManager.Instance">
+            <summary>
+            Get active instance of path finder.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.PathFindingManager.RequestPath(TheoryTeam.PolymorphicGrid.PathRequestBase)">
+            <summary>
+            Send path request and process it on another thread to receive the response with a callback.
+            </summary>
+            <param name="request">Find path request</param>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.PathFindingManager.RequestPathNonAlloc(TheoryTeam.PolymorphicGrid.PathRequestBase,TheoryTeam.PolymorphicGrid.PathResponseBase)">
+            <summary>
+            Send path request and process it on another thread to fill the provided response and call the callback from the request when processing finishs.
+            No extra allocations will occur for response object.
+            </summary>
+            <param name="request">Find path request</param>
+            <param name="response">Response to be filled</param>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.PathFindingManager.FindPath(TheoryTeam.PolymorphicGrid.Node,TheoryTeam.PolymorphicGrid.Node,TheoryTeam.PolymorphicGrid.GridMaster)">
+            <summary>
+            Return all nodes along the path form b to a.
+            </summary>
+            <param name="a">Origin node</param>
+            <param name="b">Target node</param>
+            <param name="grid">Grid to walk along</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.PathFindingManager.FindAllPathes(TheoryTeam.PolymorphicGrid.Node,TheoryTeam.PolymorphicGrid.GridMaster)">
+            <summary>
+            Calculate shortest path from each node in the grid to the target node.
+            </summary>
+            <param name="target">Target node</param>
+            <param name="grid">Master grid</param>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.PathRequest">
+            <summary>
+            Class for requesting a path between two points.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.PathRequest.start">
+            <summary>
+            first point in the path.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.PathRequest.#ctor">
+            <summary>
+            Create empty path request.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.PathRequest.#ctor(UnityEngine.Vector3,UnityEngine.Vector3,TheoryTeam.PolymorphicGrid.GridMaster,System.Action{TheoryTeam.PolymorphicGrid.PathResponseBase})">
+            <summary>
+            Create new path request to request a path from start point to target point.
+            </summary>
+            <param name="start"></param>
+            <param name="target"></param>
+            <param name="grid"></param>
+            <param name="onResponseCallback"></param>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.PathRequestBase">
+            <summary>
+            Base class for requesting a path.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.PathRequestBase.target">
+            <summary>
+            Target point in the path.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.PathRequestBase.grid">
+            <summary>
+            Grid to request path on.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.PathRequestBase.onResponseCallback">
+            <summary>
+            This callback will automatically be called on path found.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.PathRequestBase.#ctor">
+            <summary>
+            Create empty find all paths request.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.PathRequestBase.#ctor(UnityEngine.Vector3,TheoryTeam.PolymorphicGrid.GridMaster,System.Action{TheoryTeam.PolymorphicGrid.PathResponseBase})">
+            <summary>
+            create new find all paths request.
+            </summary>
+            <param name="target"></param>
+            <param name="grid"></param>
+            <param name="onResponseCallback"></param>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.PathResponse">
+            <summary>
+            Class for responsing to find path request.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.PathResponse.path">
+            <summary>
+            All nodes in the resulted path.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.PathResponse.start">
+            <summary>
+            node associated with start position in the request.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.PathResponse.#ctor">
+            <summary>
+            Create an empty response.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.PathResponse.#ctor(TheoryTeam.PolymorphicGrid.PathRequest,TheoryTeam.PolymorphicGrid.Node,TheoryTeam.PolymorphicGrid.Node)">
+            <summary>
+            Create new Path response.
+            </summary>
+            <param name="request"></param>
+            <param name="start"></param>
+            <param name="target"></param>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.PathResponse.RetracePath">
+            <summary>
+            Extract corners form nodes path and convert to simple path.
+            </summary>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.PathResponseBase">
+            <summary>
+            Main class for responsing to a path request.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.PathResponseBase.request">
+            <summary>
+            Original request.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.PathResponseBase.target">
+            <summary>
+            Target node associated with target position in the request.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.PathResponseBase.#ctor">
+            <summary>
+            Create an empty response.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.PathResponseBase.#ctor(TheoryTeam.PolymorphicGrid.PathRequestBase,TheoryTeam.PolymorphicGrid.Node)">
+            <summary>
+            Create new base response object.
+            </summary>
+            <param name="request"></param>
+            <param name="target"></param>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.PathResponseBase.Invoke">
+            <summary>
+            Invoke the callback on request object.
+            </summary>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.BFSTraversal`1">
+            <summary>
+            Traversing throw each node in a graph using BFS algorithm
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.BFSTraversal`1.maxDepth">
+            <summary>
+            Determines number of layers that would be traversed.
+            Values less than 1 traverse the whole graph.
+            Value of 1 traverses only start node, 2 traverses start node in addition to its' neighbors.
+            </summary>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.DFSTraversal`1">
+            <summary>
+            Traversing throw each node in a graph using iterative DFS algorithm
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.RecursiveDFSTraveral`1">
+            <summary>
+            Traversing throw each node in a graph using recursive DFS algorithm
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.RecursiveDFSTraveral`1.depth">
+            <summary>
+            Determines number of layers that would be traversed.
+            </summary>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.Traversal`1">
+            <summary>
+            Base class for traversing throw each node in a graph.
+            </summary>
+            <typeparam name="T">Node type</typeparam>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.Traversal`1.OnNeighborsFound">
+            <summary>
+            The tamplate of the function that called for each reached node.
+            </summary>
+            <param name="neighbor">Reached node</param>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.Traversal`1.GetNeighborsTemplate">
+            <summary>
+            Template for getting neighbors of the given node.
+            </summary>
+            <param name="current"></param>
+            <returns></returns>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.Traversal`1.GetNeighbors">
+            <summary>
+            Method which will be used to get the neighbors.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.Traversal`1.OnNeighborsFoundCallback">
+            <summary>
+            This callback will automatically be called on reached neighbor.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.Traversal`1.parentPriority">
+            <summary>
+            The function pointer (Func) that decides which parent to choose depending on both old and new parents in addition to start node.
+            The point existance of this variable is that the node could be traversed more than once.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.Traversal`1.straightDistance">
+            <summary>
+            The Func that returns the distance between two adjacent nodes.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.Traversal`1.acceptCondition">
+            <summary>
+            The Func that determine the acceptance of a node for traversing (for example this fucntion is determining that unwalkable nodes are not accepted in path finding algorithms).
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.Traversal`1.onNodeAccepted">
+            <summary>
+            This callback will automatically be called on accepted node.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.Traversal`1.parents">
+            <summary>
+            This variable must be used to store parents.
+            </summary>
+        </member>
+        <member name="P:TheoryTeam.PolymorphicGrid.Traversal`1.ParentsEnabled">
+            <summary>
+            Should this traversal store parents or not.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.Traversal`1.Traverse(`0)">
+            <summary>
+            Traverse throw the graph starting from start node.
+            </summary>
+            <param name="start"></param>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.Traversal`1.Clear">
+            <summary>
+            Clear stored data in the object.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.Traversal`1.HasParent(`0)">
+            <summary>
+            Fucntion that returns if the node has parent or not.
+            </summary>
+            <param name="n"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.Traversal`1.GetParent(`0)">
+            <summary>
+            Fuction that returns the parent node.
+            </summary>
+            <param name="n"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.Traversal`1.GetDistance(`0,`0)">
+            <summary>
+            Retrace parents to calculate the distance between two nodes (Infinity loop case returns 'RejectedDistance').
+            </summary>
+            <param name="start"></param>
+            <param name="target"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.Traversal`1.GetOldFirst(`0,`0,`0)">
+            <summary>
+            This function is used in parentPraiority func.
+            </summary>
+            <param name="oldParent"></param>
+            <param name="newParent"></param>
+            <param name="startNode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.Traversal`1.GetCloserToStart(`0,`0,`0)">
+            <summary>
+            Get the closer parent to start.
+            This function is used in parentPraiority func.
+            </summary>
+            <param name="oldParent"></param>
+            <param name="newParent"></param>
+            <param name="startNode"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.TheoryMath">
+            <summary>
+            Static class for handling vectors, mesh and math problems.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.TheoryMath.FlipNormals(UnityEngine.Mesh,System.Boolean)">
+            <summary>
+            Flip all normals in the mesh.
+            </summary>
+            <param name="mesh"></param>
+            <param name="flipTriangles">Flip triangles face direction</param>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.TheoryMath.ScaleAtCenter(UnityEngine.Vector3,System.Single,UnityEngine.Vector3[])">
+            <summary>
+            Scale array of points to a given center (make all points closer of further of the center depending on scale value).
+            </summary>
+            <param name="center">Center to scale points to it</param>
+            <param name="scale">Scale multiplyer value</param>
+            <param name="points">points to scale</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.TheoryMath.ScaleAtCenter(System.Single,UnityEngine.Vector3[])">
+            <summary>
+            Scale array of points to a given center (make all points closer of further of the center depending on scale value).
+            </summary>
+            <param name="scale">Scale multiplyer value</param>
+            <param name="points">points to scale</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.TheoryMath.FilllAtCenter(UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3[])">
+            <summary>
+            Fill a loop of vertices using a mesh by creating a center point and connect every point with it.
+            </summary>
+            <param name="center">Center point to connect all vertices with</param>
+            <param name="up">Plane normal</param>
+            <param name="points">Points loop to fill</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.TheoryMath.FilllAtCenter(UnityEngine.Vector3[])">
+            <summary>
+            Fill a loop of vertices using a mesh by creating a center point and connect every point with it.
+            </summary>
+            <param name="points">Points loop to fill</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.TheoryMath.BridgeEdgeLoops(UnityEngine.Vector3[],UnityEngine.Vector3[],System.Boolean)">
+            <summary>
+            Join every vertix in the first array with other vertix at the same index in the second array and make an array of planes.
+            </summary>
+            <param name="a">First points array</param>
+            <param name="b">Second points array</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.TheoryMath.CombineMeshes(UnityEngine.Mesh[])">
+            <summary>
+            Combine number of meshes in one mesh and return that mesh.
+            </summary>
+            <param name="meshes">Meshes to combine</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.TheoryMath.GetNormal(UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3)">
+            <summary>
+            Create a plane and return its normal.
+            </summary>
+            <param name="A">Triangle Point A</param>
+            <param name="B">Triangle Point B</param>
+            <param name="C">Triangle Point C</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.TheoryMath.PointInsideConvexPolymorphicgon(UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3[])">
+            <summary>
+            Check if a point is inside a convex Polymorphicgon.
+            </summary>
+            <param name="p">Point to check</param>
+            <param name="center">Center of the Polymorphicgon</param>
+            <param name="PolymorphicgonPoints">Points which create the Polymorphicgon</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.TheoryMath.PointInsideConvexPolygon(UnityEngine.Vector3,UnityEngine.Vector3[])">
+            <summary>
+            Check if a point is inside a convex Polymorphicgon.
+            </summary>
+            <param name="p">Point to check</param>
+            <param name="PolymorphicgonPoints">Points which create the Polymorphicgon</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.TheoryMath.FindCenter(UnityEngine.Vector3[])">
+            <summary>
+            Getting the center of points by calculating avarege for each x, y and z coordinates.
+            </summary>
+            <param name="points">Points to find center for</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.TheoryMath.GetApprox(System.Single,System.Int32)">
+            <summary>
+            Round floating point number to a number with less amount of digits to avoid calculation mistakes.
+            </summary>
+            <param name="num">Number to round</param>
+            <param name="digitsCount">Number of digits to remove</param>
+            <returns></returns>
+        </member>
+        <member name="T:TheoryTeam.PolymorphicGrid.GridVisualizer">
+            <summary>
+            Class to visualize your grid in the scene and during gameplay.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.GridVisualizer.materials">
+            <summary>
+            All materials used by this visualizer.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.GridVisualizer.visualizedNodeOffset">
+            <summary>
+            Node visualizer mesh position offset from original node position.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.GridVisualizer.visualizedNodeHeight">
+            <summary>
+            Node visualizer mesh height.
+            </summary>
+        </member>
+        <member name="F:TheoryTeam.PolymorphicGrid.GridVisualizer.autoGenerate">
+            <summary>
+            Automatically update visualizer meshes when updating targeted grid.
+            </summary>
+        </member>
+        <member name="P:TheoryTeam.PolymorphicGrid.GridVisualizer.Grid">
+            <summary>
+            Target grid to visualize.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridVisualizer.UpdateMeshes">
+            <summary>
+            Regenerate all visualizer meshes to match targeted grid.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridVisualizer.ClearMeshes">
+            <summary>
+            Clear all generated meshes by the visualizer.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridVisualizer.SetMaterial(TheoryTeam.PolymorphicGrid.Node,System.Int32)">
+            <summary>
+            Set material for the mesh associated by the given node.
+            </summary>
+            <param name="n">New material index</param>
+            <param name="material"></param>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridVisualizer.GetMaterial(TheoryTeam.PolymorphicGrid.Node)">
+            <summary>
+            Get material for the mesh associated by the given node.
+            </summary>
+            <param name="n"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridVisualizer.CreateNodeMesh(System.Int32)">
+            <summary>
+            Create visualizer mesh for the given node index.
+            </summary>
+            <param name="index">Node index to visualize</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridVisualizer.UpdateAllMaterials">
+            <summary>
+            Update all visualizer materials.
+            </summary>
+        </member>
+        <member name="M:TheoryTeam.PolymorphicGrid.GridVisualizer.GetRenderer(System.Int32)">
+            <summary>
+            Get visualizer node associated with target index.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

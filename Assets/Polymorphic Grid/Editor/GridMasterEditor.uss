@@ -1,0 +1,25 @@
+.ControlButton {
+	-unity-font-style: bold;
+}
+
+.StorageContainer : .ControlButton {
+	flex-grow: 1;
+	height: 32px;
+}
+
+.StorageContainer {
+	align-content: stretch;
+	justify-content: space-between;
+	flex-direction: row;
+}
+
+.PrefabContainer {
+	align-content: stretch;
+	justify-content: flex-start;
+	flex-direction: row;
+	flex-grow: 1;
+}
+
+.PrefabContainer : .Prefab {
+	flex-grow: 1;
+}

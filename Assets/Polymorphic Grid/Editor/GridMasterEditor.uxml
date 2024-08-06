@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<engine:UXML
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:engine="UnityEngine.UIElements"
+    xmlns:editor="UnityEditor.UIElements"
+    xsi:noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd"
+>
+  <editor:FloatField label="Node Radius" name="nodeRadius" tooltip="This value is used to calculate node corners and node spacing while generating your grid."/>
+  
+  <engine:VisualElement class="PrefabContainer">
+    <engine:Toggle name="createNodeObject"/>
+    <editor:ObjectField label="Node Prefab" name="nodePrefab" class="Prefab" tooltip="Prefab to be instantiated at each node position."/>
+  </engine:VisualElement>
+  <engine:Box>
+    <engine:VisualElement class="StorageContainer">
+      <engine:Button name="Load" class="ControlButton" text="Load Grid From File" tooltip="Load generated grid form disk."/>
+      <engine:Button name="Save" class="ControlButton" text="Save Grid To File" tooltip="Save generated grid into scriptable object so you can load it when ever you want."/>
+    </engine:VisualElement>
+    <engine:Button name="Generate" class="ControlButton" text="Generate Grid" tooltip="Create nodes and initialize the grid."/>
+    <engine:Button name="Clear" class="ControlButton" text="Clear Grid" tooltip="Clear and destroy all nodes and connections for this grid."/>
+  </engine:Box>
+</engine:UXML>
