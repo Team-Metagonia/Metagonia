@@ -127,8 +127,8 @@ public class ForestTree : MonoBehaviour, IDamagable, ISliceable
         rootComponent.dropAll = this.dropAll;
 
         // Layer Setting
-        trunk.layer = this.gameObject.layer;
-        root.layer  = this.gameObject.layer;
+        trunk.layer = LayerMask.NameToLayer("Tree");
+        root.layer  = LayerMask.NameToLayer("Tree");
         
         // int defaultLayer = LayerMask.NameToLayer("Default");
         // trunkCollider.excludeLayers = 1 << defaultLayer;
