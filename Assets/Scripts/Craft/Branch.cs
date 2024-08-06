@@ -29,7 +29,7 @@ public class Branch : Item, IAttachable, IDamagable, IDroppable
         }
 
         //Instantiate Object into World and Destroy ingredient Objects
-        GameObject resultItem = Instantiate(obj, baseitem.transform.position, Quaternion.identity);
+        GameObject resultItem = Instantiate(obj, baseitem.transform.position, baseitem.gameObject.transform.rotation);
         Destroy(attacheditem.gameObject);
         Destroy(baseitem.gameObject);
 

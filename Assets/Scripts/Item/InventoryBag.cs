@@ -21,15 +21,12 @@ public class InventoryBag : MonoBehaviour
         {
             Debug.Log($"{go.name} is item");
             Debug.Log(i._currentHandInteractor);
-            if ((OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger) || OVRInput.GetUp(OVRInput.Button.SecondaryHandTrigger)) &&
-                !i.isInBag)
+            if((OVRInput.GetUp(OVRInput.Button.SecondaryHandTrigger) || OVRInput.GetUp(OVRInput.Button.PrimaryHandTrigger)) && !i.isInBag )
             {
-                // How to Check if the Item is currently in player's hand??
                 Debug.Log($"{i.itemInfo.itemName} Item In Bag");
                 i.isInBag = true;
                 i.PickUp();
                 OnPickedUpToBag?.Invoke();
-                
             }
            
         }
