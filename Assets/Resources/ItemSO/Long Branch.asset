@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de416497d426ab2419d0f9bc5089e127, type: 3}
+  m_Name: Long Branch
+  m_EditorClassIdentifier: 
+  id: 0
+  itemName: 
+  value: 0
+  quantity: 0
+  type: 0
+  icon: {fileID: 0}
+  simplePrefab: {fileID: 0}
+  encyclopediaPrefab: {fileID: 0}
+  completePrefab: {fileID: 1737795848681809078, guid: 21c5026200ab05c46a0ef666d45f52de, type: 3}
+  isSlot: 0
+  slotRotation: {x: 0, y: 0, z: 0}
+  currentSlot: {fileID: 0}
+  dropItems:
+  - {fileID: 6334730217627051269, guid: ed7d6c037a950b5468d60d5320504664, type: 3}
+  - {fileID: 6334730217627051269, guid: ed7d6c037a950b5468d60d5320504664, type: 3}

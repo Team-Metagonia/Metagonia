@@ -14,10 +14,10 @@ using UnityEngine.UI;
 
 public class InventoryVR : MonoBehaviour
 {
-    [SerializeField] OVRPlayerController player;
+    [SerializeField] GameObject player;
     [SerializeField] Vector3 slotOffset;
     [SerializeField] Vector3 invenOffset;
-    [SerializeField] InventoryUI ui;
+    [SerializeField] InventoryUI[] ui;
 
     public static InventoryVR instance;
     public List<ItemSO> UnStackableList = new List<ItemSO>();
@@ -26,11 +26,12 @@ public class InventoryVR : MonoBehaviour
     public Dictionary<ItemSO,int> itemQuantityPairs = new Dictionary<ItemSO,int>();
 
     public ItemPickUp currentPicked;
-    public List<InventorySlot> slots = new List<InventorySlot>();
-    public GameObject slotInven;
-    //public GameObject slotAnchor;
+    public List<GameObject> slots = new List<GameObject>();
+    public GameObject quickSlotParent;
+    public GameObject slotObject;
     public GameObject inventory;
-    bool UIActive;
+    public GameObject quickSlotInventory;
+    public bool UIActive;
 
     private void Awake()
     {
@@ -45,9 +46,19 @@ public class InventoryVR : MonoBehaviour
         }
     }
 
-    public void AddToUnStackableList(ItemSO item)
+    public void AddToUnStackableList(ItemSO item, GameObject obj)
     {
+        Debug.Log("Added to unstackable list");
         UnStackableList.Add(item);
+
+        // Create slot Object
+        GameObject slot = Instantiate(slotObject,quickSlotParent.transform);
+
+        // Create New Item Prefab to put in Slot or Do not Destroy Original obj and just put it in??
+        GameObject newItem = Instantiate(item.completePrefab);
+        slot.GetComponentInChildren<InventorySlot>().InsertItem(newItem);
+
+        slots.Add(slot);
     }
 
     public void RemoveFromUnStackableList(ItemSO item)
@@ -62,34 +73,61 @@ public class InventoryVR : MonoBehaviour
         if(itemQuantityPairs.ContainsKey(item))
         {
             itemQuantityPairs[item] += item.quantity;
-            ui.UpdateHolder(item);
+            foreach(InventoryUI i in ui)
+            {
+                i.UpdateHolder(item);
+            }
             return;
         }
         itemQuantityPairs.Add(item, item.quantity);
-        ui.InstantiateHolder(item);
+        foreach(InventoryUI i in ui)
+        {
+            i.InstantiateHolder(item);
+        }
     }
 
     public void RemoveFromStackableList(ItemSO item)
     {
         StackableList.Remove(item);
+
+        if(itemQuantityPairs.ContainsKey(item)) 
+        {
+            itemQuantityPairs[item] -= item.quantity;
+            foreach (InventoryUI i in ui)
+            {
+                i.UpdateHolder(item);
+            }
+            return;
+        }
+    }
+
+    public void DeactivateQuickSlot()
+    {
+        quickSlotInventory.SetActive(false);
     }
 
     private void Start()
     {
+        quickSlotInventory.SetActive(false);
         inventory.SetActive(false);
         UIActive = false;
     }
 
     private void Update()
     {
+        if (OVRInput.GetDown(OVRInput.Button.Three))
+        {
+            Debug.Log("Pressed");
+        }
         if(OVRInput.GetDown(OVRInput.Button.Three))
         {
             UIActive = !UIActive;
             inventory.SetActive(UIActive);
+            quickSlotInventory.SetActive(UIActive);
         }
 
-        //slotInven.transform.position = player.transform.position + slotOffset;
-        //inventory.transform.position = player.transform.position + invenOffset;
+        quickSlotInventory.transform.position = player.transform.position + slotOffset;
+        inventory.transform.position = player.transform.position + invenOffset;
     }
 
     [ContextMenu("Print Dictionary")]

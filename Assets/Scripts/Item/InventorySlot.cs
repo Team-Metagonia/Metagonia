@@ -23,7 +23,7 @@ public class InventorySlot : MonoBehaviour
         }
     }
 
-    void InsertItem(GameObject obj)
+    public void InsertItem(GameObject obj)
     {
         Debug.Log("Insert");
         if(obj.GetComponent<Rigidbody>().isKinematic==false)
@@ -32,6 +32,7 @@ public class InventorySlot : MonoBehaviour
         }
         obj.transform.parent = itemSlot.transform;
         obj.transform.localPosition = new Vector3(0,0,0);
+        obj.transform.rotation = Quaternion.identity;
         obj.GetComponent<ItemPickUp>().isInSlot = true;
         currentItem = obj.GetComponent<ItemPickUp>().item;
     }
@@ -39,5 +40,13 @@ public class InventorySlot : MonoBehaviour
     bool IsItem(GameObject obj)
     {
         return obj.TryGetComponent<ItemPickUp>(out ItemPickUp i); 
+    }
+
+    private void FixedUpdate()
+    {
+        if (currentItem != null) 
+        {
+            
+        }
     }
 }

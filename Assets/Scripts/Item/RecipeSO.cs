@@ -7,6 +7,7 @@ using UnityEngine;
 public class RecipeSO : ScriptableObject
 {
     public string id;
+    public int attachPoint;
     public List <ItemSO> ingredients;
     public List <GameObject> results;
 

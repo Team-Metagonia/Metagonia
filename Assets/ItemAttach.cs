@@ -23,29 +23,40 @@ public class ItemAttach : MonoBehaviour, IAttachable
     private void Awake()
     {
         WorkBench.OnWorkStateChange += ShowAttachableArea;
-        WorkBench.OnAttach += Attach;
+        //WorkBench.OnAttach += Attach;
     }
 
-    public void Attach(Item baseitem, Item attacheditem)
+    
+
+    public void Attach(Item baseitem, Item attacheditem, int a)
     {
-        GameObject obj = CraftManager.Instance.CheckRecipeValidness(baseitem, attacheditem);
+        IAttachable attachable = this;
+        
+
+        GameObject obj = CraftManager.Instance.CheckRecipeValidness(baseitem, attacheditem, a);
         if (obj == null)
         {
             Debug.Log("Invalid Recipe. Recipe must be declared in RecipeSO in order to succesfully attach items.");
             return;
         }
 
+        GameObject resultItem = Instantiate(obj,baseitem.transform.position,Quaternion.identity);
 
         Destroy(attacheditem.gameObject);
         Destroy(baseitem.gameObject);
-        GameObject resultItem = Instantiate(obj);
+        
+
+        
+
         HandGrabInteractable[] interactable = resultItem.GetComponentsInChildren<HandGrabInteractable>();
 
-        if(_currentHandInteractor.gameObject.GetComponent<HandRef>().Handedness==Handedness.Left)
-        {
-            _currentHandInteractor.ForceSelect(interactable[0], true);
-        }
-        else _currentHandInteractor.ForceSelect(interactable[1], true);
+        attachable.AttachToHand(_currentHandInteractor,interactable);
+
+        //if (_currentHandInteractor.gameObject.GetComponent<HandRef>().Handedness==Handedness.Left)
+        //{
+        //    _currentHandInteractor.ForceSelect(interactable[0], true);
+        //}
+        //else _currentHandInteractor.ForceSelect(interactable[1], true);
 
 
     }

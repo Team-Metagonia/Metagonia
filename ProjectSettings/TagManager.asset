@@ -5,6 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - SamplesInfoPanel
+  - CinemachineTarget
+  - Enemy
+  - Projectile
+  - Floor
+  - Weapon
+  - WorkBench
   layers:
   - Default
   - TransparentFX
@@ -21,13 +27,13 @@ TagManager:
   - Head
   - Item
   - 
+  - Terrain
   - 
+  - Tree
   - 
+  - Ignore Collision
   - 
-  - 
-  - 
-  - 
-  - 
+  - Fragment
   - 
   - 
   - 

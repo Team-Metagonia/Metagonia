@@ -17,7 +17,11 @@ MonoBehaviour:
   value: 0
   quantity: 0
   type: 1
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: a50aa657da7c1714098a26a4eb7a8891, type: 3}
+  simplePrefab: {fileID: 0}
+  encyclopediaPrefab: {fileID: 5869622654396806592, guid: a82f60271302d4549b7a540bd895a053, type: 3}
+  completePrefab: {fileID: 8846328333850086476, guid: c356de3d8b1bd214b97597d181082d69, type: 3}
+  itemExplanation: 
   isSlot: 0
   slotRotation: {x: 0, y: 0, z: 0}
   currentSlot: {fileID: 0}
