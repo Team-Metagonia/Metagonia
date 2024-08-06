@@ -813,7 +813,7 @@ MonoBehaviour:
   _maxInteractors: -1
   _maxSelectingInteractors: -1
   _data: {fileID: 0}
-  _pointableElement: {fileID: 0}
+  _pointableElement: {fileID: 9115874366557877876}
   _rigidbody: {fileID: 2584469362386584767}
   _grabSource: {fileID: 0}
   _resetGrabOnGrabsUpdated: 1
@@ -949,7 +949,7 @@ MonoBehaviour:
   _maxInteractors: -1
   _maxSelectingInteractors: -1
   _data: {fileID: 0}
-  _pointableElement: {fileID: 0}
+  _pointableElement: {fileID: 9115874366557877876}
   _rigidbody: {fileID: 2584469362386584767}
   _grabSource: {fileID: 0}
   _resetGrabOnGrabsUpdated: 1

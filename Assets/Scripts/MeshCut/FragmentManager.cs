@@ -80,7 +80,7 @@ public class FragmentManager : MonoBehaviour
                 lastRotation = lastChunk.transform.rotation;
 
                 Rigidbody[] allRigidbody = instantiatedGameObject.GetComponentsInChildren<Rigidbody>();
-                foreach (Rigidbody rigidbody in allRigidbody) rigidbody.velocity = Vector3.zero;
+                // foreach (Rigidbody rigidbody in allRigidbody) rigidbody.velocity = Vector3.down;
 
                 Collider[] allColliders = hiddenMesh.GetComponentsInChildren<Collider>();
                 foreach (Collider collider in allColliders) collider.excludeLayers = -1;
