@@ -531,6 +531,8 @@ MonoBehaviour:
   - Weapon
   - WorkBench
   localControllerThresholdSpeed: 0.1
+  maxDetachedFragments: 3
+  collisionCooldown: 0.5
   root: {fileID: 7078614214361802439}
   hiddenMesh: {fileID: 1974514286648326162}
   prefabToInstantiateAfterDie: {fileID: 3140972075568157767, guid: ddbb1fe997ff1a942985348fa6530b10, type: 3}
@@ -581,6 +583,7 @@ GameObject:
   - component: {fileID: 7950886706370352997}
   - component: {fileID: 6309856977419546742}
   - component: {fileID: 4419915668257449617}
+  - component: {fileID: 5681125214057693825}
   m_Layer: 19
   m_Name: Gravity Applier
   m_TagString: Weapon
@@ -682,6 +685,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _transformsFollowingMe:
   - {fileID: 2664056124036897896}
+--- !u!114 &5681125214057693825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4242138787489086827}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 077d8d2fef60c864ba0a2f61ec61921d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transformsDyingWithMe:
+  - {fileID: 7078614214361802439}
 --- !u!1 &4938760980993806093
 GameObject:
   m_ObjectHideFlags: 0

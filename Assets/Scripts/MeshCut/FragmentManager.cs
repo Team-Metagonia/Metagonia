@@ -40,6 +40,8 @@ public class FragmentManager : MonoBehaviour
 
     private GrabInteractor _lastGrabInteractor;
     private DistanceGrabInteractor _lastDistanceGrabInteractor;
+
+    private bool isFinished = false;
     
     private void Awake()
     {
@@ -96,11 +98,16 @@ public class FragmentManager : MonoBehaviour
                     lastHandedness = _lastDistanceGrabInteractor.GetComponent<ControllerRef>().Handedness;
                 
 
-                if      (lastHandedness == Handedness.Left)  OVRBrain.Instance.LeftHandObject  = null;
-                else if (lastHandedness == Handedness.Right) OVRBrain.Instance.RightHandObject = null;
-                
-                if      (lastHandedness == Handedness.Left)  Debug.Log("Last ungrab hand is left");
-                else if (lastHandedness == Handedness.Right) Debug.Log("Last ungrab hand is right");
+                if (!isFinished)
+                {
+                    isFinished = true;
+
+                    if (lastHandedness == Handedness.Left) OVRBrain.Instance.LeftHandObject = null;
+                    else if (lastHandedness == Handedness.Right) OVRBrain.Instance.RightHandObject = null;
+
+                    if (lastHandedness == Handedness.Left) Debug.Log("Last ungrab hand is left");
+                    else if (lastHandedness == Handedness.Right) Debug.Log("Last ungrab hand is right");
+                }
                 
                 
             }
