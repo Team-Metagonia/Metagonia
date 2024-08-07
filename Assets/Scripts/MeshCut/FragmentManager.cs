@@ -40,6 +40,8 @@ public class FragmentManager : MonoBehaviour
 
     private GrabInteractor _lastGrabInteractor;
     private DistanceGrabInteractor _lastDistanceGrabInteractor;
+
+    private bool isFinished = false;
     
     private void Awake()
     {
@@ -79,8 +81,8 @@ public class FragmentManager : MonoBehaviour
                 lastPosition = lastChunk.transform.position;
                 lastRotation = lastChunk.transform.rotation;
 
-                Rigidbody[] allRigidbody = instantiatedGameObject.GetComponentsInChildren<Rigidbody>();
-                foreach (Rigidbody rigidbody in allRigidbody) rigidbody.velocity = Vector3.zero;
+                // Rigidbody[] allRigidbody = instantiatedGameObject.GetComponentsInChildren<Rigidbody>();
+                // foreach (Rigidbody rigidbody in allRigidbody) rigidbody.velocity = Vector3.zero;
 
                 Collider[] allColliders = hiddenMesh.GetComponentsInChildren<Collider>();
                 foreach (Collider collider in allColliders) collider.excludeLayers = -1;
@@ -95,11 +97,17 @@ public class FragmentManager : MonoBehaviour
                 else if (_lastDistanceGrabInteractor != null)
                     lastHandedness = _lastDistanceGrabInteractor.GetComponent<ControllerRef>().Handedness;
                 
-                if      (lastHandedness == Handedness.Left)  OVRBrain.Instance.LeftHandObject  = null;
-                else if (lastHandedness == Handedness.Right) OVRBrain.Instance.RightHandObject = null;
-                
-                if      (lastHandedness == Handedness.Left)  Debug.Log("Last ungrab hand is left");
-                else if (lastHandedness == Handedness.Right) Debug.Log("Last ungrab hand is right");
+
+                if (!isFinished)
+                {
+                    isFinished = true;
+
+                    if (lastHandedness == Handedness.Left) OVRBrain.Instance.LeftHandObject = null;
+                    else if (lastHandedness == Handedness.Right) OVRBrain.Instance.RightHandObject = null;
+
+                    if (lastHandedness == Handedness.Left) Debug.Log("Last ungrab hand is left");
+                    else if (lastHandedness == Handedness.Right) Debug.Log("Last ungrab hand is right");
+                }
                 
                 
             }

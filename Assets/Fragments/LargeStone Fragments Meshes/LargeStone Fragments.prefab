@@ -3417,6 +3417,7 @@ GameObject:
   - component: {fileID: 5055373644443102031}
   - component: {fileID: 7484054970366827180}
   - component: {fileID: 149169645146683048}
+  - component: {fileID: 9019829623808168166}
   m_Layer: 19
   m_Name: Gravity Applier
   m_TagString: Weapon
@@ -3558,6 +3559,20 @@ MonoBehaviour:
   numsToDrop: 0
   initHealth: 0
   dropAll: 0
+--- !u!114 &9019829623808168166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4255993636732834029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 077d8d2fef60c864ba0a2f61ec61921d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transformsDyingWithMe:
+  - {fileID: 170390681608061228}
 --- !u!1 &4549175457070870583
 GameObject:
   m_ObjectHideFlags: 0

@@ -72,7 +72,7 @@ public class EncyclopediaBook : MonoBehaviour
     [ContextMenu("Reset Book")]
     public void ResetBook()
     {
-        if (_interactionMode) return;
+        //if (_interactionMode) return;
         StartCoroutine(ResetCoroutine());
     }
 
@@ -88,6 +88,7 @@ public class EncyclopediaBook : MonoBehaviour
 
     public void OnInteractionModeChange()
     {
+        Debug.Log("EncyclopediaBook Oninteractionmodechange");
         _interactionMode = !_interactionMode;
         if (_interactionMode)
         {

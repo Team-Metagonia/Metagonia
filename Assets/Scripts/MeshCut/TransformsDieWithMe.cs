@@ -22,7 +22,7 @@ public class TransformsDieWithMe : MonoBehaviour
         
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         foreach (Transform who in transformsDyingWithMe)
         {
