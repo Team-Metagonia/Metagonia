@@ -553,6 +553,7 @@ Transform:
   - {fileID: 1885127378871639078}
   - {fileID: 1403130274385598101}
   - {fileID: 2417432436394334088}
+  - {fileID: 7639708773139000445}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4629646459716832219
@@ -1330,7 +1331,7 @@ GameObject:
   - component: {fileID: 1361214349887431807}
   - component: {fileID: 9112437386921398039}
   - component: {fileID: 4552939580854621803}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: TextCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1729,7 +1730,7 @@ GameObject:
   - component: {fileID: 4847211408642069946}
   - component: {fileID: 3601482409925508430}
   m_Layer: 0
-  m_Name: NewIActionCanvas
+  m_Name: NewActionCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2436,6 +2437,37 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &7480573287984930010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7639708773139000445}
+  m_Layer: 0
+  m_Name: Canvases
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7639708773139000445
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7480573287984930010}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5728056104195002828}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8146864565276679145
 GameObject:
   m_ObjectHideFlags: 0
@@ -2447,7 +2479,7 @@ GameObject:
   - component: {fileID: 4265412937318615028}
   - component: {fileID: 3418152132350719638}
   - component: {fileID: 2329808185292931882}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
