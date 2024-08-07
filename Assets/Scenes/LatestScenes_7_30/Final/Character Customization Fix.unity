@@ -11022,7 +11022,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 328}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &317179678
 MonoBehaviour:
@@ -11100,7 +11100,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: d648d6780c419de4c969fa2e704ad5e3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -40117,7 +40117,7 @@ MonoBehaviour:
   customizationCanvas: {fileID: 1717445549}
   panelController: {fileID: 1325337555}
   selectedCharacter: {fileID: 0}
-  nextSceneName: FinalMerge
+  nextSceneName: CraftingTutorial Building
 --- !u!4 &1302059320
 Transform:
   m_ObjectHideFlags: 0
