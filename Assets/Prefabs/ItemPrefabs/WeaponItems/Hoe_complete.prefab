@@ -610,10 +610,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37639a09941b8e4cb2049f407d0aa90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemInfo: {fileID: 11400000, guid: 21b94ec0e9a9ffd4ab3cf1509dbfa314, type: 2}
+  itemInfo: {fileID: 11400000, guid: ef3a95df36fd7e944bf4a2806718d50d, type: 2}
   _currentHandInteractor: {fileID: 0}
   distanceGrabbed: 0
   isInBag: 0
+  ignoreHitDirection: 1
   hitPoint: 0
   headTransform: {fileID: 2207352284709210801}
   bodyTransform: {fileID: 787323474404763860}
