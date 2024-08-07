@@ -40117,7 +40117,7 @@ MonoBehaviour:
   customizationCanvas: {fileID: 1717445549}
   panelController: {fileID: 1325337555}
   selectedCharacter: {fileID: 0}
-  nextSceneName: CraftingTutorial Building
+  nextSceneName: FinalMerge
 --- !u!4 &1302059320
 Transform:
   m_ObjectHideFlags: 0
