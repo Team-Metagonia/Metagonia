@@ -1,4 +1,3 @@
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class ConstructionModeUI : MonoBehaviour
@@ -32,14 +31,22 @@ public class ConstructionModeUI : MonoBehaviour
                 Instantiate(selectedPrefab, previewInstance.transform.position, previewInstance.transform.rotation);
                 Destroy(previewInstance);
                 selectedPrefab = null;
+                isConstructionMode = false; // 건축 후 건축 모드 비활성화
             }
         }
     }
 
     void ToggleConstructionMode()
     {
-        isConstructionMode = !isConstructionMode;
-        constructionUIPanel.SetActive(isConstructionMode);
+        if (!isConstructionMode || constructionUIPanel.activeSelf)
+        {
+            isConstructionMode = !isConstructionMode;
+            constructionUIPanel.SetActive(isConstructionMode);
+        }
+        else
+        {
+            constructionUIPanel.SetActive(true);
+        }
     }
 
     // 버튼 클릭 시 호출되는 메서드
