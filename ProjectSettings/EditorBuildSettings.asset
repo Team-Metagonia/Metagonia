@@ -6,11 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/LatestScenes_7_30/Final/Start.unity
+    guid: 37bf5519986e8784699a49cc2712cfe5
+  - enabled: 1
+    path: Assets/Scenes/LatestScenes_7_30/Final/Character Customization Fix.unity
+    guid: 5e9bf86cac7bd054bb6cdab088f37a78
+  - enabled: 1
     path: Assets/Scenes/New Scene/FinalMerge.unity
     guid: 1af8ab5993b39a143ab483c12325f23b
   - enabled: 0
     path: Assets/Scenes/TutorialScenes/CraftingTutorial.unity
     guid: 232530831f9d74b47ad51c23640702ca
+  - enabled: 1
+    path: Assets/Scenes/TutorialScenes/CraftingTutorial Building.unity
+    guid: 3f589965c6adfd444ae567374c012a42
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 9c708df254100c04e819e3cf23e9cd75, type: 2}
     com.unity.input.settings: {fileID: 11400000, guid: 52d8d7696d1af4e4da22958aabeb4393, type: 2}
