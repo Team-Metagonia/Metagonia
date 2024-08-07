@@ -30,4 +30,11 @@ public class SpawnManager : MonoBehaviour
         yield return new WaitForSeconds(delayTime);
         obj.SetActive(true);
     }
+
+    public void SpawnObject(GameObject go, Transform spawnPoint)
+    {
+        Instantiate(go, spawnPoint.transform.position, Quaternion.identity);
+    }
+    
+    
 }
