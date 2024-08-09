@@ -103,114 +103,6 @@ public class FracturedChunk : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if(FracturedObjectSource == null || collision == null)
-        {
-            return;
-        }
-        
-        if(collision.contacts == null)
-        {
-            return;
-        }
-
-        if(collision.contacts.Length == 0)
-        {
-            return;
-        }
-
-        if(collision.gameObject)
-        {
-            FracturedChunk otherChunk = collision.gameObject.GetComponent<FracturedChunk>();
-
-            if(otherChunk)
-            {
-                if(otherChunk.GetComponent<Rigidbody>().isKinematic && IsDetachedChunk == false)
-                {
-                    // Just intersecting with other chunk in kinematic state
-                    return;
-                }
-            }
-        }
-
-        float fMass = Mathf.Infinity; // If there is no rigidbody we consider it static
-
-        if(collision.rigidbody)
-        {
-            fMass = collision.rigidbody.mass;
-        }
-
-        if(IsDetachedChunk == false)
-        {
-            // Chunk still attached.
-            // We are going to check if the collision is against a free chunk of the same object. This way we prevent chunks pushing each other out, we want to control
-            // this only through the FractureObject.InterconnectionStrength variable
-
-            bool bOtherIsFreeChunkFromSameObject = false;
-
-            FracturedChunk otherChunk = collision.gameObject.GetComponent<FracturedChunk>();
-
-            if(otherChunk != null)
-            {
-                if(otherChunk.IsDetachedChunk == true && otherChunk.FracturedObjectSource == FracturedObjectSource)
-                {
-                    bOtherIsFreeChunkFromSameObject = true;
-                }
-            }
-            
-            Debug.Log("Chunk Collision: " + collision.gameObject.name);
-            
-            if(bOtherIsFreeChunkFromSameObject == false && collision.relativeVelocity.magnitude > FracturedObjectSource.EventDetachMinVelocity && fMass > FracturedObjectSource.EventDetachMinMass && GetComponent<Rigidbody>() != null && IsDestructibleChunk())
-            {
-                CollisionInfo collisionInfo = new CollisionInfo(this, collision, true);
-                if (!Check(collision)) return;
-                
-                FracturedObjectSource.NotifyChunkCollision(collisionInfo);
-                if (!CheckNumDetachedFragment()) return;
-                
-                FracturedObjectSource.NotifyDetachChunkCollision(collisionInfo);
-
-                if(collisionInfo.bCancelCollisionEvent == false)
-                {
-                    List<FracturedChunk> listBreaks = new List<FracturedChunk>();
-
-                    // Impact enough to make it detach. Compute random list of connected chunks that are detaching as well (we'll use the ConnectionStrength parameter).
-                    listBreaks = ComputeRandomConnectionBreaks();
-                    listBreaks.Add(this);
-                    DetachFromObject();
-
-                    foreach(FracturedChunk chunk in listBreaks)
-                    {
-                        collisionInfo.chunk = chunk;
-                        collisionInfo.bIsMain = false;
-                        collisionInfo.bCancelCollisionEvent = false;
-
-                        if(chunk != this)
-                        {
-                            FracturedObjectSource.NotifyDetachChunkCollision(collisionInfo);
-                        }
-
-                        if(collisionInfo.bCancelCollisionEvent == false)
-                        {
-                            chunk.DetachFromObject();
-                            chunk.GetComponent<Rigidbody>().AddExplosionForce(collision.relativeVelocity.magnitude * FracturedObjectSource.EventDetachExitForce, collision.contacts[0].point, 0.0f, FracturedObjectSource.EventDetachUpwardsModifier);
-                        }
-                    }
-                }
-            }
-        }
-        else
-        {
-            // Free chunk
-
-            if(collision.relativeVelocity.magnitude > FracturedObjectSource.EventDetachedMinVelocity && fMass > FracturedObjectSource.EventDetachedMinMass)
-            {
-                FracturedObjectSource.NotifyFreeChunkCollision(new CollisionInfo(this, collision, true));
-            }
-        }
-    }
-
 #if UNITY_EDITOR
 
     void OnRenderObject()
@@ -310,7 +202,6 @@ public class FracturedChunk : MonoBehaviour
     public void ResetChunk(FracturedObject fracturedObjectSource)
     {
         transform.parent      = fracturedObjectSource.transform;
-        GetComponent<Rigidbody>().isKinematic = true;
         IsNonSupportedChunk   = m_bNonSupportedChunkStored;
 
         FracturedObjectSource   = fracturedObjectSource;
@@ -329,7 +220,7 @@ public class FracturedChunk : MonoBehaviour
 
     public void Impact(Vector3 v3Position, float fExplosionForce, float fRadius, bool bAlsoImpactFreeChunks)
     {
-        if(GetComponent<Rigidbody>() != null && IsDestructibleChunk())
+        if(IsDestructibleChunk())
         {
             List<FracturedChunk> listBreaks = new List<FracturedChunk>();
 
@@ -451,13 +342,15 @@ public class FracturedChunk : MonoBehaviour
 
     public void DetachFromObject(bool bCheckStructureIntegrity = true)
     {
-        if(IsDestructibleChunk() && IsDetachedChunk == false && GetComponent<Rigidbody>())
+        if(IsDestructibleChunk() && IsDetachedChunk == false)
         {
             m_bNonSupportedChunkStored = IsNonSupportedChunk;
 
             transform.parent      = null;
-            gameObject.layer = LayerMask.NameToLayer("Ignore Collision");
-            GetComponent<Rigidbody>().isKinematic = false;
+
+            bool hasRigidbody = (this.gameObject.GetComponent<Rigidbody>() != null);
+            if (!hasRigidbody) this.gameObject.AddComponent<Rigidbody>();
+            
             IsDetachedChunk       = true;
             IsNonSupportedChunk   = true;
 
@@ -571,17 +464,5 @@ public class FracturedChunk : MonoBehaviour
         }
 
         return chunk;
-    }
-    
-    private bool Check(Collision collision)
-    {
-        var checker = FracturedObjectSource.GetComponent<FragmentManager>();
-        return checker.Check(collision);
-    }
-
-    private bool CheckNumDetachedFragment()
-    {
-        var checker = FracturedObjectSource.GetComponent<FragmentManager>();
-        return checker.CheckNumDetachedFragment();
     }
 }

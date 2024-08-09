@@ -21,9 +21,8 @@ public class FragmentManager : MonoBehaviour
     private int numDetachedFragments = 0;
     public  int maxDetachedFragments = 3;
     public float collisionCooldown = 0.5f;
-    
-    public Transform root;
-    public Rigidbody hiddenMesh;
+
+    private FracturedObject FracturedObjectSource;
     private FracturedChunk[] chunks;
     private FracturedChunk lastChunk;
     
@@ -31,17 +30,12 @@ public class FragmentManager : MonoBehaviour
     private GameObject instantiatedGameObject;
 
     private bool isDied = false;
+    private bool isFinished = false;
+    private bool shouldInitializeAterStart = true;
     
     private GrabInteractor _grabInteractor;
     private DistanceGrabInteractor _distanceGrabInteractor;
-
-    private Vector3 lastPosition;
-    private Quaternion lastRotation;
-
-    private GrabInteractor _lastGrabInteractor;
-    private DistanceGrabInteractor _lastDistanceGrabInteractor;
-
-    private bool isFinished = false;
+    private Handedness currentHandedness;
     
     private void Awake()
     {
@@ -51,65 +45,33 @@ public class FragmentManager : MonoBehaviour
 
     private void Update()
     {
+        if (shouldInitializeAterStart)
+        {
+            shouldInitializeAterStart = false;
+            foreach (FracturedChunk chunk in chunks) chunk.gameObject.SetActive(true);
+        }
+        
         if (isDied)
         {
             if (_isGrabbed)
             {
+                if      (currentHandedness == Handedness.Left)  OVRBrain.Instance.LeftHandObject  = instantiatedGameObject;
+                else if (currentHandedness == Handedness.Right) OVRBrain.Instance.RightHandObject = instantiatedGameObject;
+                
                 instantiatedGameObject.transform.position = lastChunk.transform.position;
                 instantiatedGameObject.transform.rotation = lastChunk.transform.rotation;
-            
-                // Handedness
-                _lastGrabInteractor = _grabInteractor;
-                _lastDistanceGrabInteractor = _distanceGrabInteractor;
-                
-                Handedness handedness = Handedness.Left;
-                if (_grabInteractor != null)         handedness = _grabInteractor.GetComponent<ControllerRef>().Handedness;
-                else if (_distanceGrabInteractor != null) handedness = _distanceGrabInteractor.GetComponent<ControllerRef>().Handedness;
-
-                if (_grabInteractor == null && _distanceGrabInteractor == null)
-                {
-                    Debug.LogError("FragmentManage: Interactors are null. Something wrong");
-                }
-                if      (handedness == Handedness.Left)  OVRBrain.Instance.LeftHandObject  = instantiatedGameObject;
-                else if (handedness == Handedness.Right) OVRBrain.Instance.RightHandObject = instantiatedGameObject;
-                
-                if      (handedness == Handedness.Left)  Debug.Log("Last grab hand is left");
-                else if (handedness == Handedness.Right) Debug.Log("Last grab hand is right");
             }
             else 
             {
-                lastPosition = lastChunk.transform.position;
-                lastRotation = lastChunk.transform.rotation;
-
-                // Rigidbody[] allRigidbody = instantiatedGameObject.GetComponentsInChildren<Rigidbody>();
-                // foreach (Rigidbody rigidbody in allRigidbody) rigidbody.velocity = Vector3.zero;
-
-                Collider[] allColliders = hiddenMesh.GetComponentsInChildren<Collider>();
-                foreach (Collider collider in allColliders) collider.excludeLayers = -1;
-                
-                hiddenMesh.gameObject.SetActive(false);
-                Debug.Log("HiddenMesh SetActive false => Check Item Collision work");
-                
-                // Handedness
-                Handedness lastHandedness = Handedness.Left;
-                if (_lastGrabInteractor != null)
-                    lastHandedness = _lastGrabInteractor.GetComponent<ControllerRef>().Handedness;
-                else if (_lastDistanceGrabInteractor != null)
-                    lastHandedness = _lastDistanceGrabInteractor.GetComponent<ControllerRef>().Handedness;
-                
-
                 if (!isFinished)
                 {
                     isFinished = true;
-
-                    if (lastHandedness == Handedness.Left) OVRBrain.Instance.LeftHandObject = null;
-                    else if (lastHandedness == Handedness.Right) OVRBrain.Instance.RightHandObject = null;
-
-                    if (lastHandedness == Handedness.Left) Debug.Log("Last ungrab hand is left");
-                    else if (lastHandedness == Handedness.Right) Debug.Log("Last ungrab hand is right");
+                    
+                    if      (currentHandedness == Handedness.Left)  OVRBrain.Instance.LeftHandObject  = null;
+                    else if (currentHandedness == Handedness.Right) OVRBrain.Instance.RightHandObject = null;
+                    
+                    Destroy(this.gameObject);
                 }
-                
-                
             }
         }
     }
@@ -119,19 +81,64 @@ public class FragmentManager : MonoBehaviour
         StartCoroutine(IEWhenSelect(pointerEvent));
     }
 
-    public void WhenUnselect()
+    private IEnumerator IEWhenSelect(PointerEvent pointerEvent)
     {
-        StopAllCoroutines();
-        _isGrabbed = false;
+        yield return new WaitForSeconds(0.5f);
+        _isGrabbed = true;
+        
+        _grabInteractor = pointerEvent.Data as GrabInteractor;
+        _distanceGrabInteractor = pointerEvent.Data as DistanceGrabInteractor;
+        
+        Handedness handedness = Handedness.Left;
+        if      (_grabInteractor != null)         handedness = _grabInteractor.GetComponent<ControllerRef>().Handedness;
+        else if (_distanceGrabInteractor != null) handedness = _distanceGrabInteractor.GetComponent<ControllerRef>().Handedness;
 
+        if (_grabInteractor == null && _distanceGrabInteractor == null)
+        {
+            Debug.LogError("FragmentManager: Interactors in grab are null. Something wrong");
+        }
+
+        currentHandedness = handedness;
+        
+        if      (handedness == Handedness.Left)  OVRBrain.Instance.LeftHandObject  = gameObject;
+        else if (handedness == Handedness.Right) OVRBrain.Instance.RightHandObject = gameObject;
+                
+        if      (handedness == Handedness.Left)  Debug.Log("Last grab hand is left");
+        else if (handedness == Handedness.Right) Debug.Log("Last grab hand is right");
+    }
+    
+    public void WhenUnselect(PointerEvent pointerEvent)
+    {
+        _grabInteractor = pointerEvent.Data as GrabInteractor;
+        _distanceGrabInteractor = pointerEvent.Data as DistanceGrabInteractor;
+        
+        Handedness handedness = Handedness.Left;
+        if      (_grabInteractor != null)         handedness = _grabInteractor.GetComponent<ControllerRef>().Handedness;
+        else if (_distanceGrabInteractor != null) handedness = _distanceGrabInteractor.GetComponent<ControllerRef>().Handedness;
+
+        if (_grabInteractor == null && _distanceGrabInteractor == null)
+        {
+            Debug.LogError("FragmentManager: Interactors in ungrab are null. Something wrong");
+        }
+        
+        if      (handedness == Handedness.Left)  OVRBrain.Instance.LeftHandObject  = null;
+        else if (handedness == Handedness.Right) OVRBrain.Instance.RightHandObject = null;
+                
+        if      (handedness == Handedness.Left)  Debug.Log("Last ungrab hand is left");
+        else if (handedness == Handedness.Right) Debug.Log("Last ungrab hand is right");
+
+        StopAllCoroutines();
+        
+        _isGrabbed = false;
+        numDetachedFragments = 0;
+        
         _grabInteractor = null;
         _distanceGrabInteractor = null;
-        
-        numDetachedFragments = 0;
     }
 
     private void InitializeChunkInfo()
     {
+        FracturedObjectSource = this.GetComponent<FracturedObject>();
         chunks = GetComponentsInChildren<FracturedChunk>();
         foreach (FracturedChunk chunk in chunks)
         {
@@ -142,8 +149,6 @@ public class FragmentManager : MonoBehaviour
                 lastChunk = chunk;
                 lastChunk.GetComponent<Collider>().isTrigger = true;
             }
-
-            chunk.gameObject.layer = LayerMask.NameToLayer("Fragment");
         }
         
         numFragments = chunks.Length;
@@ -190,15 +195,6 @@ public class FragmentManager : MonoBehaviour
         Debug.Log("Tag not Allowed: " + collision.gameObject.tag);
         return false;
     }
-
-    private IEnumerator IEWhenSelect(PointerEvent pointerEvent)
-    {
-        yield return new WaitForSeconds(0.5f);
-        _isGrabbed = true;
-        
-        _grabInteractor = pointerEvent.Data as GrabInteractor;
-        _distanceGrabInteractor = pointerEvent.Data as DistanceGrabInteractor;
-    }
     
     public void OnChunkCollision(FracturedChunk.CollisionInfo collisionInfo)
     {
@@ -209,7 +205,6 @@ public class FragmentManager : MonoBehaviour
     {   
         float localControllerSpeed = GetMaxLocalControllerSpeed();
         SetControllerVibration(localControllerSpeed, 0.2f);
-        AdjustCollider(collisionInfo);
     }
 
     public void OnChunkDetach()
@@ -247,55 +242,23 @@ public class FragmentManager : MonoBehaviour
 
     private void SetUpCompoundCollider()
     {
-        GameObject fragmentColliders = new GameObject("Fragment Colliders");
-        fragmentColliders.transform.SetParent(hiddenMesh.transform);
-        fragmentColliders.transform.localPosition = Vector3.zero;
-        fragmentColliders.transform.localRotation = Quaternion.identity;
-        fragmentColliders.transform.localScale = Vector3.one;
-        fragmentColliders.gameObject.layer = LayerMask.NameToLayer("Ignore Collision");
-
-        chunkToColliderMap = new Dictionary<FracturedChunk, Collider>();
-        
         foreach (FracturedChunk chunk in chunks)
         {
-            BoxCollider sourceCollider = chunk.GetComponent<BoxCollider>();
-            BoxCollider destinationCollider = fragmentColliders.AddComponent<BoxCollider>();
-            destinationCollider.excludeLayers = 
-                (1 << LayerMask.NameToLayer("Fragment")) |
-                (1 << LayerMask.NameToLayer("Ignore Collision"));
-            
-            destinationCollider.center = sourceCollider.center + sourceCollider.transform.localPosition;
-            destinationCollider.size = sourceCollider.size;
-            
-            chunkToColliderMap.Add(chunk, destinationCollider);
+            if (chunk.IsSupportChunk)
+            {
+                FracturedChunk supportChunk = chunk;
+                MeshCollider chunkCollider = supportChunk.GetComponent<MeshCollider>();
+                chunkCollider.isTrigger = true;
+
+                MeshCollider newCollider = this.gameObject.AddComponent<MeshCollider>();
+                newCollider.sharedMesh = chunkCollider.sharedMesh;
+                newCollider.convex = true;
+                newCollider.isTrigger = true;
+            }
+
+            // Prevent chunk's collider is registered in interactable's CollectionItems
+            chunk.gameObject.SetActive(false);
         }
-
-        /*foreach (FracturedChunk chunk in chunks)
-        {
-            GameObject newCollider = new GameObject("Fragment Collider");
-            newCollider.transform.SetParent(fragmentColliders.transform);
-            newCollider.transform.localPosition = chunk.transform.localPosition;
-            newCollider.transform.localRotation = chunk.transform.localRotation;
-            newCollider.transform.localScale = chunk.transform.localScale;
-            newCollider.gameObject.layer = LayerMask.NameToLayer("Ignore Collision");
-            
-            MeshCollider destinationCollider = newCollider.AddComponent<MeshCollider>();
-            destinationCollider.excludeLayers = 
-                (1 << LayerMask.NameToLayer("Fragment")) |
-                (1 << LayerMask.NameToLayer("Ignore Collision"));
-            
-            destinationCollider.sharedMesh = chunk.GetComponent<MeshFilter>().sharedMesh;
-            destinationCollider.convex = true;
-            
-            chunkToColliderMap.Add(chunk, destinationCollider);
-        }*/
-    }
-
-    private void AdjustCollider(FracturedChunk.CollisionInfo collisionInfo)
-    {
-        FracturedChunk detachedChunk = collisionInfo.chunk;
-        Collider colliderToDisable = chunkToColliderMap[detachedChunk];
-        colliderToDisable.enabled = false;
     }
 
     private void Die()
@@ -330,4 +293,107 @@ public class FragmentManager : MonoBehaviour
         }
         return numDetachedFragments < maxDetachedFragments;
     }
+    
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision == null) return;
+        if (collision.contacts == null || collision.contacts.Length == 0) return;
+        
+        FracturedChunk thisChunk = collision.GetContact(0).thisCollider.GetComponent<FracturedChunk>();
+        
+        if(collision.gameObject)
+        {
+            FracturedChunk otherChunk = collision.gameObject.GetComponent<FracturedChunk>();
+
+            if(otherChunk)
+            {
+                if(otherChunk.GetComponent<Rigidbody>() == null && thisChunk.IsDetachedChunk == false)
+                {
+                    // Just intersecting with other chunk in kinematic state
+                    return;
+                }
+            }
+        }
+        
+        Debug.Log("FracturedChunk: collision.gameObject pass");
+
+        float fMass = Mathf.Infinity; // If there is no rigidbody we consider it static
+        if(collision.rigidbody) fMass = collision.rigidbody.mass;
+        
+        Debug.Log("Fractured Chunk: collision.rigidbody pass");
+
+        if(thisChunk.IsDetachedChunk == false)
+        {
+            // Chunk still attached.
+            // We are going to check if the collision is against a free chunk of the same object. This way we prevent chunks pushing each other out, we want to control
+            // this only through the FractureObject.InterconnectionStrength variable
+
+            bool bOtherIsFreeChunkFromSameObject = false;
+
+            FracturedChunk otherChunk = collision.gameObject.GetComponent<FracturedChunk>();
+
+            if(otherChunk != null)
+            {
+                if(otherChunk.IsDetachedChunk == true && otherChunk.FracturedObjectSource == FracturedObjectSource)
+                {
+                    bOtherIsFreeChunkFromSameObject = true;
+                }
+            }
+            
+            Debug.Log("Chunk Collision: " + collision.gameObject.name);
+            
+            if(bOtherIsFreeChunkFromSameObject == false && collision.relativeVelocity.magnitude > FracturedObjectSource.EventDetachMinVelocity && fMass > FracturedObjectSource.EventDetachMinMass && thisChunk.IsDestructibleChunk())
+            {
+                FracturedChunk.CollisionInfo collisionInfo = new FracturedChunk.CollisionInfo(thisChunk, collision, true);
+                
+                if (!Check(collision)) return;
+                FracturedObjectSource.NotifyChunkCollision(collisionInfo);
+                
+                if (!CheckNumDetachedFragment()) return;
+                FracturedObjectSource.NotifyDetachChunkCollision(collisionInfo);
+
+                if(collisionInfo.bCancelCollisionEvent == false)
+                {
+                    Debug.Log("Fragment Manager: collisionInfo.bCancelCollisionEvent == false");
+                    
+                    List<FracturedChunk> listBreaks = new List<FracturedChunk>();
+
+                    // Impact enough to make it detach. Compute random list of connected chunks that are detaching as well (we'll use the ConnectionStrength parameter).
+                    listBreaks = thisChunk.ComputeRandomConnectionBreaks();
+                    listBreaks.Add(thisChunk);
+                    thisChunk.DetachFromObject();
+                    
+                    Debug.Log("Fragment Manager: thisChunk.DetachFromObject();");
+
+                    foreach(FracturedChunk chunk in listBreaks)
+                    {
+                        collisionInfo.chunk = chunk;
+                        collisionInfo.bIsMain = false;
+                        collisionInfo.bCancelCollisionEvent = false;
+
+                        if(chunk != thisChunk)
+                        {
+                            FracturedObjectSource.NotifyDetachChunkCollision(collisionInfo);
+                        }
+
+                        if(collisionInfo.bCancelCollisionEvent == false)
+                        {
+                            chunk.DetachFromObject();
+                            chunk.GetComponent<Rigidbody>().AddExplosionForce(collision.relativeVelocity.magnitude * FracturedObjectSource.EventDetachExitForce, collision.contacts[0].point, 0.0f, FracturedObjectSource.EventDetachUpwardsModifier);
+                        }
+                    }
+                }
+            }
+        }
+        else
+        {
+            // Free chunk
+
+            if(collision.relativeVelocity.magnitude > FracturedObjectSource.EventDetachedMinVelocity && fMass > FracturedObjectSource.EventDetachedMinMass)
+            {
+                FracturedObjectSource.NotifyFreeChunkCollision(new FracturedChunk.CollisionInfo(thisChunk, collision, true));
+            }
+        }
+    }
+
 }
