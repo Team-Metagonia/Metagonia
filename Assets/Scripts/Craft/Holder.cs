@@ -15,10 +15,10 @@ public class Holder : MonoBehaviour, ISelectHandler
 
     public void InstantiateItem(bool defaultValue)
     {
-        if (HoldingSlot.currentItem != null) return;
+        //if (HoldingSlot.currentItem != null) return;
 
         Debug.Log("Instantiating Object...");
-        ItemSO iteminfo = HoldingObject.GetComponent<Item>().itemInfo;
+        ItemSO iteminfo = HoldingObject.GetComponentInChildren<Item>().itemInfo;
         
         if (InventoryVR.instance.itemQuantityPairs[iteminfo] <= 0)
         {
@@ -34,7 +34,7 @@ public class Holder : MonoBehaviour, ISelectHandler
         GameObject resultItem = Instantiate(HoldingObject,spawnPoint,Quaternion.identity);
 
         // Insert Item in Slot
-        HoldingSlot.InsertItem(resultItem);
+        //HoldingSlot.InsertItem(resultItem);
 
         
 
@@ -42,7 +42,7 @@ public class Holder : MonoBehaviour, ISelectHandler
         //HandGrabInteractable[] interactables = resultItem.GetComponentsInChildren<HandGrabInteractable>();
         //AttachToHand(interactables);
 
-        InventoryVR.instance.RemoveFromStackableList(HoldingObject.GetComponent<Item>().itemInfo);
+        InventoryVR.instance.RemoveFromStackableList(HoldingObject.GetComponentInChildren<Item>().itemInfo);
         Debug.Log("Instantiate Finished");
         //itemQuantity--;
     }
@@ -65,7 +65,7 @@ public class Holder : MonoBehaviour, ISelectHandler
     void Start()
     {
         gameObject.GetComponent<Toggle>().onValueChanged.AddListener(InstantiateItem);
-        HoldingSlot = GameObject.Find("WorkBenchInstantiateSlot").GetComponent<InventorySlot>();
+        //HoldingSlot = GameObject.Find("WorkBenchInstantiateSlot").GetComponent<InventorySlot>();
     }
 
     // Update is called once per frame

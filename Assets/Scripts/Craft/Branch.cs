@@ -5,21 +5,16 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Branch : Item, IAttachable, IDamagable 
+public class Branch : Item, IAttachable, IDamagable, IDroppable
 {
     [SerializeField]
     Transform[] _attachPoints;
 
-    [SerializeField]
-    GameObject _visualPoint;
+    [SerializeField] private float initHealth;
 
-    [SerializeField]
-    GameObject _finishedUnit;
+    private bool quit = false;
 
-    public float Health => throw new System.NotImplementedException();
-
-    [SerializeField]
-    //HandGrabInteractor _currentHandInteractor;
+    public float Health { get; private set; }
 
     public void Attach(Item baseitem, Item attacheditem, int attachPointIndex)
     {
@@ -46,7 +41,22 @@ public class Branch : Item, IAttachable, IDamagable
 
     public void Die()
     {
-        throw new System.NotImplementedException();
+        DropItems();
+        Destroy(this.gameObject);
+    }
+
+    public void DropItems()
+    {
+        if (quit) return;
+        if (itemInfo == null) return;
+        if (itemInfo.dropItems == null || itemInfo.dropItems.Length == 0) return;
+
+        for (int i = 0; i < itemInfo.dropItems.Length; i++)
+        {
+            GameObject itemToDrop = itemInfo.dropItems[i];
+            GameObject instantiateditem = Instantiate(itemToDrop,gameObject.transform.position,Quaternion.identity);
+            instantiateditem.GetComponent<Rigidbody>().AddExplosionForce(1, transform.position, 1);
+        }
     }
 
     public void ShowAttachableArea(bool isActive)
@@ -64,7 +74,23 @@ public class Branch : Item, IAttachable, IDamagable
 
     public void TakeDamage(DamageInfo damageInfo)
     {
-        throw new System.NotImplementedException();
+        float amount = damageInfo.damage;
+        if (amount <= 0) return;
+
+        Health -= amount;
+        Health = Mathf.Max(Health, 0);
+
+        if (Health <= 0)
+        {
+            Die();
+            return;
+        }
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        Health = Mathf.Max(initHealth, Mathf.Epsilon);
     }
 
     // Start is called before the first frame update
@@ -76,4 +102,12 @@ public class Branch : Item, IAttachable, IDamagable
     {
         WorkBench.OnWorkStateChange -= ShowAttachableArea;
     }
+
+    private void OnDisable()
+    {
+        if (isInBag) return;
+       
+    }
+
+     
 }

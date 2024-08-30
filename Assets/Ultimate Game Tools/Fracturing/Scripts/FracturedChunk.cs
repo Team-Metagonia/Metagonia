@@ -164,9 +164,11 @@ public class FracturedChunk : MonoBehaviour
             if(bOtherIsFreeChunkFromSameObject == false && collision.relativeVelocity.magnitude > FracturedObjectSource.EventDetachMinVelocity && fMass > FracturedObjectSource.EventDetachMinMass && GetComponent<Rigidbody>() != null && IsDestructibleChunk())
             {
                 CollisionInfo collisionInfo = new CollisionInfo(this, collision, true);
-                FracturedObjectSource.NotifyChunkCollision(collisionInfo);
-
                 if (!Check(collision)) return;
+                
+                FracturedObjectSource.NotifyChunkCollision(collisionInfo);
+                if (!CheckNumDetachedFragment()) return;
+                
                 FracturedObjectSource.NotifyDetachChunkCollision(collisionInfo);
 
                 if(collisionInfo.bCancelCollisionEvent == false)
@@ -454,7 +456,7 @@ public class FracturedChunk : MonoBehaviour
             m_bNonSupportedChunkStored = IsNonSupportedChunk;
 
             transform.parent      = null;
-            gameObject.layer = LayerMask.NameToLayer("Default");
+            gameObject.layer = LayerMask.NameToLayer("Ignore Collision");
             GetComponent<Rigidbody>().isKinematic = false;
             IsDetachedChunk       = true;
             IsNonSupportedChunk   = true;
@@ -575,5 +577,11 @@ public class FracturedChunk : MonoBehaviour
     {
         var checker = FracturedObjectSource.GetComponent<FragmentManager>();
         return checker.Check(collision);
+    }
+
+    private bool CheckNumDetachedFragment()
+    {
+        var checker = FracturedObjectSource.GetComponent<FragmentManager>();
+        return checker.CheckNumDetachedFragment();
     }
 }

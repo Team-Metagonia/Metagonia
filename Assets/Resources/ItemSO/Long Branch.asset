@@ -19,9 +19,11 @@ MonoBehaviour:
   type: 0
   icon: {fileID: 0}
   simplePrefab: {fileID: 0}
-  completePrefab: {fileID: 6406214931475835468, guid: 6fc9e570261efe142a46a42004329676, type: 3}
+  encyclopediaPrefab: {fileID: 0}
+  completePrefab: {fileID: 1737795848681809078, guid: 21c5026200ab05c46a0ef666d45f52de, type: 3}
   isSlot: 0
   slotRotation: {x: 0, y: 0, z: 0}
   currentSlot: {fileID: 0}
   dropItems:
-  - {fileID: 5192707588144672756, guid: 66980671b8efd4f4cad3ae9fb4256366, type: 3}
+  - {fileID: 6334730217627051269, guid: ed7d6c037a950b5468d60d5320504664, type: 3}
+  - {fileID: 6334730217627051269, guid: ed7d6c037a950b5468d60d5320504664, type: 3}

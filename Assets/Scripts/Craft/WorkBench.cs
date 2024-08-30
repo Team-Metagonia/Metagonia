@@ -115,6 +115,7 @@ public class WorkBench : MonoBehaviour
 
 
         bool isBothHandGrab = ActiveState.Active;
+        isBothHandGrab |= (currentLeftObject != null && currentRightObject != null);
 
         bool isActive = isBothHandGrab && CheckValidness(currentLeftObject,currentRightObject) && isWorkable;
 
